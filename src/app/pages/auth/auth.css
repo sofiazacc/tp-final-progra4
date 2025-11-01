@@ -1,0 +1,308 @@
+/* Reset y estilos base */
+
+body {
+  background: linear-gradient(135deg, rgba(245, 245, 245, 0.7) 0%, rgba(220, 220, 220, 0.7) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Contenedor principal */
+.contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 45rem;
+  display: flex;
+  margin: 6rem auto;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+}
+
+.imagen {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(135deg, #171C21 0%, #90A5B6 50%, #E0E0E0 100%);
+  transition: all 0.6s ease-in-out;
+  z-index: 10;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  border-radius: 0;
+}
+
+.imagen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background: url('/src/assets/ImagotipoPhost.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Estilos comunes para formularios */
+.formulario {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.6s ease-in-out;
+  background: white;
+  overflow-y: auto;
+}
+
+/* Formulario de Registro (visible inicialmente) */
+#registro {
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Formulario de Login (oculto inicialmente) */
+#login {
+  left: 0;
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+/* Estado cuando se muestra el login */
+.contenedor.mostrar-login .imagen {
+  transform: translateX(100%);
+  border-radius: 15px 0 0 15px;
+}
+
+.contenedor.mostrar-login #registro {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+.contenedor.mostrar-login #login {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+/* Títulos */
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  background: linear-gradient(135deg, #171C21 0%, #90A5B6 50%, #E0E0E0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs y Select */
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e8ed;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+input:hover, select:hover {
+  border-color: #b8c6db;
+  transform: translateY(-1px);
+}
+
+/* Select específico */
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+  appearance: none;
+  color: #a0a8b0;
+}
+
+select:focus,
+select:valid {
+  color: #2c3e50;
+}
+
+input::placeholder {
+  color: #a0a8b0;
+  transition: color 0.3s ease;
+}
+
+input:focus::placeholder, select:focus {
+  color: #667eea;
+}
+
+/* Botones */
+button {
+  width: 100%;
+  padding: 12px 15px;
+  background: linear-gradient(135deg, #171C21 0%, #90A5B6 50%, #E0E0E0 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+/* Enlaces */
+.enlace {
+  text-align: center;
+  margin-top: 15px;
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.enlace a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.enlace a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedor {
+    max-width: 400px;
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .imagen {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    transform: none !important;
+  }
+  
+  .formulario {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 30px;
+  }
+  
+  #registro,
+  #login {
+    position: relative;
+    left: auto;
+    right: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: all;
+  }
+  
+  #login {
+    display: none;
+  }
+  
+  .contenedor.mostrar-login #registro {
+    display: none;
+  }
+  
+  .contenedor.mostrar-login #login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .formulario {
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  input,
+  button {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+}
