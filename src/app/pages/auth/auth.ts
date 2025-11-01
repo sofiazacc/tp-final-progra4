@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GeorefService } from '../../services/georef';
+import { AuthService } from '../../services/auth';
 @Component({
   selector: 'app-auth',
   imports: [ReactiveFormsModule, CommonModule],
@@ -11,6 +13,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 
 export class Auth {
+    constructor(
+      private authService: AuthService,
+      private georefService: GeorefService
+    ) {} 
 
   esLogin = true
 
@@ -35,7 +41,30 @@ export class Auth {
     } else {
       console.log("Formulario no válido");
     }
-  }
+
+    const credenciales = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.contra
+    }
+
+    this.authService.login(credenciales.email!, credenciales.password!).subscribe({
+      next: (usuarios) => {
+
+        if(usuarios && usuarios.length > 0) {
+          console.log("Login exitoso", usuarios[0]);
+
+          alert(`Bienvenido, ${usuarios[0].nombre}!`);
+        }else{
+        console.log("Login fallido: credenciales inválidas");
+        alert(`Credenciales inválidas. Por favor, intente de nuevo.`);
+        }
+      },
+      error: (error) => {
+        console.error("Error durante el login", error);
+        alert(`Ocurrió un error durante el login. Por favor, intente de nuevo más tarde.`);
+      }
+    });
+}
 
   onRegistroSubmit() {
     if (this.registroForm.valid) {
@@ -43,6 +72,8 @@ export class Auth {
     } else {
       console.log("Formulario de registro no válido");
     }
+
+
 }
 
 }

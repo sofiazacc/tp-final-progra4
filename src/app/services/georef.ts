@@ -17,7 +17,7 @@ interface GeoRefLocalidadesResponse {
   providedIn: 'root'
 })
 
-export class Georer {
+export class GeorefService {
   private apiUrl = 'https://www.argentina.gob.ar/api/georef';
   
   constructor(private http: HttpClient) {}

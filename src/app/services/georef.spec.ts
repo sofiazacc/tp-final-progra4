@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { Georer } from './georer';
+import { GeorefService } from './georef';
 
 
-describe('Georer', () => {
-  let service: Georer;
+describe('GeorefService', () => {
+  let service: GeorefService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Georer);
+    service = TestBed.inject(GeorefService);
   });
 
   it('should be created', () => {
