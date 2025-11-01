@@ -10,7 +10,8 @@ export interface Usuario {
 export interface Fotografo extends Usuario {
     rol: 'fotografo';
     nombreDeUsuario: string;
-    ciudad: string;
+    localidad: string;
+    provincia: string;
 }
 
 export interface Admin extends Usuario {

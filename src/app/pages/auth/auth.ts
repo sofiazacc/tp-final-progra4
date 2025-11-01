@@ -23,7 +23,8 @@ export class Auth {
     nombre: new FormControl('', [Validators.required]),
     apellido: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
-    ciudadDeOrigen: new FormControl('', [Validators.required]),
+    localidad: new FormControl('', [Validators.required]),
+    provincia: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     contra: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
