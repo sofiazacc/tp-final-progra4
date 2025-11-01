@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
 import { AuthService } from '../../services/auth';
+
+import { GeoRefProvincia } from '../../models/georef-provincia';
+import { GeoRefLocalidad } from '../../models/georef-localidad';
+
 @Component({
   selector: 'app-auth',
   imports: [ReactiveFormsModule, CommonModule],
@@ -12,11 +16,37 @@ import { AuthService } from '../../services/auth';
   styleUrl: './auth.css'
 })
 
-export class Auth {
+export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular que se ejecuta después de que el componente ha sido inicializado. Es útil para realizar tareas de configuración o inicialización que requieren que las propiedades del componente estén definidas.
     constructor(
       private authService: AuthService,
       private georefService: GeorefService
     ) {} 
+
+    //Variables para provincias y localidades
+    provincias: GeoRefProvincia[] = [];
+    localidades: GeoRefLocalidad[] = [];
+
+  ngOnInit(): void { //
+    this.georefService.getProvincias().subscribe(data => {
+      this.provincias = data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las provincias
+    }); 
+  }
+
+  cambioDeProvincia(event: Event) { //Método para actualizar las localidades cuando cambia la provincia seleccionada
+    const selectElement = event.target as HTMLSelectElement;
+    const provinciaId = selectElement.value;
+    
+    if(provinciaId){
+      this.georefService.getLocalidades(provinciaId).subscribe(data => {
+      this.localidades = data.localidades.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las localidades
+    });
+    }else{
+      this.localidades = []; // Si no hay provincia seleccionada, se limpia la lista de localidades 
+    }
+
+    this.registroForm.get('localidad')?.setValue(''); // Resetea el valor del select de localidades al cambiar la provincia
+  }
+
 
   esLogin = true
 
