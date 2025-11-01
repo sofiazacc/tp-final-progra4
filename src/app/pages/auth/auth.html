@@ -1,0 +1,46 @@
+<div class="contenedor" [class.mostrar-login]="esLogin">
+
+  <div class="imagen"></div>
+
+  <div class="formulario" id="registro">
+    <h2>Registro</h2>
+    
+    <form [formGroup]="registroForm" (ngSubmit)="onRegistroSubmit()">
+
+      <input type="text" formControlName="nombre" placeholder="Nombre">
+      <input type="text" formControlName="apellido" placeholder="Apellido">
+      <input type="text" formControlName="username" placeholder="Usuario">
+
+      <select formControlName="ciudadDeOrigen">
+        <option value="">Selecciona una ciudad</option>
+        <option value="MAR_DEL_PLATA">Mar del Plata</option>
+        <option value="MAR_CHIQUITA">Mar Chiquita</option>
+        <option value="MIRAMAR">Miramar</option>
+        <option value="BALCARCE">Balcarce</option>
+        <option value="SANTA_CLARA">Santa Clara</option>
+        <option value="MAR_DEL_COBO">Mar del Cobo</option>
+        <option value="MAR_DEL_SUD">Mar del Sud</option>
+        <option value="CHAPADMALAL">Chapadmalal</option>
+      </select>
+
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="contra" placeholder="Contraseña">
+      <button type="submit">Registrarse</button>
+    </form>
+    
+    <p class="enlace">¿Ya tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = true">Inicia Sesión</a></p>
+  </div>
+
+  <div class="formulario" id="login">
+    <h2>Iniciar Sesión</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="contra" placeholder="Contraseña">
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <p class="enlace">¿No tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = false">Regístrate</a></p>
+  </div>
+</div>
