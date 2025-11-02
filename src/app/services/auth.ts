@@ -13,12 +13,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<Usuario[]> {
+  login(email: string, password: string): Observable<any[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}?email=${email}&password=${password}&rol=fotografo`);
   } //El login es para cualquier tipo de usuario
 
-  register(fotografo: Fotografo): Observable<Fotografo> {
-    return this.http.post<Fotografo>(this.apiUrl, fotografo);
+  register(fotografo: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, fotografo);
   } //El registro es solo para fotógrafos
 
 

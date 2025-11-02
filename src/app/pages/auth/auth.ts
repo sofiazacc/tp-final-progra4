@@ -121,8 +121,20 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,
-      provincia: formValue.provincia!
+      provincia: provinciaSeleccionada ? provinciaSeleccionada.nombre : '' !
     };
+
+    this.authService.register(nuevoFotografo).subscribe({
+      next: (fotografo) => {
+        console.log("Registro exitoso", fotografo);
+        alert(`Registro exitoso. Bienvenido, ${fotografo.nombreDeUsuario}! Ahora puede iniciar sesión.`);
+        this.esLogin = true; // Cambia a la vista de login después del registro exitoso
+      },
+      error: (error) => {
+        console.error("Error durante el registro", error);
+        alert(`Ocurrió un error durante el registro. Por favor, intente de nuevo más tarde.`);
+      }
+    });
 }
 
 }

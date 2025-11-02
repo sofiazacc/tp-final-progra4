@@ -1,3 +1,15 @@
 {
-    "usuarios": []
+  "usuarios": [
+    {
+      "id": "5e1e",
+      "nombre": "rf",
+      "apellido": "f",
+      "email": "sdfdfs@gmail.com",
+      "password": "12345678",
+      "rol": "fotografo",
+      "nombreDeUsuario": "ffff",
+      "localidad": "11 de Septiembre",
+      "provincia": "Buenos Aires"
+    }
+  ]
 }
