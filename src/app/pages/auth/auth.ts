@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/authService';
 
 import { GeoRefProvincia } from '../../models/georef-provincia';
 import { GeoRefLocalidad } from '../../models/georef-localidad';
 
+
+import * as CryoptoJS from 'crypto-js';  //Si bien el hasheo de contraseñas debería hacerse en el backend, en este caso se realiza en el frontend para simplificar el ejemplo y evitar guardar las contraseñas en texto plano.
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -20,7 +23,8 @@ import { GeoRefLocalidad } from '../../models/georef-localidad';
 export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular que se ejecuta después de que el componente ha sido inicializado. Es útil para realizar tareas de configuración o inicialización que requieren que las propiedades del componente estén definidas.
     constructor(
       private authService: AuthService,
-      private georefService: GeorefService
+      private georefService: GeorefService,
+      private router: Router
     ) {} 
 
     //Variables para provincias y localidades
@@ -76,16 +80,19 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
 
     const credenciales = {
       email: this.loginForm.value.email,
-      password: this.loginForm.value.contra
+      passwordHashea: CryoptoJS.SHA256(this.loginForm.value.contra!).toString()
     }
 
-    this.authService.login(credenciales.email!, credenciales.password!).subscribe({
+    
+    this.authService.login(credenciales.email!, credenciales.passwordHashea!).subscribe({
       next: (usuarios) => {
 
         if(usuarios && usuarios.length > 0) {
           console.log("Login exitoso", usuarios[0]);
 
           alert(`Bienvenido, ${usuarios[0].nombre}!`);
+
+          this.router.navigate(['/feed']);
         }else{
         console.log("Login fallido: credenciales inválidas");
         alert(`Credenciales inválidas. Por favor, intente de nuevo.`);
@@ -113,11 +120,13 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
 
     const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';
     
+    const contraseniaHasheada = CryoptoJS.SHA256(formValue.contra!).toString();
+
     const nuevoFotografo = {
       nombre: formValue.nombre!,
       apellido: formValue.apellido!,
       email: formValue.email!,
-      password: formValue.contra!,
+      password: contraseniaHasheada!,
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,

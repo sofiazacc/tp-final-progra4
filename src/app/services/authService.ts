@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any[]> {
+  login(email: string, password: string): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}?email=${email}&password=${password}&rol=fotografo`);
   } //El login es para cualquier tipo de usuario
 

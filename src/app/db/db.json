@@ -10,6 +10,17 @@
       "nombreDeUsuario": "ffff",
       "localidad": "11 de Septiembre",
       "provincia": "Buenos Aires"
+    },
+    {
+      "id": "3c98",
+      "nombre": "weeww",
+      "apellido": "weffw",
+      "email": "prueba@gmail.com",
+      "password": "15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225",
+      "rol": "fotografo",
+      "nombreDeUsuario": "wwfw",
+      "localidad": "17 de Agosto",
+      "provincia": "Buenos Aires"
     }
   ]
 }
