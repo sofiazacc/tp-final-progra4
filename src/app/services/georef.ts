@@ -18,7 +18,7 @@ interface GeoRefLocalidadesResponse {
 })
 
 export class GeorefService {
-  private apiUrl = 'https://www.argentina.gob.ar/api/georef';
+ private apiUrl = 'https://apis.datos.gob.ar/georef/api/v2.0';
   
   constructor(private http: HttpClient) {}
 

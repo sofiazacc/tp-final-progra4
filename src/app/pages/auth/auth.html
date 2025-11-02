@@ -11,17 +11,19 @@
       <input type="text" formControlName="apellido" placeholder="Apellido">
       <input type="text" formControlName="username" placeholder="Usuario">
 
-      <input type="text" formControlName="provincia" placeholder="Provincia">
+      <select formControlName="provincia" (change)="cambioDeProvincia($event)">
+        <option value="">Selecciona una provincia</option>
+        <option *ngFor="let provincia of provincias" [value]="provincia.id">
+          {{ provincia.nombre }}
+        </option>
+      </select>
+
       <select formControlName="localidad">
-        <option value="">Selecciona una ciudad</option>
-        <option value="MAR_DEL_PLATA">Mar del Plata</option>
-        <option value="MAR_CHIQUITA">Mar Chiquita</option>
-        <option value="MIRAMAR">Miramar</option>
-        <option value="BALCARCE">Balcarce</option>
-        <option value="SANTA_CLARA">Santa Clara</option>
-        <option value="MAR_DEL_COBO">Mar del Cobo</option>
-        <option value="MAR_DEL_SUD">Mar del Sud</option>
-        <option value="CHAPADMALAL">Chapadmalal</option>
+        <option value="">Selecciona una localidad</option>
+        
+        <option *ngFor="let loc of localidades" [value]="loc.nombre">
+          {{ loc.nombre }}
+        </option>
       </select>
 
       <input type="email" formControlName="email" placeholder="Email">

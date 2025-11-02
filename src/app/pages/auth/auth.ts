@@ -11,6 +11,7 @@ import { GeoRefLocalidad } from '../../models/georef-localidad';
 
 @Component({
   selector: 'app-auth',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './auth.html',
   styleUrl: './auth.css'
@@ -28,6 +29,7 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
 
   ngOnInit(): void { //
     this.georefService.getProvincias().subscribe(data => {
+      console.log("Datos recibidos de provincias:", data);
       this.provincias = data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las provincias
     }); 
   }
@@ -103,7 +105,24 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
       console.log("Formulario de registro no válido");
     }
 
+    const formValue = this.registroForm.value;
 
+   const provinciaSeleccionada = this.provincias.find(
+      p => p.id === formValue.provincia
+    );
+
+    const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';
+    
+    const nuevoFotografo = {
+      nombre: formValue.nombre!,
+      apellido: formValue.apellido!,
+      email: formValue.email!,
+      password: formValue.contra!,
+      rol: 'fotografo' as const,
+      nombreDeUsuario: formValue.username!,
+      localidad: formValue.localidad!,
+      provincia: formValue.provincia!
+    };
 }
 
 }
