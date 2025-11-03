@@ -1,6 +1,7 @@
 export interface Usuario {
     id: number;
     nombre: string;
+    apellido: string;
     email: string;
     password: string;
     rol: 'admin' | 'fotografo';
@@ -9,7 +10,8 @@ export interface Usuario {
 export interface Fotografo extends Usuario {
     rol: 'fotografo';
     nombreDeUsuario: string;
-    ciudad: string;
+    localidad: string;
+    provincia: string;
 }
 
 export interface Admin extends Usuario {
