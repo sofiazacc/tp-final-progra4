@@ -1,0 +1,49 @@
+<div class="contenedor" [class.mostrar-login]="esLogin">
+
+  <div class="imagen"></div>
+
+  <div class="formulario" id="registro">
+    <h2>Registro</h2>
+    
+    <form [formGroup]="registroForm" (ngSubmit)="onRegistroSubmit()">
+
+      <input type="text" formControlName="nombre" placeholder="Nombre">
+      <input type="text" formControlName="apellido" placeholder="Apellido">
+      <input type="text" formControlName="username" placeholder="Usuario">
+
+      <select formControlName="provincia" (change)="cambioDeProvincia($event)">
+        <option value="">Selecciona una provincia</option>
+        <option *ngFor="let provincia of provincias" [value]="provincia.id">
+          {{ provincia.nombre }}
+        </option>
+      </select>
+
+      <select formControlName="localidad">
+        <option value="">Selecciona una localidad</option>
+        
+        <option *ngFor="let loc of localidades" [value]="loc.nombre">
+          {{ loc.nombre }}
+        </option>
+      </select>
+
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="contra" placeholder="Contraseña">
+      <button type="submit">Registrarse</button>
+    </form>
+    
+    <p class="enlace">¿Ya tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = true">Inicia Sesión</a></p>
+  </div>
+
+  <div class="formulario" id="login">
+    <h2>Iniciar Sesión</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="contra" placeholder="Contraseña">
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <p class="enlace">¿No tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = false">Regístrate</a></p>
+  </div>
+</div>
