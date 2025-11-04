@@ -1,0 +1,17 @@
+.layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.contenido-principal {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    margin-left: 70px;
+    transition: margin-left 0.3s ease;
+}
+
+.contenido-principal.desplegado {
+    margin-left: 15rem;
+}
