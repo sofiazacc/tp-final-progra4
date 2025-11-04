@@ -1,0 +1,58 @@
+<div class="post-card">
+  @if(postData) {
+    <div class="post-header">
+      <div class="fotografo-info">
+        <div class="avatar">
+          {{ postData.fotografo?.nombre?.charAt(0) }}{{ postData.fotografo?.apellido?.charAt(0) }}
+        </div>
+        <div class="info">
+          <h4 class="nombre">{{ postData.fotografo?.nombre }} {{ postData.fotografo?.apellido }}</h4>
+          <p class="username">@{{ postData.fotografo?.nombreDeUsuario }}</p>
+          <p class="localidad">{{ postData.fotografo?.localidad }}, {{ postData.fotografo?.provincia }}</p>
+        </div>
+      </div>
+      <button class="btn-opciones">
+        <span class="material-symbols-outlined">more_vert</span>
+      </button>
+    </div>
+
+    <div class="post-imagen">
+      <img [src]="postData.url" [alt]="postData.descripcion">
+    </div>
+
+    <div class="post-acciones">
+      <div class="acciones-izquierda">
+        <button class="btn-accion" (click)="toggleLike()" [class.liked]="liked">
+          <span class="material-symbols-outlined">
+            {{ liked ? 'favorite' : 'favorite_border' }}
+          </span>
+        </button>
+      </div>
+      <button class="btn-accion" (click)="guardar()">
+        <span class="material-symbols-outlined">bookmark_border</span>
+      </button>
+    </div>
+
+    <div class="post-likes">
+      <p><strong>{{ getLikesCount() | number }}</strong> me gusta</p>
+    </div>
+
+    <div class="post-descripcion">
+      <p>
+        <strong>{{ postData.fotografo?.nombreDeUsuario }}</strong> 
+        {{ postData.descripcion }}
+      </p>
+    </div>
+
+    @if(postData.ubicacion) {
+      <div class="post-ubicacion">
+        <span class="material-symbols-outlined">location_on</span>
+        <span>{{ postData.ubicacion }}</span>
+      </div>
+    }
+
+    <div class="post-fecha">
+      <p>{{ postData.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+  }
+</div>
