@@ -1,0 +1,70 @@
+button.toggle-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    z-index: 11;
+}
+
+button.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background: #5da0a2;
+    width: 70px;
+    padding: 1rem;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+nav.desplegado {
+    width: 15rem;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 3rem 0 0 0;
+    height: calc(100% - 3rem);
+    gap: 0.5rem;
+}
+
+li {
+    background-color: #e2e4e4;
+    border-radius: 1rem;
+}
+
+li a {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem;
+    gap: 1rem;
+    white-space: nowrap;
+}
+
+.label {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+nav.desplegado .label {
+    opacity: 1;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
