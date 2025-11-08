@@ -13,7 +13,7 @@
 
       <select formControlName="provincia" (change)="cambioDeProvincia($event)">
         <option value="">Selecciona una provincia</option>
-        <option *ngFor="let provincia of provincias" [value]="provincia.id">
+        <option *ngFor="let provincia of provincias" [value]="provincia.id"> <!--Actualizar uso de ng-->
           {{ provincia.nombre }}
         </option>
       </select>

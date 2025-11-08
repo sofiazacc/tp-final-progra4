@@ -11,7 +11,6 @@ import { GeoRefProvincia } from '../../models/georef-provincia';
 import { GeoRefLocalidad } from '../../models/georef-localidad';
 
 
-import * as CryoptoJS from 'crypto-js';  //Si bien el hasheo de contraseñas debería hacerse en el backend, en este caso se realiza en el frontend para simplificar el ejemplo y evitar guardar las contraseñas en texto plano.
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -20,7 +19,7 @@ import * as CryoptoJS from 'crypto-js';  //Si bien el hasheo de contraseñas deb
   styleUrl: './auth.css'
 })
 
-export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular que se ejecuta después de que el componente ha sido inicializado. Es útil para realizar tareas de configuración o inicialización que requieren que las propiedades del componente estén definidas.
+export class Auth implements OnInit { 
     constructor(
       private authService: AuthService,
       private georefService: GeorefService,
@@ -31,7 +30,7 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
     provincias: GeoRefProvincia[] = [];
     localidades: GeoRefLocalidad[] = [];
 
-  ngOnInit(): void { //
+  ngOnInit(): void { 
     this.georefService.getProvincias().subscribe(data => {
       console.log("Datos recibidos de provincias:", data);
       this.provincias = data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las provincias
@@ -80,11 +79,11 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
 
     const credenciales = {
       email: this.loginForm.value.email,
-      passwordHashea: CryoptoJS.SHA256(this.loginForm.value.contra!).toString()
+      password: this.loginForm.value.contra
     }
 
     
-    this.authService.login(credenciales.email!, credenciales.passwordHashea!).subscribe({
+    this.authService.login(credenciales.email!, credenciales.password!).subscribe({
       next: (usuarios) => {
 
         if(usuarios && usuarios.length > 0) {
@@ -119,14 +118,13 @@ export class Auth implements OnInit { //OnInit es un ciclo de vida de Angular qu
     );
 
     const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';
-    
-    const contraseniaHasheada = CryoptoJS.SHA256(formValue.contra!).toString();
+  
 
     const nuevoFotografo = {
       nombre: formValue.nombre!,
       apellido: formValue.apellido!,
       email: formValue.email!,
-      password: contraseniaHasheada!,
+      password: formValue.contra!,
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,
