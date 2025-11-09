@@ -137,16 +137,21 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
 
       <div class="campoForm">
-        @if(log['email'].invalid && (log['email'].dirty || log['email'].touched)){
-          <div class="error">
-            @if(log['email'].errors?.['required']){
-              <div>El email es requerido</div>
-            }@else if(log['email'].errors?.['email']){
-              <div>El email no es válido</div>
-            }
-          </div>
+       @if(log['email'].invalid && (log['email'].dirty || log['email'].touched)){
+      <div class="error">
+        @if(log['email'].errors?.['invalido']){
+          <div>El email no está registrado</div>
+        }@else{
+          @if(log['email'].errors?.['required']){
+            <div>El email es requerido</div>
+          }
+          @if(log['email'].errors?.['email']){
+            <div>El email no es válido</div>
+          }
         }
-        <input type="email" formControlName="email" placeholder="Email">
+      </div>
+}
+        <input type="email" formControlName="email" placeholder="Email" [class.is-invalid]="log['email'].invalid && log['email'].touched">
       </div>
 
       <div class="campoForm">
@@ -154,12 +159,16 @@
           <div class="error">
             @if(log['contra'].errors?.['required']){
               <div>La contraseña es requerida</div>
-            }@else if(log['contra'].errors?.['minlength']){
+            }
+            @if(log['contra'].errors?.['minlength']){
               <div>La contraseña debe tener al menos 8 caracteres</div>
+            }
+            @if(log['contra'].errors?.['invalido']){
+              <div>La contraseña es incorrecta</div>
             }
           </div>
         }
-       <input type="password" formControlName="contra" placeholder="Contraseña">
+       <input type="password" formControlName="contra" placeholder="Contraseña" [class.is-invalid]="log['contra'].invalid && log['contra'].touched">
       </div>
 
       <button type="submit">Ingresar</button>

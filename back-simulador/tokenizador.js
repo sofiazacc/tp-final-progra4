@@ -15,9 +15,10 @@ const { setSourceMapsEnabled } = require('process');
 /*Para solucionar errores de CORS, se le da permiso a la interacción
 con este backend simulado y nuestra app de Angular*/
 server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Allow-Methods', '*');
+     res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Credentials', 'true');
 
     if(req.method === 'OPTIONS'){
         res.sendStatus(200);
@@ -41,7 +42,7 @@ server.post('/login', (req,res) => {
     const user = db.get('users').find({email: email}).value();
 
     if(!user){
-        return res.status(401).json({message: 'Email o contraseña inválidos'});
+        return res.status(404).json({message: 'El email ingreasdo es incorrecto'});
     }
 
     if(bcrypt.compareSync(password, user.password)){
@@ -50,7 +51,7 @@ server.post('/login', (req,res) => {
         res.status(200).json({accessToken: token, user: user});
     }else{
         console.log("Login fallido: La contraseña no coincide")
-        return res.status(401).json({message: 'Email o contraseña inválidos'});
+        return res.status(401).json({message: 'La contraseña ingresada no coincide'});
     }
 });
 

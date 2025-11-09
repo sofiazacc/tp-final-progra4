@@ -1,14 +1,5 @@
 {
   "users": [
-    {
-      "id": "i8ewfb2",
-      "nombre": "ty",
-      "apellido": "yuj",
-      "email": "sdfdfs@gmail.com",
-      "password": "$2b$10$3KxvjX4F5/zzD36lT7jAyeK7nIIY1ILv854n6wByUSbA3C6WhyHIK",
-      "rol": "fotografo",
-      "localidad": "12 de Octubre",
-      "provincia": "Buenos Aires"
-    }
+
   ]
 }

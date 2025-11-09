@@ -73,9 +73,10 @@ export class Auth implements OnInit {
        console.log("Formulario no válido");
       this.loginForm.markAllAsTouched();
       return;
-    } else {
-      console.log("Formulario no válido");
-    }
+    } 
+
+    this.loginForm.get('email')?.setErrors(null);
+   this.loginForm.get('contra')?.setErrors(null);
 
     const credenciales = {
       email: this.loginForm.value.email!,
@@ -95,9 +96,23 @@ export class Auth implements OnInit {
         }
       },
       error: (error) => {
-        console.error("Error durante el login", error);
-        alert(`Ocurrió un error durante el login. Por favor, intente de nuevo más tarde.`);
-      }
+
+        if(error.status === 404 && error.error.message){
+          const mensajeError = error.error.message;
+          if(mensajeError.includes('email')){
+            this.loginForm.get('email')?.setErrors({'invalido': mensajeError});
+          }
+        }else if(error.status === 401 && error.error.message){
+          const mensajeError = error.error.message;
+          if(mensajeError.includes('contraseña')){
+            this.loginForm.get('contra')?.setErrors({'invalido': mensajeError});
+          }
+        }else{
+         console.error("Error durante el login", error);
+         alert(`Ocurrió un error durante el login. Por favor, intente de nuevo más tarde.`);
+      
+        }
+       }
     });
 }
 
