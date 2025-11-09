@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-login(credenciales: any): Observable<{accesToken: string, user: Usuario}> {
+  login(credenciales: any): Observable<{accesToken: string, user: Usuario}> {
    return this.http.post<{accesToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales).pipe(
       tap(response => {
         this.guardarToken(response.accesToken);
@@ -22,9 +22,14 @@ login(credenciales: any): Observable<{accesToken: string, user: Usuario}> {
     );
   } //El login es para cualquier tipo de usuario
 
-  register(fotografo: any): Observable<any> {
-    return this.http.post(`${this.backURL}/register`, fotografo);
-  }    //El registro es solo para fotógrafos
+register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
+    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo).pipe(
+      tap(response => {
+        this.guardarToken(response.accessToken);
+        this.guardarUsuario(response.user)
+      })
+    );
+}//El registro es solo para fotógrafos
 
    guardarToken(token: string): void { 
    localStorage.setItem('token_jwt', token);

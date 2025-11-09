@@ -146,7 +146,7 @@ export class Auth implements OnInit {
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,
-      provincia: provinciaSeleccionada ? provinciaSeleccionada.nombre : '' 
+      provincia: nombreProvincia!
     };
 
     this.authService.register(nuevoFotografo).subscribe({ 

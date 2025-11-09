@@ -58,7 +58,7 @@ server.post('/login', (req,res) => {
 server.post('/register', (req, res) => {
     console.log('Servidor recibió en /register:', req.body);
     const db = router.db;
-    const { nombre, apellido, email, password, rol, username, localidad, provincia } = req.body;
+    const { nombre, apellido, email, password, rol, nombreDeUsuario, localidad, provincia } = req.body;
 
 
     const emailExistente = db.get('users').find({ email: email }).value();
@@ -68,7 +68,7 @@ server.post('/register', (req, res) => {
     }
 
 
-    const usernameExistente = db.get('users').find({ nombreDeUsuario: username }).value();
+    const usernameExistente = db.get('users').find({ nombreDeUsuario: nombreDeUsuario }).value();
     if (usernameExistente) {
         console.error('Error al procesar /register: El nombre de usuario ya está en uso');
         return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
@@ -84,7 +84,7 @@ server.post('/register', (req, res) => {
         email,
         password: passwordHasheada,
         rol,
-        nombreDeUsuario: username,
+        nombreDeUsuario: nombreDeUsuario.toLowerCase(),
         localidad,
         provincia
     }
