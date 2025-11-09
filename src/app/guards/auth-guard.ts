@@ -1,5 +1,20 @@
-import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/authService';
+
 
 export const authGuard: CanActivateFn = (route, state) => {
+
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+
+
+  if (!authService.estaLogueado()) {
+    console.warn('AuthGuard: Acceso denegado. Usuario no logueado. Redirigiendo a /auth');
+    router.navigate(['/auth']);
+    return false;
+  }
+
   return true;
 };
