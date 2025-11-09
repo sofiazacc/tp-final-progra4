@@ -5,6 +5,7 @@ const server = jsonServer.create();
 
 const dbPath = path.join(__dirname, 'db.json'); 
 const router = jsonServer.router(dbPath);
+const middlewares = jsonServer.defaults();
 
 //Incorporamos Crypt-js
 const bcrypt = require('bcrypt');
@@ -17,6 +18,11 @@ server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Allow-Methods', '*');
+
+    if(req.method === 'OPTIONS'){
+        res.sendStatus(200);
+    };
+
     next();
 })
 
@@ -32,17 +38,16 @@ server.post('/login', (req,res) => {
     const{email, password} = req.body;
     const db = router.db;
 
-    const user = db.get('users').find({email: email, password: password}).value();
+    const user = db.get('users').find({email: email}).value();
 
     if(!user){
-        alert("Login fallido: email o contraseña incorrectos");
         return res.status(401).json({message: 'Email o contraseña inválidos'});
     }
 
-    if(bycrypt.compareSync(password, user.password)){
+    if(bcrypt.compareSync(password, user.password)){
         const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); //Si la contraseña coincide, le asignamos un token de sesión}
         console.log("Login exitoso")
-        res.status.apply(200).json({accessToken: token, user: user});
+        res.status(200).json({accessToken: token, user: user});
     }else{
         console.log("Login fallido: La contraseña no coincide")
         return res.status(401).json({message: 'Email o contraseña inválidos'});
@@ -69,14 +74,32 @@ server.post('/register', (req, res) => {
         provincia
     }
 
-    db.get('users').push(newUser).write();
+    try {
+        // Ensure the 'users' collection exists
+        if (!db.get('users').value()) {
+            db.set('users', []).write();
+        }
 
-    console.log("Registro exitoso")
+        // Push and write, then verify it was saved
+        db.get('users').push(newUser).write();
+        const saved = db.get('users').find({ id: newUser.id }).value();
 
-    //logueamos al nuevo usuario automáticamente 
-    const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); 
-    res.status.apply(200).json({accessToken: token, user: user});
+        if (!saved) {
+            console.error('Error guardando usuario en la base de datos:', newUser);
+            return res.status(500).json({ message: 'Error al guardar usuario' });
+        }
+
+        console.log('Registro exitoso')
+
+        // logueamos al nuevo usuario automáticamente 
+        const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); 
+        return res.status(201).json({ accessToken: token, user: newUser });
+    } catch (err) {
+        console.error('Error al procesar /register:', err);
+        return res.status(500).json({ message: 'Error interno del servidor' });
+    }
 });
+
 
 server.use(router)
 
