@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credenciales: any): Observable<{accesToken: string, user: Usuario}> {
-    return this.http.post<{accesToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales).pipe(
+   return this.http.post<{accesToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales).pipe(
       tap(response => {
         this.guardarToken(response.accesToken);
         this.guardarUsuario(response.user)

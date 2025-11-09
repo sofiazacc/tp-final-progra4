@@ -1,0 +1,12 @@
+{
+  "name": "back-simulador",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node tokenizador.js"
+  },
+  "dependencies": {
+    "json-server": "0.17.3",
+    "bcrypt": "^6.0.0"
+  }
+}

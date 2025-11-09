@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import {Router} from '@angular/router';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
 import { AuthService } from '../../services/authService';
-
 import { GeoRefProvincia } from '../../models/georef-provincia';
 import { GeoRefLocalidad } from '../../models/georef-localidad';
 
@@ -14,9 +11,10 @@ import { GeoRefLocalidad } from '../../models/georef-localidad';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
+  providers: [AuthService, GeorefService],
   templateUrl: './auth.html',
-  styleUrl: './auth.css'
+  styleUrls: ['./auth.css']
 })
 
 export class Auth implements OnInit { 
@@ -24,7 +22,7 @@ export class Auth implements OnInit {
       private authService: AuthService,
       private georefService: GeorefService,
       private router: Router
-    ) {} 
+    ) {}
 
     //Variables para provincias y localidades
     provincias: GeoRefProvincia[] = [];
@@ -71,30 +69,29 @@ export class Auth implements OnInit {
   })
 
   onLoginSubmit() {
-    if (this.loginForm.valid) {
-      console.log("Formulario enviado correctamente", this.loginForm.value);
+    if (!this.loginForm.valid) {
+       console.log("Formulario no válido");
+      this.loginForm.markAllAsTouched();
+      return;
     } else {
       console.log("Formulario no válido");
     }
 
     const credenciales = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.contra
+      email: this.loginForm.value.email!,
+      password: this.loginForm.value.contra!
     }
 
     
-    this.authService.login(credenciales.email!, credenciales.password!).subscribe({
-      next: (usuarios) => {
+    this.authService.login(credenciales).subscribe({
+      next: (respuesta) => {
 
-        if(usuarios && usuarios.length > 0) {
-          console.log("Login exitoso", usuarios[0]);
+        if(respuesta) {
+          console.log("Login exitoso");
 
-          alert(`Bienvenido, ${usuarios[0].nombre}!`);
+          alert(`Bienvenido, ${respuesta.user.nombre}!`);
 
           this.router.navigate(['/feed']);
-        }else{
-        console.log("Login fallido: credenciales inválidas");
-        alert(`Credenciales inválidas. Por favor, intente de nuevo.`);
         }
       },
       error: (error) => {
@@ -105,18 +102,17 @@ export class Auth implements OnInit {
 }
 
   onRegistroSubmit() {
-    if (this.registroForm.valid) {
-      console.log("Formulario de registro enviado correctamente", this.registroForm.value);
-    } else {
+    if (!this.registroForm.valid) {
       console.log("Formulario de registro no válido");
-    }
+      this.registroForm.markAllAsTouched();
+    return;
+  }
 
     const formValue = this.registroForm.value;
 
-   const provinciaSeleccionada = this.provincias.find(
+    const provinciaSeleccionada = this.provincias.find(
       p => p.id === formValue.provincia
     );
-
     const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';
   
 
@@ -128,13 +124,19 @@ export class Auth implements OnInit {
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,
-      provincia: provinciaSeleccionada ? provinciaSeleccionada.nombre : '' !
+      provincia: provinciaSeleccionada ? provinciaSeleccionada.nombre : '' 
     };
 
     this.authService.register(nuevoFotografo).subscribe({
-      next: (fotografo) => {
-        console.log("Registro exitoso", fotografo);
-        alert(`Registro exitoso. Bienvenido, ${fotografo.nombreDeUsuario}! Ahora puede iniciar sesión.`);
+      next: (respuesta) => {
+        console.log("Registro exitoso", respuesta);
+
+        this.authService.guardarToken(respuesta.accessToken);
+        this.authService.guardarUsuario(respuesta.user);
+
+        
+        alert(`Registro exitoso. Bienvenido, ${respuesta.user.nombre}!`);
+        this.router.navigate(['/feed']);
         this.esLogin = true; // Cambia a la vista de login después del registro exitoso
       },
       error: (error) => {
