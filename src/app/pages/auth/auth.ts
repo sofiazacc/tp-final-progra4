@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
 import { AuthService } from '../../services/authService';
 import { GeoRefProvincia } from '../../models/georef-provincia';
@@ -34,6 +34,8 @@ export class Auth implements OnInit {
       this.provincias = data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las provincias
     }); 
   }
+
+
 
   cambioDeProvincia(event: Event) { //Método para actualizar las localidades cuando cambia la provincia seleccionada
     const selectElement = event.target as HTMLSelectElement;
@@ -145,5 +147,13 @@ export class Auth implements OnInit {
       }
     });
 }
+  //registro
+  get reg(): { [key: string]: AbstractControl } {
+    return this.registroForm.controls;
+  }
 
+  //login
+  get log(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
+  }
 }
