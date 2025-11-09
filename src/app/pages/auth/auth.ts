@@ -5,12 +5,14 @@ import { GeorefService } from '../../services/georef';
 import { AuthService } from '../../services/authService';
 import { GeoRefProvincia } from '../../models/georef-provincia';
 import { GeoRefLocalidad } from '../../models/georef-localidad';
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './auth.html',
   styleUrls: ['./auth.css']
 })
@@ -92,10 +94,11 @@ export class Auth implements OnInit {
 
           alert(`Bienvenido, ${respuesta.user.nombre}!`);
 
-          this.router.navigate(['/feed']);
+          this.router.navigateByUrl('/feed');
         }
       },
       error: (error) => {
+        console.error("LOGIN FALLIDO - Error recibido:", error);
 
         if(error.status === 404 && error.error.message){
           const mensajeError = error.error.message;
@@ -156,9 +159,10 @@ export class Auth implements OnInit {
         this.authService.guardarToken(respuesta.accessToken);
         this.authService.guardarUsuario(respuesta.user);
 
-        
+
         alert(`Registro exitoso. Bienvenido, ${respuesta.user.nombre}!`);
-        this.router.navigate(['/feed']);
+        this.router.navigateByUrl('/feed');
+        this.registroForm.reset();
         this.esLogin = true; // Cambia a la vista de login después del registro exitoso
       },
       error: (error) => {

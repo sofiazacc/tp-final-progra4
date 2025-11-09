@@ -32,6 +32,72 @@
       "nombreDeUsuario": "wewef",
       "localidad": "26021020",
       "provincia": "Chubut"
+    },
+    {
+      "id": "9ff4x6b",
+      "nombre": "we",
+      "apellido": "wefwef",
+      "email": "sofddsi@gmail.com",
+      "password": "$2b$10$heYa8A/k2XrjvuYOCgmdJuxys4GRrWbK0WcrOTtiheL23TLSD6D4S",
+      "rol": "fotografo",
+      "nombreDeUsuario": "wewefsdd",
+      "localidad": "26021020",
+      "provincia": "Chubut"
+    },
+    {
+      "id": "r2rkgii",
+      "nombre": "asd",
+      "apellido": "as",
+      "email": "sofir@gmail.com",
+      "password": "$2b$10$g1/0uQHsClzIUCCj0JR1oOvY2hbh/Z7hCba5T9UEGr8LjcTYNqcXS",
+      "rol": "fotografo",
+      "nombreDeUsuario": "sadas",
+      "localidad": "18084010",
+      "provincia": "Corrientes"
+    },
+    {
+      "id": "gc6dqyl",
+      "nombre": "ewrer",
+      "apellido": "wr",
+      "email": "werfwewefwe@gmail.com",
+      "password": "$2b$10$zVVv20WZcAqlLZX2PtJzfeHbvq4TzyfDgyTZ53rIn7Y0kUclBcnry",
+      "rol": "fotografo",
+      "nombreDeUsuario": "wewer",
+      "localidad": "14056010",
+      "provincia": "Córdoba"
+    },
+    {
+      "id": "ddi60h2",
+      "nombre": "tyertrthjrt",
+      "apellido": "trhjrthj",
+      "email": "rthrhst@gmail.com",
+      "password": "$2b$10$T4ZJe5PYPbko70OLDSZiuOK70dSF5s9vIRSG001eHM/auuXfSKsSO",
+      "rol": "fotografo",
+      "nombreDeUsuario": "thrsthj",
+      "localidad": "34056010",
+      "provincia": "Formosa"
+    },
+    {
+      "id": "5eg4fur",
+      "nombre": "w4et",
+      "apellido": "WTWTWTWTWTWTWT",
+      "email": "limoEE@gmail.com",
+      "password": "$2b$10$onQjbXNgZWaJLXcRFddfheDTQdzC6YI5ruGnwcegBOMwDPXzgHzAS",
+      "rol": "fotografo",
+      "nombreDeUsuario": "w3ewe",
+      "localidad": "38007010",
+      "provincia": "Jujuy"
+    },
+    {
+      "id": "tioohm9",
+      "nombre": "6i67i",
+      "apellido": "67i67i",
+      "email": "limo777@gmail.com",
+      "password": "$2b$10$sEIA/2Vw4gQ/xSTaHm.0o.Up164cfinNH2pG6KUfzmE4yH61Lmbwu",
+      "rol": "fotografo",
+      "nombreDeUsuario": "67i67",
+      "localidad": "06049050",
+      "provincia": "Buenos Aires"
     }
   ]
 }

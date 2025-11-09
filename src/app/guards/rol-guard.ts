@@ -7,6 +7,7 @@ export const rolGuard: CanActivateFn = (route, state) => {
 
   const authService = inject(AuthService);
   const router = inject(Router);
+console.log('AuthGuard ejecutado. Token:', authService.getToken());
 
   const rolEsperado = route.data['rol'];
 
@@ -19,7 +20,7 @@ export const rolGuard: CanActivateFn = (route, state) => {
     if(rolUsuario === 'admin'){
       router.navigate(['/admin/usuarios']);
     }else if(rolUsuario === 'fotografo'){
-      router.navigate(['feed']);
+      router.navigate(['/feed']);
     }else{
       router.navigate(['/auth']);
     }

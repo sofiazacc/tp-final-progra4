@@ -5,9 +5,11 @@ import { AuthService } from '../services/authService';
 
 export const authGuard: CanActivateFn = (route, state) => {
 
+  
   const authService = inject(AuthService);
   const router = inject(Router);
 
+console.log('AuthGuard ejecutado. Token:', authService.getToken());
 
 
   if (!authService.estaLogueado()) {

@@ -13,22 +13,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(credenciales: any): Observable<{accesToken: string, user: Usuario}> {
-   return this.http.post<{accesToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales).pipe(
-      tap(response => {
-        this.guardarToken(response.accesToken);
-        this.guardarUsuario(response.user)
-      })
-    );
+  login(credenciales: any): Observable<{accessToken: string, user: Usuario}> {
+    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales);
   } //El login es para cualquier tipo de usuario
 
 register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo).pipe(
-      tap(response => {
-        this.guardarToken(response.accessToken);
-        this.guardarUsuario(response.user)
-      })
-    );
+    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo);
 }//El registro es solo para fotógrafos
 
    guardarToken(token: string): void { 
