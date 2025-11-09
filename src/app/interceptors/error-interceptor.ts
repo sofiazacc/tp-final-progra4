@@ -13,7 +13,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
+      if (error.status === 401 && !req.url.endsWith('/login')) {
         console.warn('ErrorInterceptor: Acceso denegado. Redirigiendo a /auth');
         alert('Su sesión ha expirado. Por favor, inicie sesión nuevamente.');
         authService.cerrarSesion();
