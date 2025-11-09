@@ -112,7 +112,7 @@
         }
        <input type="password" formControlName="contra" placeholder="Contraseña">
       </div>
-      
+
       <button type="submit">Registrarse</button>
     </form>
     
@@ -124,8 +124,32 @@
     
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
 
-      <input type="email" formControlName="email" placeholder="Email">
-      <input type="password" formControlName="contra" placeholder="Contraseña">
+      <div class="campoForm">
+        @if(log['email'].invalid && (log['email'].dirty || log['email'].touched)){
+          <div class="error">
+            @if(log['email'].errors?.['required']){
+              <div>El email es requerido</div>
+            }@else if(log['email'].errors?.['email']){
+              <div>El email no es válido</div>
+            }
+          </div>
+        }
+        <input type="email" formControlName="email" placeholder="Email">
+      </div>
+
+      <div class="campoForm">
+        @if(log['contra'].invalid && (log['contra'].dirty || log['contra'].touched)){
+          <div class="error">
+            @if(log['contra'].errors?.['required']){
+              <div>La contraseña es requerida</div>
+            }@else if(log['contra'].errors?.['minlength']){
+              <div>La contraseña debe tener al menos 8 caracteres</div>
+            }
+          </div>
+        }
+       <input type="password" formControlName="contra" placeholder="Contraseña">
+      </div>
+
       <button type="submit">Ingresar</button>
     </form>
     
