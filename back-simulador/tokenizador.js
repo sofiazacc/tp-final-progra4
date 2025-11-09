@@ -59,6 +59,20 @@ server.post('/register', (req, res) => {
     const db = router.db;
     const { nombre, apellido, email, password, rol, username, localidad, provincia } = req.body;
 
+
+    const emailExistente = db.get('users').find({ email: email }).value();
+    if (emailExistente) {
+        console.error('Error al procesar /register: El email ya está registrado');
+        return res.status(400).json({ message: 'El email ya está registrado' });
+    }
+
+
+    const usernameExistente = db.get('users').find({ nombreDeUsuario: username }).value();
+    if (usernameExistente) {
+        console.error('Error al procesar /register: El nombre de usuario ya está en uso');
+        return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
+    }
+
     const salt = bcrypt.genSaltSync(10);
     const passwordHasheada = bcrypt.hashSync(password, salt);
 

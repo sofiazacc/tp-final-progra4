@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
@@ -11,8 +10,7 @@ import { GeoRefLocalidad } from '../../models/georef-localidad';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  providers: [AuthService, GeorefService],
+  imports: [ReactiveFormsModule],
   templateUrl: './auth.html',
   styleUrls: ['./auth.css']
 })
@@ -63,10 +61,10 @@ export class Auth implements OnInit {
   registroForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     apellido: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9-]+$')]),
     localidad: new FormControl('', [Validators.required]),
     provincia: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]),
     contra: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
@@ -103,12 +101,19 @@ export class Auth implements OnInit {
     });
 }
 
+
+
+
   onRegistroSubmit() {
     if (!this.registroForm.valid) {
       console.log("Formulario de registro no válido");
       this.registroForm.markAllAsTouched();
     return;
   }
+
+   this.registroForm.get('email')?.setErrors(null);
+   this.registroForm.get('username')?.setErrors(null);
+
 
     const formValue = this.registroForm.value;
 
@@ -129,7 +134,7 @@ export class Auth implements OnInit {
       provincia: provinciaSeleccionada ? provinciaSeleccionada.nombre : '' 
     };
 
-    this.authService.register(nuevoFotografo).subscribe({
+    this.authService.register(nuevoFotografo).subscribe({ 
       next: (respuesta) => {
         console.log("Registro exitoso", respuesta);
 
@@ -143,10 +148,23 @@ export class Auth implements OnInit {
       },
       error: (error) => {
         console.error("Error durante el registro", error);
-        alert(`Ocurrió un error durante el registro. Por favor, intente de nuevo más tarde.`);
+        
+        if (error.status === 400 && error.error.message) {
+          const mensajeError = error.error.message;
+          if (mensajeError.includes('email')) {
+            this.registroForm.get('email')?.setErrors({ 'unico': mensajeError });
+          } else if(mensajeError.includes('usuario')) {
+             this.registroForm.get('username')?.setErrors({ 'unico': mensajeError });
+          } else {
+            alert(mensajeError); 
+          }
+      } else {
+        alert(`Ocurrió un error inesperado. Por favor, intente de nuevo más tarde.`);
       }
+    }
     });
-}
+  }
+
   //registro
   get reg(): { [key: string]: AbstractControl } {
     return this.registroForm.controls;

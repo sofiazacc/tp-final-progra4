@@ -34,7 +34,13 @@
         @if(reg['username'].invalid && (reg['username'].dirty || reg['username'].touched)){
           <div class="error">
             @if(reg['username'].errors?.['required']){
-              <div>El usuario es requerido</div>
+              <div>El nombre de usuario es requerido</div>
+            }
+            @if(reg['username'].errors?.['pattern']){
+              <div>El nombre de usuario solo puede contener letras, números y guiones</div>
+            }
+            @if(reg['username'].errors?.['unico']){
+              <div>El nombre de usuario ya está registrado</div>
             }
           </div>
         }
@@ -90,6 +96,12 @@
             }
             @if(reg['email'].errors?.['email']){
               <div>El email no es válido</div>
+            }
+            @if(reg['email'].errors?.['pattern']){
+              <div>El formato del email no es el correcto</div>
+            }
+            @if(reg['email'].errors?.['unico']){
+              <div>El email ya está registrado</div>
             }
           </div>
         }
