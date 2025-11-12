@@ -14,12 +14,28 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credenciales: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales);
+    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales)
+      .pipe(
+        tap((respuesta) => {
+          console.log("AuthService (tap): Guardando token y usuario...");
+          this.guardarToken(respuesta.accessToken);
+          this.guardarUsuario(respuesta.user);
+        })
+      );
   } //El login es para cualquier tipo de usuario
 
 register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo);
-}//El registro es solo para fotógrafos
+    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo)
+      .pipe(
+        tap((respuesta) => {
+                console.log(`Toke: ${respuesta.accessToken}`);
+          console.log("AuthService (tap): Guardando token y usuario post-registro...");
+    
+          this.guardarToken(respuesta.accessToken);
+          this.guardarUsuario(respuesta.user);
+        })
+      );
+  }//El registro es solo para fotógrafos
 
    guardarToken(token: string): void { 
    localStorage.setItem('token_jwt', token);

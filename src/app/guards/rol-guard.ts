@@ -14,11 +14,13 @@ console.log('AuthGuard ejecutado. Token:', authService.getToken());
   const usuario = authService.getUsuarioLogueado();
   const rolUsuario = usuario?.rol;
 
+  console.log(`RolGuard: Esperado: '${rolEsperado}', Usuario tiene: '${rolUsuario}'`);
+
   if(rolUsuario!== rolEsperado){
     console.warn('AuthGuard: Acceso denegado. El usuario no posee permisos para acceder a este endpoint');
 
     if(rolUsuario === 'admin'){
-      router.navigate(['/admin/usuarios']);
+      router.navigate(['/usuarios-admin']);
     }else if(rolUsuario === 'fotografo'){
       router.navigate(['/feed']);
     }else{

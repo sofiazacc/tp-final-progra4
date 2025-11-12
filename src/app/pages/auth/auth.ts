@@ -156,10 +156,6 @@ export class Auth implements OnInit {
       next: (respuesta) => {
         console.log("Registro exitoso", respuesta);
 
-        this.authService.guardarToken(respuesta.accessToken);
-        this.authService.guardarUsuario(respuesta.user);
-
-
         alert(`Registro exitoso. Bienvenido, ${respuesta.user.nombre}!`);
         this.router.navigateByUrl('/feed');
         this.registroForm.reset();

@@ -98,6 +98,17 @@
       "nombreDeUsuario": "67i67",
       "localidad": "06049050",
       "provincia": "Buenos Aires"
+    },
+    {
+      "id": "2w1mt50",
+      "nombre": "dftgh",
+      "apellido": "dftg",
+      "email": "sofirrrrrr@gmail.com",
+      "password": "$2b$10$/S19zEPPUmpkLYMzqfDVYeRM1NafYVZL6xns3xiVVlxYyuT9pxljG",
+      "rol": "fotografo",
+      "nombreDeUsuario": "edrfg",
+      "localidad": "38014020",
+      "provincia": "Jujuy"
     }
   ]
 }

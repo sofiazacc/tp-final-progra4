@@ -8,6 +8,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   
   const authService = inject(AuthService);
   const router = inject(Router);
+const rolEsperado = route.data['rol'];
+  const usuario = authService.getUsuarioLogueado();
+  const rolUsuario = usuario?.rol;
+console.log(`RolGuard: Esperado: '${rolEsperado}', Usuario tiene: '${rolUsuario}'`);
 
 console.log('AuthGuard ejecutado. Token:', authService.getToken());
 

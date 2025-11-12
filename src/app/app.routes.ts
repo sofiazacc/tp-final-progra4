@@ -14,7 +14,6 @@ import { rolGuard } from './guards/rol-guard';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'auth', pathMatch: 'full' },
-    {path: '**', redirectTo: 'auth', pathMatch: 'full' },
     {path: 'auth', component: Auth },
     {path: 'home', component: Home },
     {path: 'feed', component: Feed, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
