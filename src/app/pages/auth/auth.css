@@ -234,7 +234,23 @@ button:active {
   text-decoration: underline;
 }
 
+.campoForm{
+  width: 100%;
+}
 
+.error{
+  color: #780d0d;
+  font-size: 12px;
+  text-align: left;
+  padding-left: 5px;
+  min-height: 1.2em;
+  margin-bottom: 4px;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #780d0d;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .contenedor {

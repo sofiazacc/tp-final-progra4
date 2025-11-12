@@ -1,0 +1,81 @@
+{
+  "users": [
+    {
+      "id": "jr8w4bt",
+      "nombre": "Mario",
+      "apellido": "Zaccagnini",
+      "email": "marioz@gmail.com",
+      "password": "$2b$10$k/gNsJE85si4hRLORXJaJOxsFZtB5KS1Yal738qS8Fu5OUdF8Iomy",
+      "rol": "fotografo",
+      "nombreDeUsuario": "marioz",
+      "localidad": "0675601001",
+      "provincia": "Buenos Aires"
+    },
+    {
+      "id": "78owmhk",
+      "nombre": "Luli",
+      "apellido": "Melo",
+      "email": "limo@gmail.com",
+      "password": "$2b$10$9wB3ktTnd4SCyJQvlUtT0uTt0YYWhU0iL14UHYs/iBcAYqn8/3obK",
+      "rol": "fotografo",
+      "nombreDeUsuario": "lilom",
+      "localidad": "22140030",
+      "provincia": "Chaco"
+    },
+    {
+      "id": "lcraqx2",
+      "nombre": "we",
+      "apellido": "wefwef",
+      "email": "sofi@gmail.com",
+      "password": "$2b$10$M5edSp0JsQnf2O9wjGOFHusuK2SoWWS0QcpT7bd3S7puXbHqKtrkC",
+      "rol": "fotografo",
+      "nombreDeUsuario": "wewef",
+      "localidad": "26021020",
+      "provincia": "Chubut"
+    },
+    {
+      "id": "j427o2x",
+      "nombre": "Carlos23423",
+      "apellido": "Cantos23423",
+      "email": "carlos@hotmail.com",
+      "password": "$2b$10$G94cjyc.YYWSnzY/bUlyVOcE4pfYuD6BQw7cN4AP9LhMRghH3lFRu",
+      "rol": "fotografo",
+      "nombreDeUsuario": "carlitos",
+      "localidad": "06357110",
+      "provincia": "Buenos Aires"
+    },
+    {
+      "id": "38xa79f",
+      "nombre": "Peter",
+      "apellido": "Alfonso",
+      "email": "peteralf@gmail.com",
+      "password": "$2b$10$JpSzzklJ7zXkShplrrqGeOlQLKuCOLSNbnACmtSWftIanwPpY4mnG",
+      "rol": "fotografo",
+      "nombreDeUsuario": "peteralfo",
+      "localidad": "58035110",
+      "provincia": "Neuquén"
+    },
+    {
+      "id": "jr9w4bt",
+      "nombre": "Sergio",
+      "apellido": "Pergolini",
+      "email": "pergolini@gmail.com",
+      "password": "$2b$10$k/gNsJE85si4hRLORXJaJOxsFZtB5KS1Yal738qS8Fu5OUdF8Iomy",
+      "rol": "admin",
+      "nombreDeUsuario": "Pergolini03",
+      "localidad": "0675601001",
+      "provincia": "Buenos Aires"
+    },
+    {
+      "id": "cgh4uad",
+      "nombre": "Julio", 
+      "apellido": "Track",
+      "email": "polaco@hotmail.com",
+      "password": "$2b$10$aqxR16q56AoGrv6rQZ5oseb5d3e5E99vBJuI1zhwnxt2GmXxybxEi",
+      "rol": "fotografo",
+      "nombreDeUsuario": "julito10",
+      "localidad": "62084020",
+      "provincia": "Río Negro"
+    }
+  ]
+}
