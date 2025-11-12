@@ -14,7 +14,7 @@
               <div>El nombre es requerido</div> <!--Charlar si poner p o div--> 
             }
             @if(reg['nombre'].errors?.['pattern']){
-              <div>El nombre de usuario solo puede contener letras</div>
+              <div>El nombre solo puede contener letras</div>
             }
           </div>
         }
@@ -28,7 +28,7 @@
               <div>El apellido es requerido</div>
             }
             @if(reg['apellido'].errors?.['pattern']){
-              <div>El nombre de usuario solo puede contener letras</div>
+              <div>El apellido solo puede contener letras</div>
             }
           </div>
         }
