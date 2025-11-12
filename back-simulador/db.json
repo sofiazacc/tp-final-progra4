@@ -34,81 +34,48 @@
       "provincia": "Chubut"
     },
     {
-      "id": "9ff4x6b",
-      "nombre": "we",
-      "apellido": "wefwef",
-      "email": "sofddsi@gmail.com",
-      "password": "$2b$10$heYa8A/k2XrjvuYOCgmdJuxys4GRrWbK0WcrOTtiheL23TLSD6D4S",
+      "id": "j427o2x",
+      "nombre": "Carlos23423",
+      "apellido": "Cantos23423",
+      "email": "carlos@hotmail.com",
+      "password": "$2b$10$G94cjyc.YYWSnzY/bUlyVOcE4pfYuD6BQw7cN4AP9LhMRghH3lFRu",
       "rol": "fotografo",
-      "nombreDeUsuario": "wewefsdd",
-      "localidad": "26021020",
-      "provincia": "Chubut"
-    },
-    {
-      "id": "r2rkgii",
-      "nombre": "asd",
-      "apellido": "as",
-      "email": "sofir@gmail.com",
-      "password": "$2b$10$g1/0uQHsClzIUCCj0JR1oOvY2hbh/Z7hCba5T9UEGr8LjcTYNqcXS",
-      "rol": "fotografo",
-      "nombreDeUsuario": "sadas",
-      "localidad": "18084010",
-      "provincia": "Corrientes"
-    },
-    {
-      "id": "gc6dqyl",
-      "nombre": "ewrer",
-      "apellido": "wr",
-      "email": "werfwewefwe@gmail.com",
-      "password": "$2b$10$zVVv20WZcAqlLZX2PtJzfeHbvq4TzyfDgyTZ53rIn7Y0kUclBcnry",
-      "rol": "fotografo",
-      "nombreDeUsuario": "wewer",
-      "localidad": "14056010",
-      "provincia": "Córdoba"
-    },
-    {
-      "id": "ddi60h2",
-      "nombre": "tyertrthjrt",
-      "apellido": "trhjrthj",
-      "email": "rthrhst@gmail.com",
-      "password": "$2b$10$T4ZJe5PYPbko70OLDSZiuOK70dSF5s9vIRSG001eHM/auuXfSKsSO",
-      "rol": "fotografo",
-      "nombreDeUsuario": "thrsthj",
-      "localidad": "34056010",
-      "provincia": "Formosa"
-    },
-    {
-      "id": "5eg4fur",
-      "nombre": "w4et",
-      "apellido": "WTWTWTWTWTWTWT",
-      "email": "limoEE@gmail.com",
-      "password": "$2b$10$onQjbXNgZWaJLXcRFddfheDTQdzC6YI5ruGnwcegBOMwDPXzgHzAS",
-      "rol": "fotografo",
-      "nombreDeUsuario": "w3ewe",
-      "localidad": "38007010",
-      "provincia": "Jujuy"
-    },
-    {
-      "id": "tioohm9",
-      "nombre": "6i67i",
-      "apellido": "67i67i",
-      "email": "limo777@gmail.com",
-      "password": "$2b$10$sEIA/2Vw4gQ/xSTaHm.0o.Up164cfinNH2pG6KUfzmE4yH61Lmbwu",
-      "rol": "fotografo",
-      "nombreDeUsuario": "67i67",
-      "localidad": "06049050",
+      "nombreDeUsuario": "carlitos",
+      "localidad": "06357110",
       "provincia": "Buenos Aires"
     },
     {
-      "id": "2w1mt50",
-      "nombre": "dftgh",
-      "apellido": "dftg",
-      "email": "sofirrrrrr@gmail.com",
-      "password": "$2b$10$/S19zEPPUmpkLYMzqfDVYeRM1NafYVZL6xns3xiVVlxYyuT9pxljG",
+      "id": "38xa79f",
+      "nombre": "Peter",
+      "apellido": "Alfonso",
+      "email": "peteralf@gmail.com",
+      "password": "$2b$10$JpSzzklJ7zXkShplrrqGeOlQLKuCOLSNbnACmtSWftIanwPpY4mnG",
       "rol": "fotografo",
-      "nombreDeUsuario": "edrfg",
-      "localidad": "38014020",
-      "provincia": "Jujuy"
+      "nombreDeUsuario": "peteralfo",
+      "localidad": "58035110",
+      "provincia": "Neuquén"
+    },
+    {
+      "id": "jr9w4bt",
+      "nombre": "Sergio",
+      "apellido": "Pergolini",
+      "email": "pergolini@gmail.com",
+      "password": "$2b$10$k/gNsJE85si4hRLORXJaJOxsFZtB5KS1Yal738qS8Fu5OUdF8Iomy",
+      "rol": "admin",
+      "nombreDeUsuario": "Pergolini03",
+      "localidad": "0675601001",
+      "provincia": "Buenos Aires"
+    },
+    {
+      "id": "cgh4uad",
+      "nombre": "Julio", 
+      "apellido": "Track",
+      "email": "polaco@hotmail.com",
+      "password": "$2b$10$aqxR16q56AoGrv6rQZ5oseb5d3e5E99vBJuI1zhwnxt2GmXxybxEi",
+      "rol": "fotografo",
+      "nombreDeUsuario": "julito10",
+      "localidad": "62084020",
+      "provincia": "Río Negro"
     }
   ]
 }
