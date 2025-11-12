@@ -13,6 +13,9 @@
             @if(reg['nombre'].errors?.['required']){
               <div>El nombre es requerido</div> <!--Charlar si poner p o div--> 
             }
+            @if(reg['username'].errors?.['pattern']){
+              <div>El nombre de usuario solo puede contener letras</div>
+            }
           </div>
         }
         <input type="text" formControlName="nombre" placeholder="Nombre">
@@ -23,6 +26,9 @@
           <div class="error">
             @if(reg['apellido'].errors?.['required']){
               <div>El apellido es requerido</div>
+            }
+            @if(reg['username'].errors?.['pattern']){
+              <div>El nombre de usuario solo puede contener letras</div>
             }
           </div>
         }

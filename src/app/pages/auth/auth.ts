@@ -61,8 +61,8 @@ export class Auth implements OnInit {
   })
 
   registroForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    apellido: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúÑñ]+$')]),
+    apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúÑñ]+$')]),
     username: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9-]+$')]),
     localidad: new FormControl('', [Validators.required]),
     provincia: new FormControl('', [Validators.required]),
