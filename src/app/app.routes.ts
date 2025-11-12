@@ -22,5 +22,5 @@ export const routes: Routes = [
     {path: 'guardados', component: Guardados, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'articulos-astronomicos', component: ArticulosAstronomicos, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'posts-admin', component: PostsAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}},
-    {path: 'usuarios-admin', component: UsuariosAdmin, canActivate: [authGuard], data: {rol: 'admin'}}
+    {path: 'usuarios-admin', component: UsuariosAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}}
 ];
