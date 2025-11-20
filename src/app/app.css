@@ -1,17 +1,44 @@
-.layout {
-    display: flex;
+:host {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        'nav header'
+        'nav main'
+        'nav hr'
+        'nav footer';
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
 }
 
-.contenido-principal {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-    margin-left: 70px;
-    transition: margin-left 0.3s ease;
+app-menu-general {
+    grid-area: nav;
 }
 
-.contenido-principal.desplegado {
-    margin-left: 15rem;
+app-header {
+    grid-area: header;
+}
+
+
+main {
+    grid-area: main;
+    overflow: auto;
+    padding: 2rem;
+    background-color: var(--color-fondo);
+}
+
+app-footer {
+    grid-area: footer;
+}
+
+.colorcitos-degrade{
+    background: linear-gradient(90deg, #2d7a7a, #a9ced0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    display: inline;
+    font-size: 5rem;
+    font-weight: 600;
 }
