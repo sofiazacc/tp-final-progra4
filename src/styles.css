@@ -1,7 +1,30 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    /* Paleta Space - Tonos claros */
+    --color-violeta-1: #9667D6;
+    --color-violeta-2: #966EE0;
+    --color-violeta-3: #9677EC;
+    --color-azul-violeta: #856BF7;
+    --color-lila: #A89DED;
+    
+    /* Paleta Space - Tonos oscuros */
+    --color-purpura-oscuro: #512ECA;
+    --color-purpura-medio: #5C319A;
+    --color-purpura-profundo: #411A8E;
+    --color-purpura-intenso: #310D84;
+    
+    /* Derivados para UI */
+    --color-fondo-oscuro: #1a0a3e;
+    --color-texto-claro: #e8e4f5;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Noto Sans", sans-serif;  
+}
