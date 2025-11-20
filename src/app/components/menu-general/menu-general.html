@@ -1,10 +1,11 @@
-<button (click)="desplegarContraer()" class="toggle-btn">
-    <span class="material-symbols-outlined">
-        oooooooooooooooooooooo
-    </span>
-</button>
-
 <nav [class.desplegado]="desplegado">
+
+    <button (click)="desplegarContraer()" class="toggle-btn">
+    <span class="material-symbols-outlined">
+        {{itemBoton.icon}}
+    </span>
+    </button>
+
     <ul>
         @for(item of menuItems; track $index){
             <li routerLinkActive="active">
