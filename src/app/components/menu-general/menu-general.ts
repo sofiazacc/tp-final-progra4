@@ -15,12 +15,16 @@ export class MenuGeneral {
     this.desplegado = !this.desplegado
   }
 
+  itemBoton = {icon: 'thumbnail_bar', label: 'Desplegar', route: ''}
+
   menuItems = [
     {icon: 'dynamic_feed', label: 'Feed', route: ''},
     {icon: 'map_search', label: 'Mapa', route: ''},
     {icon: 'person', label: 'Perfil', route: ''},
     {icon: 'bookmark', label: 'Posts guardados', route: ''},
     {icon: 'account_circle_off', label: 'Cerrar sesión', route: ''},
+    {icon: 'thumbnail_bar', label: 'Desplegar', route: ''},
+
   ]
 
 }
