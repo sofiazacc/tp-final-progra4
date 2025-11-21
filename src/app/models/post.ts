@@ -5,6 +5,10 @@ export interface PostModelo{
     url: string,
     descripcion: string,
     ubicacion: string,
+    coordernadas?: {
+        lat: number,
+        lng: number
+    },
     fotografo: Fotografo,
     fecha: Date,
     likes: number
