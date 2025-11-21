@@ -14,6 +14,9 @@ export class PopUpMapa {
   // Variable para saber la foto actual 
   indiceActual: number = 0;
 
+  //Vamos a obtener el título del lugar usando la API de Maps
+  @Input() tituloLugar: string = '';
+
   get postActual(): PostModelo {
     return this.posts[this.indiceActual];
   }
