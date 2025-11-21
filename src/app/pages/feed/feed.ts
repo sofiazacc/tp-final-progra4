@@ -11,7 +11,7 @@ import { PostComponent } from '../../components/post-component/post-component';
 
 export class Feed implements OnInit {
 
-  constructor(public feedService: FeedService) {}
+  constructor(public FeedService: FeedService) {}
 
   ngOnInit(): void {
     console.log("Feed iniciado");
@@ -20,10 +20,10 @@ export class Feed implements OnInit {
   
   obtenerPosts() {
     console.log("Ejecutando obtenerPosts()"); 
-    this.feedService.getPosts().subscribe({
+    this.FeedService.getPosts().subscribe({
       next: (data) => { 
         console.log("Datos recibidos:", data);
-        this.feedService.posts = data },
+        this.FeedService.posts = data },
       error: (e) => console.log(e)
     });
   }

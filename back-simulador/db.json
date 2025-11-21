@@ -77,5 +77,177 @@
       "localidad": "62084020",
       "provincia": "Río Negro"
     }
+  ],
+
+  "posts": [
+
+
+    {
+
+
+      "id": "1",
+
+
+      "url": "https://images.unsplash.com/photo-1533683083439-1a776a5653cb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+
+
+      "descripcion": "¡Increíble atardecer en las montañas! La naturaleza nunca deja de sorprenderme.",
+
+
+      "ubicacion": "Patagonia, Argentina",
+
+
+      "fotografo": {
+
+
+        "id": "1",
+
+
+        "nombre": "Ana",
+
+
+        "apellido": "García",
+
+
+        "email": "ana@example.com",
+
+
+        "password": "",
+
+
+        "rol": "fotografo",
+
+
+        "nombreDeUsuario": "ana_fotografa",
+
+
+        "localidad": "Bariloche",
+
+
+        "provincia": "Río Negro"
+
+
+      },
+
+
+      "fecha": "2024-11-01T18:30:00",
+
+
+      "likes": 1234
+
+
+    }, 
+
+
+    {
+
+
+      "id": "2",
+
+
+      "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+
+
+      "descripcion": "¡Anochecer en la sierra!",
+
+
+      "ubicacion": "Mendoza, Argentina",
+
+
+      "fotografo": {
+
+
+        "id": "2",
+
+
+        "nombre": "Joaquín",
+
+
+        "apellido": "Francis",
+
+
+        "email": "joaco12@example.com",
+
+
+        "password": "",
+
+
+        "rol": "fotografo",
+
+
+        "nombreDeUsuario": "joaquin-vg",
+
+
+        "localidad": "Córdoba",
+
+
+        "provincia": "Río Negro"
+
+
+      },
+
+
+      "fecha": "2025-11-01T18:20:00",
+
+
+      "likes": 6325
+
+
+    },
+    {
+      "id": "3",
+
+
+      "url": "https://images.unsplash.com/photo-1759854909297-cf3fae2e90f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+
+
+      "descripcion": "El mar es mi hogar",
+
+
+      "ubicacion": "Mar del Plata, Argentina",
+
+
+      "fotografo": {
+
+
+        "id": "3",
+
+
+        "nombre": "Moncho",
+
+
+        "apellido": "Peña",
+
+
+        "email": "moncho@example.com",
+
+
+        "password": "",
+
+
+        "rol": "fotografo",
+
+
+        "nombreDeUsuario": "moncho_peñoso",
+
+
+        "localidad": "Mar del Plata",
+
+
+        "provincia": "Buenos Aires"
+
+
+      },
+
+
+      "fecha": "2024-12-12T11:30:00",
+
+
+      "likes": 1234323
+
+
+    }
+
   ]
+
 }
