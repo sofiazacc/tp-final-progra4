@@ -1,0 +1,27 @@
+<div class="popup-card">
+  
+  <h3 class="lugar-titulo">{{ postActual.ubicacion || 'Lugar' }}</h3>
+
+  <div class="usuario-info">
+    <div class="icono-usuario">
+        <span class="simbolos-flecha">person</span>
+    </div>
+    <span class="username">@{{ postActual.fotografo.nombreDeUsuario }}</span>
+  </div>
+
+  <div class="carrusel-body">
+    
+    <button class="btn-flecha" (click)="anterior()" [disabled]="posts.length <= 1">
+      <span class="simbolos-flecha">chevron_left</span>
+    </button>
+
+    <div class="imagen-contenedor">
+      <img [src]="postActual.url" alt="Foto del lugar" class="foto-real">
+    </div>
+
+    <button class="btn-flecha" (click)="siguiente()" [disabled]="posts.length <= 1">
+      <span class="simbolos-flecha">chevron_right</span>
+    </button>
+
+  </div>
+</div>
