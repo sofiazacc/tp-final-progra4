@@ -5,7 +5,7 @@ export interface PostModelo{
     url: string,
     descripcion: string,
     ubicacion: string,
-    coordernadas?: {
+    coordenadas?: {
         lat: number,
         lng: number
     },
