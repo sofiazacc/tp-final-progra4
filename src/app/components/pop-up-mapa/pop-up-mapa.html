@@ -1,10 +1,13 @@
 <div class="popup-card">
-  
-  <h3 class="lugar-titulo">{{ tituloLugar || 'Buscando dirección...' }}</h3>
+<button class="btn-cerrar" (click)="cerrar()">×</button>
+
+    <h3 class="lugar-titulo">
+    {{ tituloLugar || postActual!.ubicacion || 'Buscando dirección...' }}
+  </h3>
 
   <div class="usuario-info">
     <div class="icono-usuario">
-        <span class="simbolos-flecha">person</span>
+        <span class="material-symbols-outlined ">person</span>
     </div>
     <span class="username">@{{ postActual.fotografo.nombreDeUsuario }}</span>
   </div>
@@ -12,7 +15,7 @@
   <div class="carrusel-body">
     
     <button class="btn-flecha" (click)="anterior()" [disabled]="posts.length <= 1">
-      <span class="simbolos-flecha">chevron_left</span>
+      <span class="material-symbols-outlined ">chevron_left</span>
     </button>
 
     <div class="imagen-contenedor">
@@ -20,7 +23,7 @@
     </div>
 
     <button class="btn-flecha" (click)="siguiente()" [disabled]="posts.length <= 1">
-      <span class="simbolos-flecha">chevron_right</span>
+      <span class="material-symbols-outlined ">chevron_right</span>
     </button>
 
   </div>

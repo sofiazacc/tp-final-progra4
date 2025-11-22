@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PostModelo } from '../../models/post';
 
 @Component({
@@ -38,5 +38,12 @@ export class PopUpMapa {
       this.indiceActual = this.posts.length - 1; 
     }
   }
+
+  //LE vamaos a emitir a mapa la señal para ejecutar el método  cerrarPopup()  al cerrar el pop-up
+  @Output() close = new EventEmitter<void>();
+
+  cerrar() {
+     this.close.emit();
+   }
 }
 

@@ -55,6 +55,23 @@
   gap: 10px;
 }
 
+.btn-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
 
 .imagen-contenedor {
   flex-grow: 1;
@@ -96,6 +113,6 @@
   cursor: default;
 }
 
-.simbolos-flecha {
+.material-symbols-outlined {
   font-size: 24px;
 }
