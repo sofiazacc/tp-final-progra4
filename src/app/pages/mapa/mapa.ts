@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, NgZone, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PopUpMapa } from "../../components/pop-up-mapa/pop-up-mapa";
-import { FeedService } from '../../services/feed-service';
+import { FeedService } from '../../services/feedService';
 import { PostModelo } from '../../models/post';
 @Component({
   selector: 'app-mapa',
