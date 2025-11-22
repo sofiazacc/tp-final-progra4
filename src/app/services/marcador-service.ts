@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Marcador } from '../models/marcador';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { PostModelo } from '../models/post';
 
 @Injectable({
@@ -25,7 +25,9 @@ export class MarcadorService {
   }
 
   sincronizarMarcadores(posts: PostModelo[]): Observable<Marcador[]> {
-    
+
+    return new Observable<Marcador[]>((observer) => {
+      this.getMarcadores().subscribe((marcadoresExistentes) => {
     // Se agrupan los posts por ubicación (latitud y longitud)
     const grupos: { [key: string]: PostModelo[] } = {};
     posts.forEach((post) => {
@@ -41,24 +43,59 @@ export class MarcadorService {
     
     Object.keys(grupos).forEach((key) => {
       const postsDelGrupo = grupos[key];
-      
-      const nuevoMarcador: Omit<Marcador, 'id'> = {
-        lat: postsDelGrupo[0].coordenadas!.lat,
-        lng: postsDelGrupo[0].coordenadas!.lng,
-        ubicacion: postsDelGrupo[0].ubicacion || 'Ubicación desconocida',
-        postID: postsDelGrupo.map((post) => post.id),
+      const lat = postsDelGrupo[0].coordenadas!.lat;
+      const lng = postsDelGrupo[0].coordenadas!.lng;
+      const nuevosIDs = postsDelGrupo.map((post) => post.id);
+    
+      const marcadorExistente = marcadoresExistentes.find((marcador) =>
+        marcador.lat === lat && marcador.lng === lng
+      );
+
+      //Si existe, 
+      if (marcadorExistente) {
+          const ids = [new Set([
+            ...marcadorExistente.postID,
+            ...nuevosIDs
+          ])];
+
+
+        //Si hay cambios, se actualiza
+          if(ids.length !== marcadorExistente.postID.length){
+            marcadorExistente.postID = Array.from(ids[0]);
+            marcadores.push(
+              lastValueFrom(this.putMarcador(marcadorExistente.id, marcadorExistente))
+            );
+          }
+      }else{
+        //Si no existe, se crea uno nuevo
+        const nuevoMarcador: Omit<Marcador,'id'> = {
+          lat: lat,
+          lng: lng,
+          ubicacion: postsDelGrupo[0].ubicacion || 'Ubicación desconocida',
+          postID: nuevosIDs,
       };
 
-      marcadores.push(
-        this.postMarcador(nuevoMarcador).toPromise() as Promise<Marcador>
-      );
+        marcadores.push(
+          lastValueFrom(this.postMarcador(nuevoMarcador))
+        );
+      }
+      
     });
 
-    return new Observable<Marcador[]>((observer) => {
+    if (marcadores.length > 0) {
       Promise.all(marcadores).then((resultados) => {
-        observer.next(resultados);
-        observer.complete();
+        this.getMarcadores().subscribe((marcadoresActualizados) => {
+          observer.next(marcadoresActualizados);
+          observer.complete();
+        });
       });
-    });
-  }
+    } else {
+      // No hay marcadores para crear o actualizar
+      observer.next(marcadoresExistentes);
+      observer.complete();
+  
+    }
+  });
+  });
+}
 }
