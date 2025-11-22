@@ -116,3 +116,34 @@
 .material-symbols-outlined {
   font-size: 24px;
 }
+
+.btn-favorito {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ddd;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.btn-favorito.activo {
+  color: #ff6b6b;
+}
+
+.btn-favorito:hover {
+  color: #ff6b6b;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.5));
+}
+
+
+
+.separador {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+  margin: 0 -20px; /* Expande hasta los bordes */
+}
