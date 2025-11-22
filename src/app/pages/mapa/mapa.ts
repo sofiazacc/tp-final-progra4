@@ -1,4 +1,4 @@
-import { Component, inject, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, NgZone, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PopUpMapa } from "../../components/pop-up-mapa/pop-up-mapa";
 import { FeedService } from '../../services/feed-service';
@@ -9,7 +9,7 @@ import { PostModelo } from '../../models/post';
   templateUrl: './mapa.html',
   styleUrl: './mapa.css',
 })
-export class Mapa implements OnInit{
+export class Mapa implements OnInit, AfterViewInit{
    //Elementos necesarios para detectar el nombre del lugar seleccionado y mandarlo al pop-up
   private zone = inject(NgZone);
   private feedService = inject(FeedService);
@@ -43,12 +43,19 @@ export class Mapa implements OnInit{
   }
 
   iniciarMapa(){
-    this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center: { lat: -34.6037, lng: -58.3816 }, // Centro en Buenos Aires
+      const mapElement = document.getElementById("map");
+    
+    if (!mapElement) {
+      console.error("El div con id='map' no se encontró en el HTML.");
+      return;
+    }
+
+    this.map = new google.maps.Map(mapElement, {
+      center: { lat: -34.6037, lng: -58.3816 },
       zoom: 5,
       streetViewControl: false,
     });
-
+    
     this.geocoder = new google.maps.Geocoder();
 
     if(this.posts.length > 0){
@@ -62,8 +69,8 @@ export class Mapa implements OnInit{
     const grupos : {[key: string]: PostModelo[]} = {};
 
     this.posts.forEach(post => {
-      if(post.coordernadas){  
-        const key = `${post.coordernadas.lat},${post.coordernadas.lng}`;
+      if(post.coordenadas){  
+        const key = `${post.coordenadas.lat},${post.coordenadas.lng}`;
         if (!grupos[key]) grupos[key] = [];
         grupos[key].push(post);
       }
@@ -73,8 +80,8 @@ export class Mapa implements OnInit{
 
     for (const key in grupos) {
       const postsDelGrupo = grupos[key];
-      const lat = postsDelGrupo[0].coordernadas!.lat;
-      const lng = postsDelGrupo[0].coordernadas!.lng;
+      const lat = postsDelGrupo[0].coordenadas!.lat;
+      const lng = postsDelGrupo[0].coordenadas!.lng;
 
       this.crearMarcador({lat, lng}, postsDelGrupo);
   }

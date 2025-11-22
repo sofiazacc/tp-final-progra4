@@ -1,4 +1,11 @@
-
-<google-map [center]="center" [zoom]="zoom">
-
-</google-map>
+<div class="contenedor-mapa">
+  <div id="map"></div> @if (marcadorSeleccionado) {
+    <div class="capa-flotante">
+      <app-pop-up-mapa
+        [posts]="marcadorSeleccionado" 
+        [tituloLugar]="direccionActual"
+        (close)="cerrarPopup()"> 
+      </app-pop-up-mapa>
+    </div>
+  }
+</div>
