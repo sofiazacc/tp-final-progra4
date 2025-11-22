@@ -3,6 +3,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { PopUpMapa } from "../../components/pop-up-mapa/pop-up-mapa";
 import { FeedService } from '../../services/feedService';
 import { PostModelo } from '../../models/post';
+import { MarcadorService } from '../../services/marcador-service';
 @Component({
   selector: 'app-mapa',
   imports: [GoogleMapsModule, PopUpMapa],
@@ -11,8 +12,8 @@ import { PostModelo } from '../../models/post';
 })
 export class Mapa implements OnInit, AfterViewInit{
    //Elementos necesarios para detectar el nombre del lugar seleccionado y mandarlo al pop-up
-  private zone = inject(NgZone);
-  private feedService = inject(FeedService);
+
+  constructor(private feedService: FeedService, private zone: NgZone, private marcadorService: MarcadorService){}
 
   geocoder: any;
 
@@ -65,26 +66,17 @@ export class Mapa implements OnInit, AfterViewInit{
   }
 
   crearPines() {
-    //Se agrupan los posts por ubicación (latitud y longitud)
-    const grupos : {[key: string]: PostModelo[]} = {};
-
-    this.posts.forEach(post => {
-      if(post.coordenadas){  
-        const key = `${post.coordenadas.lat},${post.coordenadas.lng}`;
-        if (!grupos[key]) grupos[key] = [];
-        grupos[key].push(post);
-      }
-      });
-    
-      //Por cada grupo, se crea un marcador en el mapa
-
-    for (const key in grupos) {
-      const postsDelGrupo = grupos[key];
-      const lat = postsDelGrupo[0].coordenadas!.lat;
-      const lng = postsDelGrupo[0].coordenadas!.lng;
-
-      this.crearMarcador({lat, lng}, postsDelGrupo);
-  }
+    this.marcadorService.sincronizarMarcadores(this.posts).subscribe({
+      next: (marcadores) => {
+         //Por cada marcador obtenido, se ve reflejado en el mapa
+        marcadores.forEach((marcador) => {
+         //Obtenemos los post que corresponden
+          const postsDelGrupo = this.posts.filter(post => marcador.postID.includes(post.id));
+          this.crearMarcador({lat: marcador.lat, lng: marcador.lng}, postsDelGrupo);
+        });
+      },
+      error: (e) => console.log(e)
+    });
   }
 
   crearMarcador(coordenadas: {lat: number, lng: number}, postsDelGrupo: PostModelo[]) {

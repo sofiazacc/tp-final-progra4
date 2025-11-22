@@ -149,28 +149,57 @@
       "likes": 1234323
     },
     {
-  "id": "4",
-  "url": "https://www.pexels.com/es-es/foto/vista-al-mar-durante-el-dia-127673/",
-  "descripcion": "Atardecer en la playa, momentos de paz",
-  "ubicacion": "Mar del Plata, Argentina",
-  "coordenadas": {
-    "lat": -38.0055,
-    "lng": -57.5426
-  },
-  "fotografo": {
-    "id": "4",
-    "nombre": "Lucas",
-    "apellido": "Gonzalez",
-    "email": "lucas@example.com",
-    "password": "",
-    "rol": "fotografo",
-    "nombreDeUsuario": "lucasgonza",
-    "localidad": "Mar del Plata",
-    "provincia": "Buenos Aires"
-  },
-  "fecha": "2024-12-15T16:45:00",
-  "likes": 892
-}
+      "id": "4",
+      "url": "https://www.pexels.com/es-es/foto/vista-al-mar-durante-el-dia-127673/",
+      "descripcion": "Atardecer en la playa, momentos de paz",
+      "ubicacion": "Mar del Plata, Argentina",
+      "coordenadas": {
+        "lat": -38.0055,
+        "lng": -57.5426
+      },
+      "fotografo": {
+        "id": "4",
+        "nombre": "Lucas",
+        "apellido": "Gonzalez",
+        "email": "lucas@example.com",
+        "password": "",
+        "rol": "fotografo",
+        "nombreDeUsuario": "lucasgonza",
+        "localidad": "Mar del Plata",
+        "provincia": "Buenos Aires"
+      },
+      "fecha": "2024-12-15T16:45:00",
+      "likes": 892
+    }
   ],
-  "marcadores": []
+  "marcadores": [
+    {
+      "lat": -41.1335,
+      "lng": -71.3103,
+      "ubicacion": "Patagonia, Argentina",
+      "postID": [
+        "1"
+      ],
+      "id": 1
+    },
+    {
+      "lat": -32.8895,
+      "lng": -68.8458,
+      "ubicacion": "Mendoza, Argentina",
+      "postID": [
+        "2"
+      ],
+      "id": 2
+    },
+    {
+      "lat": -38.0055,
+      "lng": -57.5426,
+      "ubicacion": "Mar del Plata, Argentina",
+      "postID": [
+        "3",
+        "4"
+      ],
+      "id": 3
+    }
+  ]
 }
