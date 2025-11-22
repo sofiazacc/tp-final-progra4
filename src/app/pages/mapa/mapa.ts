@@ -55,7 +55,7 @@ export class Mapa implements OnInit, AfterViewInit{
       zoom: 5,
       streetViewControl: false,
     });
-    
+
     this.geocoder = new google.maps.Geocoder();
 
     if(this.posts.length > 0){
@@ -97,29 +97,39 @@ export class Mapa implements OnInit, AfterViewInit{
       
       // Abrimos el popup
       this.zone.run(() => {
-        this.marcadorSeleccionado = postsDelGrupo;
+         this.marcadorSeleccionado = null;
         this.direccionActual = ''; 
       });
 
       // 2. Buscamos el nombre
-      this.obtenerNombreDeGoogle(coordenadas.lat, coordenadas.lng);
+      this.obtenerNombreDeGoogle(coordenadas.lat, coordenadas.lng, postsDelGrupo);
     });
   }
 
   //Pop-up
 
-  obtenerNombreDeGoogle(lat: number, lng: number) {
+  obtenerNombreDeGoogle(lat: number, lng: number,  postsDelGrupo: PostModelo[]) {
   const latLng = { lat: lat, lng: lng };
 
   this.geocoder.geocode({ location: latLng }, (resultados: any, status: any) => {
     
     this.zone.run(() => {
       if (status === "OK" && resultados[0]) {
-        // Guardamos la dirección que nos dio Google
-        this.direccionActual = resultados[0].formatted_address;
-      } else {
-        this.direccionActual = "Ubicación desconocida";
-      }
+        const components = resultados[0].address_components;
+        let nombreLugar = '';
+
+         for (let component of components) {
+          if (component.types.includes('locality')) {
+            nombreLugar = component.long_name;
+            break;
+          } else if (component.types.includes('administrative_area_level_2')) {
+            nombreLugar = component.long_name;
+          }
+        }
+        
+        this.direccionActual = nombreLugar || resultados[0].formatted_address;
+      } 
+        this.marcadorSeleccionado = postsDelGrupo; 
     });
 
   });

@@ -13,12 +13,22 @@ export class PopUpMapa {
 
   // Variable para saber la foto actual 
   indiceActual: number = 0;
+  imagenCargando: boolean = false;
 
   //Vamos a obtener el título del lugar usando la API de Maps
   @Input() tituloLugar: string = '';
 
   get postActual(): PostModelo {
     return this.posts[this.indiceActual];
+  }
+
+
+  get puedoIrAdelante(): boolean {
+    return this.posts.length > 1;
+  }
+
+  get puedoIrAtras(): boolean {
+    return this.posts.length > 1;
   }
 
   // Avanzar a la siguiente foto
@@ -38,6 +48,14 @@ export class PopUpMapa {
       this.indiceActual = this.posts.length - 1; 
     }
   }
+  
+  onImagenCargada() {
+  // Cuando carga, agrega la clase
+  const img = document.querySelector('.foto-real') as HTMLImageElement;
+  if (img) {
+    img.classList.add('loaded');
+  }
+}
 
   //LE vamaos a emitir a mapa la señal para ejecutar el método  cerrarPopup()  al cerrar el pop-up
   @Output() close = new EventEmitter<void>();

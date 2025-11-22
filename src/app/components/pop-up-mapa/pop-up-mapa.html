@@ -14,15 +14,15 @@
 
   <div class="carrusel-body">
     
-    <button class="btn-flecha" (click)="anterior()" [disabled]="posts.length <= 1">
+    <button class="btn-flecha" (click)="anterior()" [disabled]="!puedoIrAtras">
       <span class="material-symbols-outlined ">chevron_left</span>
     </button>
 
     <div class="imagen-contenedor">
-      <img [src]="postActual.url" alt="Foto del lugar" class="foto-real">
+      <img [src]="postActual.url" alt="Foto del lugar" class="foto-real" (load)="onImagenCargada()"/>
     </div>
 
-    <button class="btn-flecha" (click)="siguiente()" [disabled]="posts.length <= 1">
+    <button class="btn-flecha" (click)="siguiente()" [disabled]="!puedoIrAdelante">
       <span class="material-symbols-outlined ">chevron_right</span>
     </button>
 
