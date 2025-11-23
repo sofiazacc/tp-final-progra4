@@ -3,7 +3,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { PopUpMapa } from "../../components/pop-up-mapa/pop-up-mapa";
 import { FeedService } from '../../services/feedService';
 import { PostModelo } from '../../models/post';
-import { MarcadorService } from '../../services/marcador-service';
+import { MarcadorService } from '../../services/marcadorService';
 @Component({
   selector: 'app-mapa',
   imports: [GoogleMapsModule, PopUpMapa],
@@ -86,7 +86,7 @@ export class Mapa implements OnInit, AfterViewInit{
       map: this.map,
     });
 
-    marcador.addListener("click", () => {
+    marcadorNuevo.addListener("click", () => {
       
       // Abrimos el popup
       this.zone.run(() => {

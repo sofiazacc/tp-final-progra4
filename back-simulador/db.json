@@ -9,7 +9,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "marioz",
       "localidad": "0675601001",
-      "provincia": "Buenos Aires"
+      "provincia": "Buenos Aires",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "78owmhk",
@@ -20,7 +22,12 @@
       "rol": "fotografo",
       "nombreDeUsuario": "lilom",
       "localidad": "22140030",
-      "provincia": "Chaco"
+      "provincia": "Chaco",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": [
+        2,
+        3
+      ]
     },
     {
       "id": "lcraqx2",
@@ -31,7 +38,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "wewef",
       "localidad": "26021020",
-      "provincia": "Chubut"
+      "provincia": "Chubut",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "j427o2x",
@@ -42,7 +51,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "carlitos",
       "localidad": "06357110",
-      "provincia": "Buenos Aires"
+      "provincia": "Buenos Aires",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "38xa79f",
@@ -53,7 +64,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "peteralfo",
       "localidad": "58035110",
-      "provincia": "Neuquén"
+      "provincia": "Neuquén",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "jr9w4bt",
@@ -75,7 +88,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "julito10",
       "localidad": "62084020",
-      "provincia": "Río Negro"
+      "provincia": "Río Negro",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     }
   ],
   "posts": [

@@ -12,10 +12,12 @@ export class FavoritosService {
 
   private usuarios = 'http://localhost:3000/usuarios';
 
+
+
   //Verificamos si es favorito
   esFavorito(marcadorID: string):boolean {
-    const usuarioActual = this.usuarioService.getUsuarioLogueado() as Fotografo;
-    return usuarioActual.marcadoresGuardadosID?.includes(marcadorID) || false;
+    const usuarioActual = this.usuarioService.getfotografoActual();
+    return usuarioActual!.marcadoresGuardadosID?.includes(marcadorID) || false;
   }
 
 //Marcar o desmarcar como favorito
@@ -33,7 +35,10 @@ export class FavoritosService {
 
     const datosActualizados = { marcadoresGuardadosID: marcadoresGuardados };
 
-    return this.http.put<Fotografo>(`${this.usuarios}/${usuarioActual.id}`, datosActualizados).pipe(
+    return this.http.patch<Fotografo>(
+  `http://localhost:3000/usuarios/${usuarioActual.id}/favoritos`, 
+  datosActualizados
+).pipe(
       //Actualizamos el usuario en el localStorage
 
       tap(() => {

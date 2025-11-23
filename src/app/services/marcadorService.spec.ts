@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MarcadorService } from './marcador-service';
+import { MarcadorService } from './marcadorService';
 
 describe('MarcadorService', () => {
   let service: MarcadorService;

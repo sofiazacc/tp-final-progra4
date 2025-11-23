@@ -26,12 +26,12 @@
       <span class="material-symbols-outlined ">chevron_right</span>
     </button>
 
-      <button class="btn-favorito">
+
+  </div>
+  <button class="btn-favorito" [class.activo]="esFavorito" (click)="marcarDesmarcarComoFavorito()">
     <span class="material-symbols-outlined">
-      favorite_border
+      {{ esFavorito ? 'favorite' : 'favorite_border' }}
     </span>
   </button>
-  </div>
-
   
 </div>
