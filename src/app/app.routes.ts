@@ -5,6 +5,7 @@ import { Feed } from './pages/feed/feed';
 import { authGuard } from './guards/auth-guard';
 import { Caculadora500Component } from './components/caculadora500-component/caculadora500-component';
 import { CaculadoraHorasMagicasComponent } from './components/caculadora-horas-magicas-component/caculadora-horas-magicas-component';
+import { PosicionViaLacteaComponent } from './components/posicion-via-lactea/posicion-via-lactea';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'home', component: Home },
     {path: 'calculators', component: Caculadora500Component},
     {path: 'calculators2', component: CaculadoraHorasMagicasComponent},
+    {path: 'viaLactea', component: PosicionViaLacteaComponent},
     {path: 'feed', component: Feed, canActivate: [authGuard] },
 ];
