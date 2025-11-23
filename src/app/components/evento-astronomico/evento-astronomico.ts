@@ -24,11 +24,10 @@ export class EventoAstronomicoComponente {
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&details=${descripcion}&dates=${inicio}/${fin}`;
   }
 
-  comprobarSiEsEventoActual(): boolean {
-    const ahora = new Date();
-    const inicio = new Date(this.evento.fecha_inicio  + 'T03:00:00Z');
-    const fin = new Date(this.evento.fecha_fin  + 'T03:00:00Z');
-    return ahora >= inicio && ahora <= fin;
+  mostrarBotonAgendar(): boolean {
+    const fechaActual = new Date();
+    const fechaInicio = new Date(this.evento.fecha_inicio || this.evento.fechaInicio);
+    return fechaActual < fechaInicio;
   }
 
   abrirCalendar(): void {
