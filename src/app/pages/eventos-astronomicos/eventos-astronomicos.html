@@ -3,14 +3,14 @@
   <div class="acciones-superiores">
     <h2>Próximos Eventos</h2>
     <div class="botones">
-        <button>Filtrar</button>
-        <button>Ordenar</button>
+        <button class="btn-ghost">Filtrar</button>
+        <button class="btn-ghost">Ordenar</button>
     </div>
   </div>
 
   <div class="lista-container">
     @if (listadoEventos.length === 0) {
-        <p>Cargando eventos...</p>
+        <p class="cargando">Cargando eventos...</p>
     }
     @for(evento of listadoEventos; track evento.id) {
         <app-evento-astronomico [evento]="evento"></app-evento-astronomico>
