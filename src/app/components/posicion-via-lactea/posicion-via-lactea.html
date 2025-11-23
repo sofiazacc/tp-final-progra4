@@ -1,0 +1,151 @@
+<h2>Calculadora de Posición de la Vía Láctea</h2>
+
+<form [formGroup]="formulario" class="form">
+
+  <div class="ubicacion-rapida">
+    <button type="button" (click)="usarUbicacionActual()" class="btn-ubicacion">
+      Usar mi ubicación actual
+    </button>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Latitud</label>
+      <input 
+        type="number" 
+        formControlName="latitud" 
+        placeholder="Ej: -38.0055"
+        step="0.0001">
+      <small>Rango: -90 a 90</small>
+    </div>
+
+    <div class="form-group">
+      <label>Longitud</label>
+      <input 
+        type="number" 
+        formControlName="longitud" 
+        placeholder="Ej: -57.5426"
+        step="0.0001">
+      <small>Rango: -180 a 180</small>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Fecha</label>
+      <input type="date" formControlName="fecha">
+    </div>
+
+    <div class="form-group">
+      <label>Hora</label>
+      <input type="time" formControlName="hora">
+    </div>
+  </div>
+
+  <div class="botones">
+    <button 
+      type="button" 
+      (click)="calcularPosicionActual()"
+      [disabled]="formulario.invalid"
+      class="btn-primary">
+      Calcular Posición Actual
+    </button>
+
+    <button 
+      type="button" 
+      (click)="analizarDiaCompleto()"
+      [disabled]="formulario.invalid"
+      class="btn-secondary">
+      Analizar Día Completo
+    </button>
+  </div>
+</form>
+
+<!-- Resultado de posición actual -->
+@if(posicionActual && !mostrarAnalisisDia) {
+  <div class="resultado">
+    <h3>Posición del Centro Galáctico</h3>
+    
+    <div class="datos-principales" [style.border-left-color]="altitudColor">
+      <div class="dato">
+        <span class="label">Azimut:</span>
+        <span class="valor">{{ posicionActual.azimut }}°</span>
+        <span class="extra">({{ posicionActual.direccionCardinal }})</span>
+      </div>
+
+      <div class="dato">
+        <span class="label">Altitud:</span>
+        <span class="valor">{{ posicionActual.altitud }}°</span>
+      </div>
+
+      <div class="dato">
+        <span class="label">Visibilidad:</span>
+        <span class="valor" [class.visible]="posicionActual.visible" [class.no-visible]="!posicionActual.visible">
+          {{ posicionActual.visible ? 'Visible' : 'No visible' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="evaluacion">
+      <p><strong>Evaluación:</strong> {{ obtenerEvaluacion(posicionActual) }}</p>
+    </div>
+
+    <div class="info-extra">
+      <p class="ayuda">
+        <strong>Azimut:</strong> 0°=Norte, 90°=Este, 180°=Sur, 270°=Oeste<br>
+        <strong>Altitud:</strong> 0°=Horizonte, 90°=Cenit (arriba), negativo=bajo horizonte
+      </p>
+    </div>
+  </div>
+}
+
+<!-- Análisis del día completo -->
+@if(mostrarAnalisisDia) {
+  <div class="resultado">
+    <h3>Análisis del Día Completo</h3>
+
+    @if(mejorMomento) {
+      <div class="mejor-momento">
+        <h4>Mejor Momento para Fotografiar (Durante la Noche)</h4>
+        <p><strong>Hora:</strong> {{ mejorMomento.horaCalculo | date:'HH:mm' }}</p>
+        <p><strong>Azimut:</strong> {{ mejorMomento.azimut }}° ({{ mejorMomento.direccionCardinal }})</p>
+        <p><strong>Altitud máxima:</strong> {{ mejorMomento.altitud }}°</p>
+        <p><strong>Evaluación:</strong> {{ obtenerEvaluacion(mejorMomento) }}</p>
+      </div>
+    } @else {
+      <div class="alerta-info">
+        <p>La Vía Láctea no es visible durante la noche en esta fecha y ubicación.</p>
+        <p>Puede estar bajo el horizonte durante toda la noche o solo visible durante el día.</p>
+      </div>
+    }
+
+    <div class="tabla-horas">
+      <h4>Posiciones por Hora</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Azimut</th>
+            <th>Altitud</th>
+            <th>Visible</th>
+            <th>Noche</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(pos of posicionesDia; track pos.horaCalculo) {
+            <tr 
+              [class.destacado]="pos.altitud > 30 && pos.esDeNoche" 
+              [class.no-visible]="!pos.visible"
+              [class.dia]="!pos.esDeNoche">
+              <td>{{ pos.horaCalculo | date:'HH:mm' }}</td>
+              <td>{{ pos.azimut }}° {{ pos.direccionCardinal }}</td>
+              <td>{{ pos.altitud }}°</td>
+              <td>{{ pos.visible ? 'Sí' : 'No' }}</td>
+              <td>{{ pos.esDeNoche ? 'Sí' : 'No' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}
