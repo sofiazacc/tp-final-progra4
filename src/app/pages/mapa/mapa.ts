@@ -4,6 +4,7 @@ import { PopUpMapa } from "../../components/pop-up-mapa/pop-up-mapa";
 import { FeedService } from '../../services/feedService';
 import { PostModelo } from '../../models/post';
 import { MarcadorService } from '../../services/marcadorService';
+import { AsyncSubject } from 'rxjs';
 @Component({
   selector: 'app-mapa',
   imports: [GoogleMapsModule, PopUpMapa],
@@ -25,6 +26,7 @@ export class Mapa implements OnInit, AfterViewInit{
 
   marcadorSeleccionado: PostModelo[] | null = null;
   marcadorSeleccionadoId: string | null = null;
+  marcadorCoordenadas: { top: string, left: string } | null = null; 
 
   ngOnInit(): void {
     //Obtenemos los posts para mostrarlos en el mapa
@@ -86,13 +88,18 @@ export class Mapa implements OnInit, AfterViewInit{
       map: this.map,
     });
 
-    marcadorNuevo.addListener("click", () => {
+    marcadorNuevo.addListener("click", (e:any) => {
       
       // Abrimos el popup
       this.zone.run(() => {
          this.marcadorSeleccionado = null;
         this.direccionActual = ''; 
         this.marcadorSeleccionadoId = marcador.id;
+
+        this.marcadorCoordenadas = {
+            top: (e.domEvent.clientY - 20) + 'px', // Un poco arriba del mouse
+            left: e.domEvent.clientX + 'px'
+        };
       });
 
       // 2. Buscamos el nombre

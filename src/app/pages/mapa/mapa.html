@@ -1,6 +1,7 @@
-<div class="contenedor-mapa">
-  <div id="map"></div> @if (marcadorSeleccionado) {
-    <div class="capa-flotante">
+<div class="contenedor-mapa"> 
+  <div id="map"></div> 
+    @if(marcadorSeleccionado) {
+        <div class="capa-flotante" [style.top]="marcadorCoordenadas!.top" [style.left]="marcadorCoordenadas!.left">
       <app-pop-up-mapa
         [posts]="marcadorSeleccionado" 
         [tituloLugar]="direccionActual"
@@ -8,5 +9,5 @@
         (close)="cerrarPopup()"> 
       </app-pop-up-mapa>
     </div>
-  }
+    }
 </div>
