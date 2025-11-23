@@ -24,9 +24,10 @@ export class EventoAstronomicoComponente {
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&details=${descripcion}&dates=${inicio}/${fin}`;
   }
 
+  //'T03:00:00Z' -> Ajuste de zona horaria para evitar desfases
   mostrarBotonAgendar(): boolean {
     const fechaActual = new Date();
-    const fechaInicio = new Date(this.evento.fecha_inicio || this.evento.fechaInicio);
+    const fechaInicio = new Date(this.evento.fecha_inicio + 'T03:00:00Z' || this.evento.fechaInicio + 'T03:00:00Z');
     return fechaActual < fechaInicio;
   }
 
