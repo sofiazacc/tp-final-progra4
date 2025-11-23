@@ -1,0 +1,49 @@
+<div class="contenedor-mapa"> 
+  <div id="map"></div> 
+
+  <button class="btn-favoritos-flotante" [class.corrido]="mostrandoFavoritos" (click)="desplegarFavoritos()">
+    <span class="material-symbols-outlined">favorite</span>
+  </button>
+
+    <div class="panel-favoritos" [class.abierto]="mostrandoFavoritos">
+    <div class="panel-header">
+      <h2>Lugares Favoritos</h2>
+      <button class="btn-cerrar-panel" (click)="desplegarFavoritos()">×</button>
+    </div>
+    <div class="panel-contenido">
+      @if (marcadoresFavoritos.length > 0) {
+        <ul class="lista-favoritos">
+          @for (marcador of marcadoresFavoritos; track marcador.id) {
+            <li class="item-favorito">
+              <span class="nombre-lugar">{{ marcador.ubicacion }}</span>
+
+              <div class="botones-accion">
+               <button class="btn-ver" (click)="verMarcadorEnMapa(marcador)" title="Ver lugar">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+              <button class="btn-quitar" (click)="quitarFavorito(marcador.id)">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              </div>
+
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="sin-favoritos">No tienes lugares guardados</p>
+      }
+    </div>
+  </div>
+
+    @if(marcadorSeleccionado) {
+        <div class="capa-flotante" [style.top]="marcadorCoordenadas!.top" [style.left]="marcadorCoordenadas!.left">
+      <app-pop-up-mapa
+        [posts]="marcadorSeleccionado" 
+        [tituloLugar]="direccionActual"
+        [class.corrido]="mostrandoFavoritos"
+        [marcadorId]="marcadorSeleccionadoId"
+        (close)="cerrarPopup()"> 
+      </app-pop-up-mapa>
+    </div>
+    }
+</div>

@@ -1,0 +1,92 @@
+<article class="tarjeta">
+    
+  <div class="columna-izquierda">
+    <div class="circulo-visual">
+      
+    <div class="fondo-estrellas"></div>
+
+      @switch (evento.tipo_evento) {
+        
+        @case ('Lluvia de Meteoros') {
+          <div class="anim-meteoros">
+            <div class="estrella e1"></div>
+            <div class="estrella e2"></div>
+            <div class="estrella e3"></div>
+             <div class="estrella e4"></div>
+            <div class="estrella e5"></div>
+            <div class="estrella e6"></div>
+          </div>
+        }
+        
+        @case ('Eclipse') {
+          <div class="anim-eclipse">
+            <div class="sol"></div>
+            <div class="sombra"></div>
+          </div>
+        }
+        
+        @case ('Evento Planetario') {
+          <div class="anim-planeta">
+            <div class="planeta-cuerpo"></div>
+            <div class="anillo"></div>
+          </div>
+        }
+        
+        @case ('Fase Lunar') {
+          <div class="anim-fase-luna">
+            <div class="luna-fases"></div>
+          </div>
+        }
+        
+        @case ('Evento Estacional') {
+          <div class="anim-estacional">
+            <div class="sol-estacional"></div>
+            <div class="rayos">
+              <div class="rayo r1"></div>
+              <div class="rayo r2"></div>
+              <div class="rayo r3"></div>
+              <div class="rayo r4"></div>
+            </div>
+          </div>
+        }
+        
+        @case ('Evento de Asteroide') {
+          <div class="anim-asteroide">
+            <div class="asteroide"></div>
+          </div>
+        }
+        
+        @default {
+          <div class="anim-planeta">
+            <div class="planeta-cuerpo"></div>
+            <div class="anillo"></div>
+          </div>
+        }
+      }
+    </div>
+    
+
+    <span class="etiqueta">{{ evento.tipo_evento }}</span>
+  </div>
+
+  <div class="columna-centro">
+    <span class="fecha">
+      {{ evento.fecha_inicio | date:'fullDate' }}
+    </span>
+    
+    <p>{{ evento.descripcion }}</p>
+  </div>
+
+  <div class="columna-derecha">
+
+    @if(mostrarBotonAgendar()) {
+        <button class="boton-calendario" 
+            (click)="abrirCalendar()"
+            title="Agendar en Google Calendar">
+            <span class="material-icons">edit_calendar</span>
+        </button>
+    }
+
+
+  </div>
+</article>

@@ -1,0 +1,11 @@
+<div class="feed-container">
+  <h1>Feed de Fotos</h1>
+  
+  @for(post of FeedService.posts; track post.id) {
+    <app-post [postData]="post"></app-post>
+  }
+  
+  @empty {
+    <p>No hay posts para mostrar</p>
+  }
+</div>

@@ -1,0 +1,154 @@
+
+.popup-card {
+  background: #ffffff;
+  width: 320px; 
+  padding: 20px;
+  border-radius: 10px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+    z-index: 10000; 
+}
+
+
+.lugar-titulo {
+  text-align: center;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.lugar-info {
+  margin-bottom: 10px;
+}
+
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.icono-usuario{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #E8DEF8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5b4a75;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  text-decoration: underline; 
+}
+
+
+.carrusel-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.imagen-contenedor {
+  flex-grow: 1;
+  height: 180px; 
+  background-color: #F3E5F5; 
+  border-radius: 16px; 
+  overflow: hidden; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+
+.btn-flecha {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.btn-flecha:hover {
+  transform: scale(1.2);
+  color: #000;
+}
+
+.btn-flecha:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.material-symbols-outlined {
+  font-size: 24px;
+}
+
+.btn-favorito {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ddd;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.btn-favorito.activo {
+  color: #ff6b6b;
+  transform: scale(1.2);
+}
+
+.btn-favorito:hover {
+  color: #ff6b6b;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.5));
+}
+
+
+
+.separador {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+  margin: 0 -20px; 
+}

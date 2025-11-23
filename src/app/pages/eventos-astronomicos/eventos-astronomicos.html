@@ -1,0 +1,77 @@
+<div class="container-principal">
+  
+  <div class="acciones-superiores">
+    <h2>Eventos Cósmicos</h2>
+    
+    <div class="botones">
+        <button class="btn-ghost" (click)="siNoFechas()" [class.activo]="mostrarFiltroFechas">
+              <span class="material-icons">edit_calendar</span>
+               Fechas
+        </button>
+        <button class="btn-ghost" (click)="siNoTipos()" [class.activo]="mostrarFiltroTipos"> 
+            <span class="material-symbols-outlined">check_box</span>
+            Tipos
+        </button>
+        <button class="btn-ghost" (click)="siNoOrden()" [class.activo]="mostrarOrden">⇅ Ordenar</button>
+    </div>
+  </div>
+
+  <div class="panel-desplegable" [class.abierto]="mostrarFiltroFechas">
+    <div class="contenido-panel fechas-layout">
+        <div class="grupo-input">
+            <label>Desde</label>
+            <input type="date" [(ngModel)]="fechaInicioFiltro" (change)="aplicarFiltro()" [min]="minFecha" [max]="maxFecha">
+        </div>
+        <div class="grupo-input">
+            <label>Hasta</label>
+            <input type="date" [(ngModel)]="fechaFinFiltro" (change)="aplicarFiltro()" [min]="minFecha" [max]="maxFecha">
+        </div>
+    </div>
+  </div>
+
+  <div class="panel-desplegable" [class.abierto]="mostrarFiltroTipos">
+    <div class="contenido-panel tipos-layout">
+        <p class="titulo-panel">Filtrar por categoría:</p>
+        <div class="chips-container">
+            @for(tipo of tiposDeEventosSinDuplicados; track tipo) {
+                <button class="chip-filtro" 
+                        [class.seleccionado]="tiposSeleccionados.has(tipo)"
+                        (click)="seleccionarTipo(tipo)">
+                    {{ tipo }}
+                </button>
+            }
+        </div>
+    </div>
+  </div>
+
+  <div class="panel-desplegable" [class.abierto]="mostrarOrden">
+    <div class="contenido-panel orden-layout">
+        <button class="chip-orden" 
+                [class.seleccionado]="ordenAscendente" 
+                (click)="cambiarOrden(true)">
+            Más Próximos (Asc)
+        </button>
+        <button class="chip-orden" 
+                [class.seleccionado]="!ordenAscendente" 
+                (click)="cambiarOrden(false)">
+            Más Lejanos (Desc)
+        </button>
+    </div>
+  </div>
+
+  @if(fechaInicioFiltro || fechaFinFiltro || tiposSeleccionados.size > 0) {
+      <div class="zona-limpiar">
+          <button class="btn-limpiar-todo" (click)="limpiarFiltros()">Limpiar Filtros ✕</button>
+      </div>
+  }
+
+  <div class="lista-container">
+    @if (listadoEventosFiltrados.length === 0) {
+        <p class="cargando">Cargando</p>
+    }
+    @for(evento of listadoEventosFiltrados; track evento.id) {
+        <app-evento-astronomico [evento]="evento"></app-evento-astronomico>
+    }
+  </div>
+
+</div>

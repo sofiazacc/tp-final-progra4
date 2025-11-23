@@ -1,0 +1,185 @@
+<div class="contenedor" [class.mostrar-login]="esLogin">
+
+  <div class="imagen"></div>
+
+  <div class="formulario" id="registro">
+    <h2>Registro</h2>
+    
+    <form [formGroup]="registroForm" (ngSubmit)="onRegistroSubmit()">
+
+      <div class="campoForm">
+        @if(reg['nombre'].invalid && (reg['nombre'].dirty || reg['nombre'].touched)){
+          <div class="error">
+            @if(reg['nombre'].errors?.['required']){
+              <div>El nombre es requerido</div> <!--Charlar si poner p o div--> 
+            }
+            @if(reg['nombre'].errors?.['pattern']){
+              <div>El nombre solo puede contener letras</div>
+            }
+          </div>
+        }
+        <input type="text" formControlName="nombre" placeholder="Nombre">
+      </div>
+
+      <div class="campoForm">
+        @if(reg['apellido'].invalid && (reg['apellido'].dirty || reg['apellido'].touched)){
+          <div class="error">
+            @if(reg['apellido'].errors?.['required']){
+              <div>El apellido es requerido</div>
+            }
+            @if(reg['apellido'].errors?.['pattern']){
+              <div>El apellido solo puede contener letras</div>
+            }
+          </div>
+        }
+       <input type="text" formControlName="apellido" placeholder="Apellido">
+      </div>
+
+
+      <div class="campoForm">
+        @if(reg['username'].invalid && (reg['username'].dirty || reg['username'].touched)){
+          <div class="error">
+            @if(reg['username'].errors?.['required']){
+              <div>El nombre de usuario es requerido</div>
+            }
+            @if(reg['username'].errors?.['pattern']){
+              <div>El nombre de usuario solo puede contener letras, números y guiones</div>
+            }
+            @if(reg['username'].errors?.['unico']){
+              <div>El nombre de usuario ya está registrado</div>
+            }
+          </div>
+        }
+        <input type="text" formControlName="username" placeholder="Usuario">
+      </div>
+
+
+      <div class="campoForm">
+        @if(reg['provincia'].invalid && (reg['provincia'].dirty || reg['provincia'].touched)){
+          <div class="error">
+            @if(reg['provincia'].errors?.['required']){
+              <div>La provincia es requerida</div>
+            }
+          </div>
+        }
+
+        <select formControlName="provincia" (change)="cambioDeProvincia($event)">
+          <option value="">Selecciona una provincia</option>
+          
+          @for(provincia of provincias; track provincia.id){
+            <option [value]="provincia.id">
+              {{ provincia.nombre }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="campoForm">
+        @if(reg['localidad'].invalid && (reg['localidad'].dirty || reg['localidad'].touched)){
+          <div class="error">
+            @if(reg['localidad'].errors?.['required']){
+              <div>La localidad es requerida</div>
+            }
+          </div>
+        }
+
+        <select formControlName="localidad">
+        <option value="">Selecciona una localidad</option>
+        
+          @for(localidad of localidades; track localidad.id){
+            <option [value]="localidad.id">
+              {{ localidad.nombre }}
+            </option>
+          }
+      </select>
+      </div>
+      
+      <div class="campoForm">
+        @if(reg['email'].invalid && (reg['email'].dirty || reg['email'].touched)){
+          <div class="error">
+            @if(reg['email'].errors?.['required']){
+              <div>El email es requerido</div>
+            }
+            @if(reg['email'].errors?.['email']){
+              <div>El email no es válido</div>
+            }
+            @if(reg['email'].errors?.['pattern']){
+              <div>El formato del email no es el correcto</div>
+            }
+            @if(reg['email'].errors?.['unico']){
+              <div>El email ya está registrado</div>
+            }
+          </div>
+        }
+        <input type="email" formControlName="email" placeholder="Email">
+      </div>
+
+      <div class="campoForm">
+        @if(reg['contra'].invalid && (reg['contra'].dirty || reg['contra'].touched)){
+          <div class="error">
+            @if(reg['contra'].errors?.['required']){
+              <div>La contraseña es requerida</div>
+            }
+            @if(reg['contra'].errors?.['minlength']){
+              <div>La contraseña debe tener al menos 8 caracteres</div>
+            }
+            @if(reg['contra'].errors?.['pattern']){
+              <div>La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial</div>
+            }
+          </div>
+        }
+       <input type="password" formControlName="contra" placeholder="Contraseña">
+      </div>
+
+      <button type="submit">Registrarse</button>
+    </form>
+    
+    <p class="enlace">¿Ya tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = true">Inicia Sesión</a></p>
+  </div>
+
+  <div class="formulario" id="login">
+    <h2>Iniciar Sesión</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+
+      <div class="campoForm">
+       @if(log['email'].invalid && (log['email'].dirty || log['email'].touched)){
+      <div class="error">
+        @if(log['email'].errors?.['invalido']){
+          <div>El email no está registrado</div>
+        }@else{
+          @if(log['email'].errors?.['required']){
+            <div>El email es requerido</div>
+          }
+          @if(log['email'].errors?.['email']){
+            <div>El email no es válido</div>
+          }
+        }
+      </div>
+}
+        <input type="email" formControlName="email" placeholder="Email" [class.is-invalid]="log['email'].invalid && log['email'].touched">
+      </div>
+
+      <div class="campoForm">
+        @if(log['contra'].invalid && (log['contra'].dirty || log['contra'].touched)){
+          <div class="error">
+            @if(log['contra'].errors?.['required']){
+              <div>La contraseña es requerida</div>
+            }
+            @if(log['contra'].errors?.['minlength']){
+              <div>La contraseña debe tener al menos 8 caracteres</div>
+            }
+            @if(log['contra'].errors?.['invalido']){
+              <div>La contraseña es incorrecta</div>
+            }
+          </div>
+        }
+       <input type="password" formControlName="contra" placeholder="Contraseña" [class.is-invalid]="log['contra'].invalid && log['contra'].touched">
+      </div>
+
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <p class="enlace">¿No tenés cuenta? <a href="javascript:void(0)" (click)="esLogin = false">Regístrate</a></p>
+  </div>
+</div>
