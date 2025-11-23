@@ -1,5 +1,10 @@
 <div class="contenedor-mapa"> 
   <div id="map"></div> 
+
+  <button class="btn-favoritos-flotante">
+    <span class="material-symbols-outlined">favorite</span>
+  </button>
+
     @if(marcadorSeleccionado) {
         <div class="capa-flotante" [style.top]="marcadorCoordenadas!.top" [style.left]="marcadorCoordenadas!.left">
       <app-pop-up-mapa
