@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventoAstronomico } from '../../models/eventoAstronomico';
 import { EventosAstronomicosService } from '../../services/eventosAstronomicosService';
+import { EventoAstronomicoComponente } from "../../components/evento-astronomico/evento-astronomico";
 
 @Component({
   selector: 'app-articulos-astronomicos',
-  imports: [],
+  imports: [EventoAstronomicoComponente],
   templateUrl: './eventos-astronomicos.html',
   styleUrl: './eventos-astronomicos.css',
 })
