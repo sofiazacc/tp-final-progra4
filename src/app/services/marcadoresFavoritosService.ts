@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './authService';
 import { Fotografo } from '../models/usuario';
 import { Observable, tap } from 'rxjs';
+import { Marcador } from '../models/marcador';
+import { MarcadorService } from './marcadorService';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritosService {
-  constructor(private http: HttpClient, private usuarioService: AuthService) {}
+  constructor(private http: HttpClient, private usuarioService: AuthService, private marcadoresService: MarcadorService) {}
 
   private usuarios = 'http://localhost:3000/usuarios';
 
@@ -46,6 +48,28 @@ export class FavoritosService {
         this.usuarioService.guardarUsuario(usuarioActualizadoLocal as Fotografo);
       })
     );
+  }
+
+  obtenerMarcadoresFavoritos(): Observable<Marcador[]> {
+    const fotografoActual = this.usuarioService.getfotografoActual();
+
+    if(!fotografoActual || !fotografoActual.marcadoresGuardadosID || fotografoActual.marcadoresGuardadosID.length === 0){
+      return new Observable<Marcador[]>(observer => {
+        observer.next([]);
+        observer.complete();
+      });
+
+    }
+
+    //Obtenemos los marcadores por sus IDs y correspondientes al fotógrafo actual
+    return new Observable<Marcador[]>(observer => {
+      this.marcadoresService.getMarcadoresPorIds(fotografoActual.marcadoresGuardadosID!).subscribe(marcadores => {
+        const favoritos = marcadores.filter(marcador => fotografoActual.marcadoresGuardadosID!.includes(marcador.id!));
+        observer.next(favoritos);
+        observer.complete();
+      });
+    });
+
   }
 
 }

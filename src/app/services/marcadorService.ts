@@ -16,6 +16,11 @@ export class MarcadorService {
     return this.http.get<Marcador[]>(this.urlMarcadores);
   }
 
+  getMarcadoresPorIds(ids: string[]): Observable<Marcador[]> {
+    const query = ids.map(id => `id=${id}`).join('&');
+    return this.http.get<Marcador[]>(`${this.urlMarcadores}?${query}`);
+  }
+  
   postMarcador(marcador: any): Observable<Marcador> {
     return this.http.post<Marcador>(this.urlMarcadores, marcador);
   }
