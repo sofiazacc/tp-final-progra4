@@ -1,0 +1,36 @@
+.btn-agregar {
+  position: fixed;
+  bottom: 3vh;
+  right: 30px;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #292828;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  box-shadow: 0 4px 12px rgba(27, 26, 26, 0.4);
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.btn-agregar[class*="corrido"],
+.panel-favoritos.abierto ~ .btn-favoritos-flotante {
+  right: 380px;
+}
+
+.btn-btn-agregar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(8, 8, 8, 0.6);
+}
+
+.feed-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
