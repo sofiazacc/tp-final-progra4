@@ -94,6 +94,8 @@ export class PopUpMapa implements OnInit{
        //Actualizamos el estado del favorito
         next: () => {
           this.esFavorito = !this.esFavorito;
+
+          window.dispatchEvent(new CustomEvent('favoritoActualizado'));
         },
         error: (e) => console.log(e)
       });

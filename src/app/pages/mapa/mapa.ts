@@ -31,6 +31,11 @@ export class Mapa implements OnInit, AfterViewInit{
   marcadorCoordenadas: { top: string, left: string } | null = null; 
 
   ngOnInit(): void {
+    window.addEventListener('favoritoActualizado', () => {
+    if(this.mostrandoFavoritos) {
+      this.cargarMarcadoresFavoritos();
+    }
+  });
     //Obtenemos los posts para mostrarlos en el mapa
     this.feedService.getPosts().subscribe({
       next: (data) => {
@@ -170,5 +175,22 @@ export class Mapa implements OnInit, AfterViewInit{
       // Actualizamos la lista de favoritos
       this.cargarMarcadoresFavoritos();
     });
+  }
+
+  verMarcadorEnMapa(marcador: Marcador) {
+    const postsDelGrupo = this.posts.filter(post => marcador.postID.includes(post.id));
+
+    this.zone.run(() => {
+      this.marcadorSeleccionado = null;
+      this.marcadorSeleccionadoId = marcador.id;
+      this.marcadorCoordenadas = {
+        top: '50vh', // Centrado verticalmente
+        left: '50vw' // Centrado horizontalmente
+      };
+    });
+
+    this.obtenerNombreDeGoogle(marcador.lat, marcador.lng, postsDelGrupo);  
+
+    this.mostrandoFavoritos = false;
   }
 }
