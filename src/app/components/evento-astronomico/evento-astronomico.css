@@ -1,0 +1,480 @@
+
+:host {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+.tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+
+.columna-izquierda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  text-align: center;
+}
+
+.circulo-visual {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #000;
+  position: relative;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.nombre-evento-mini {
+  margin: 5px 0 4px 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  max-width: 140px;
+  text-transform: capitalize;
+}
+
+.etiqueta {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+
+.columna-centro {
+  flex-grow: 1;
+}
+
+.fecha {
+  display: block;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.columna-centro p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #dcdcdc;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+
+.columna-derecha {
+  display: flex;
+  align-items: center;
+}
+
+.boton-calendario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.boton-calendario:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  transform: scale(1.15);
+}
+
+.material-icons {
+  font-size: 24px;
+}
+
+
+
+/* 1. METEOROS */
+.anim-meteoros {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.estrella {
+  position: absolute;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), #fff);
+  border-radius: 4px;
+  box-shadow: 0 0 8px #fff;
+  opacity: 0;
+}
+
+.e1 {
+  width: 50px;
+  top: 25px;
+  left: 10px;
+  animation: disparoMeteoro 2.5s infinite ease-out;
+}
+
+.e2 {
+  width: 70px;
+  top: 50px;
+  left: -5px;
+  animation: disparoMeteoro 2.5s infinite ease-out 0.8s;
+}
+
+.e3 {
+  width: 45px;
+  top: 35px;
+  left: 45px;
+  animation: disparoMeteoro 2.5s infinite ease-out 1.5s;
+}
+
+@keyframes disparoMeteoro {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(90px) translateY(90px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* 2. PLANETA */
+.anim-planeta {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.planeta-cuerpo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #444, #000);
+  box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
+              0 0 15px rgba(255, 255, 255, 0.1);
+  position: absolute;
+  transform: rotateX(15deg);
+  z-index: 2;
+}
+
+.anillo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  border-top: 3px solid #fff;
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+  transform: rotateX(80deg);
+  animation: orbitaAnillo 6s linear infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes orbitaAnillo {
+  0% {
+    transform: rotateX(80deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(80deg) rotateZ(360deg);
+  }
+}
+
+/* 3. ECLIPSE / LUNA  */
+.anim-eclipse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.sol {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f5f5f5, #b0b0b0);
+  box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2),
+              inset 2px 2px 5px rgba(255, 255, 255, 0.4),
+              0 0 15px rgba(255, 255, 255, 0.3);
+  position: absolute;
+  transform: rotateX(15deg);
+  z-index: 2;
+}
+
+.sombra {
+  width: 40px;
+  height: 40px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
+  animation: pasoEclipse 4s infinite ease-in-out;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes pasoEclipse {
+  0% { transform: translate(-42px, -18px); }
+  50% { transform: translate(0, 0); }
+  100% { transform: translate(42px, 18px); }
+}
+
+/* 4. ESTACIONES */
+.anim-estacional {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.sol-estacional {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ddd;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  animation: pulsoSol 3s infinite ease-in-out;
+}
+
+.rayos {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotacionRayos 10s linear infinite;
+}
+
+.rayo {
+  position: absolute;
+  background: #fff;
+  width: 4px;
+  height: 12px;
+  top: 8px;
+  left: 50%;
+  margin-left: -2px;
+  border-radius: 2px;
+}
+
+.r1 { transform: rotate(0deg) translateY(-26px); }
+.r2 { transform: rotate(90deg) translateY(-26px); }
+.r3 { transform: rotate(180deg) translateY(-26px); }
+.r4 { transform: rotate(270deg) translateY(-26px); }
+
+@keyframes rotacionRayos {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulsoSol {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* 5. FASE LUNAR */
+.anim-fase-luna {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+}
+
+.luna-fases {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle at 30% 30%, #fff, #d0d0d0);
+  box-shadow: inset -5px -5px 12px rgba(0, 0, 0, 0.2),
+              inset 2px 2px 6px rgba(255, 255, 255, 0.3),
+              0 0 20px rgba(255, 255, 255, 0.3);
+  transform: rotateX(20deg);
+}
+
+
+.luna-fases::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #000;
+  top: 0;
+  left: 0;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+
+  animation: fasesLunar 8s infinite ease-in-out;
+}
+
+
+.luna-fases::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+  animation: brilloLunarPulso 8s infinite ease-in-out;
+}
+
+@keyframes fasesLunar {
+  0% {
+    /* Luna nueva */
+    clip-path: inset(0 0 0 0);
+  }
+  12.5% {
+    /* Creciente inicial */
+    clip-path: inset(0 75% 0 0);
+  }
+  25% {
+    /* Cuarto creciente */
+    clip-path: inset(0 50% 0 0);
+  }
+  37.5% {
+    /* Creciente avanzado */
+    clip-path: inset(0 25% 0 0);
+  }
+  50% {
+    /* Luna llena - sin sombra */
+    clip-path: inset(0 100% 0 0);
+  }
+  62.5% {
+    /* Menguante inicial */
+    clip-path: inset(0 0 0 75%);
+  }
+  75% {
+    /* Cuarto menguante */
+    clip-path: inset(0 0 0 50%);
+  }
+  87.5% {
+    /* Menguante avanzado */
+    clip-path: inset(0 0 0 25%);
+  }
+  100% {
+    /* Luna nueva */
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes brilloLunarPulso {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.8; }
+}
+/* 6. ASTEROIDE */
+.anim-asteroide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.asteroide {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #2a2a2a, #0a0a0a);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset -3px -3px 8px rgba(255, 255, 255, 0.1),
+              inset 1px 1px 3px rgba(255, 255, 255, 0.08),
+              0 0 12px rgba(255, 255, 255, 0.12);
+  animation: giroAsteroide 4s linear infinite;
+}
+
+.asteroide::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  top: 8px;
+  left: 12px;
+  box-shadow: 16px 10px 0 -4px rgba(0, 0, 0, 0.4),
+              10px 18px 0 -5px rgba(0, 0, 0, 0.3);
+}
+
+.asteroide::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0%, rgba(255, 255, 255, 0.15) 70%, transparent 100%);
+}
+
+@keyframes giroAsteroide {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+
+@media(max-width: 600px) {
+  .tarjeta {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  .columna-izquierda { margin-bottom: 0; }
+  .nombre-evento-mini { font-size: 0.9rem; }
+  .columna-centro p { font-size: 0.85rem; }
+}
+
+
+
+.tarjeta:last-child {
+  border-bottom: none;
+}
