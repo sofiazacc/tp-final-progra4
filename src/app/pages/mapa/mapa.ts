@@ -5,6 +5,8 @@ import { FeedService } from '../../services/feedService';
 import { PostModelo } from '../../models/post';
 import { MarcadorService } from '../../services/marcadorService';
 import { AsyncSubject } from 'rxjs';
+import { FavoritosService } from '../../services/marcadoresFavoritosService';
+import { Marcador } from '../../models/marcador';
 @Component({
   selector: 'app-mapa',
   imports: [GoogleMapsModule, PopUpMapa],
@@ -14,7 +16,7 @@ import { AsyncSubject } from 'rxjs';
 export class Mapa implements OnInit, AfterViewInit{
    //Elementos necesarios para detectar el nombre del lugar seleccionado y mandarlo al pop-up
 
-  constructor(private feedService: FeedService, private zone: NgZone, private marcadorService: MarcadorService){}
+  constructor(private feedService: FeedService, private zone: NgZone, private marcadorService: MarcadorService, private favoritosService: FavoritosService){}
 
   geocoder: any;
 
@@ -58,6 +60,10 @@ export class Mapa implements OnInit, AfterViewInit{
       center: { lat: -34.6037, lng: -58.3816 },
       zoom: 5,
       streetViewControl: false,
+       mapTypeControl: false,
+      fullscreenControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT
+      },
     });
 
     this.geocoder = new google.maps.Geocoder();
@@ -141,5 +147,28 @@ export class Mapa implements OnInit, AfterViewInit{
     this.marcadorSeleccionadoId = null;
   }
 
+  mostrandoFavoritos: boolean = false;
+  marcadoresFavoritos: Marcador[] = [];
 
+
+  desplegarFavoritos() {
+    this.mostrandoFavoritos = !this.mostrandoFavoritos;
+    if (this.mostrandoFavoritos) {
+      this.cargarMarcadoresFavoritos();
+    }
+  }
+
+  cargarMarcadoresFavoritos() {
+    //Obtenemos el usuario y sus lugares
+    this.favoritosService.obtenerMarcadoresFavoritos().subscribe(marcadores =>{
+      this.marcadoresFavoritos = marcadores;
+    }); 
+  }
+
+  quitarFavorito(marcadorID: string) {
+    this.favoritosService.marcarDesmarcarComoFavorito(marcadorID).subscribe(() => {
+      // Actualizamos la lista de favoritos
+      this.cargarMarcadoresFavoritos();
+    });
+  }
 }
