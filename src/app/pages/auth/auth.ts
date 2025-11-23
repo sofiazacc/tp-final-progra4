@@ -3,8 +3,8 @@ import {Router} from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { GeorefService } from '../../services/georef';
 import { AuthService } from '../../services/authService';
-import { GeoRefProvincia } from '../../models/georef-provincia';
-import { GeoRefLocalidad } from '../../models/georef-localidad';
+import { GeoRefProvincia } from '../../models/georefProvincia';
+import { GeoRefLocalidad } from '../../models/georefLocalidad';
 import { CommonModule } from '@angular/common';
 
 

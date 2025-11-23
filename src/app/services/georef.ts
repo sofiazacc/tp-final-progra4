@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GeoRefProvincia } from '../models/georef-provincia';
-import { GeoRefLocalidad } from '../models/georef-localidad';
+import { GeoRefProvincia } from '../models/georefProvincia';
+import { GeoRefLocalidad } from '../models/georefLocalidad';
 
 //Responses de la API
 interface GeoRefProvinciasResponse {
