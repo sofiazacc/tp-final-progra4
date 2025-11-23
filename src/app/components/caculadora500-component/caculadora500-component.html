@@ -1,1 +1,18 @@
-<p>caculadora500-component works!</p>
+<h2>Regla del 500</h2>
+<form [formGroup]="formulario" id="form-calculadora500">
+
+    <label for="focal">Distancia focal</label>
+    <input type="number" id="focal" formControlName="focal" placeholder="Ingrese la distancia focal en mm">
+    
+    <label for="recore">Factor de recorte</label>
+    <input type="number" id="recorte" formControlName="recorte" placeholder="Ingrese el factor de recorte">
+
+    <button type="button" (click)="mostrarResultado()">Calcular</button>
+</form>
+
+@if(resultado){
+    <h3>Resultado: {{resultado | number: '1.1-1'}} seg</h3>
+}
+
+
+
