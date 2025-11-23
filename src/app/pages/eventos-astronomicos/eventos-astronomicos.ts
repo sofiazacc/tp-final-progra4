@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './eventos-astronomicos.css',
 })
 export class EventosAstronomicos implements OnInit {
-  listadoEventos: EventoAstronomico[] = [];
-  listadoEventosFiltrados: EventoAstronomico[] = [];
+  listadoEventos: any[] = [];
+  listadoEventosFiltrados: any[] = [];
 
   mostrarFiltroFechas: boolean = false;
   mostrarFiltroTipos: boolean = false;
@@ -41,7 +41,11 @@ export class EventosAstronomicos implements OnInit {
       next: (datos) => {
         this.listadoEventos = datos as EventoAstronomico[];
 
-        const tiposDeEventos = this.listadoEventos.map(evento => evento.tipoEvento);
+        const tiposDeEventos = this.listadoEventos
+        .map(evento => evento.tipo_evento)
+        .filter(tipo => tipo );
+                                                  
+
         this.tiposDeEventosSinDuplicados = [...new Set(tiposDeEventos)];
 
         this.filtrarEventosFuturos();
@@ -58,10 +62,10 @@ export class EventosAstronomicos implements OnInit {
     hoy.setHours(0, 0, 0, 0); // Establecer la hora a medianoche para comparar solo fechas
 
     this.listadoEventosFiltrados = this.listadoEventos.filter(evento => {
-      const fechaEvento = new Date(evento.fechaInicio + 'T00:00:00');
+      const fechaEvento = new Date(evento.fecha_inicio + 'T00:00:00');
       return fechaEvento >= hoy;
     })
-    .sort((a, b) => new Date(a.fechaInicio).getTime() - new Date(b.fechaInicio).getTime());
+    .sort((a, b) => new Date(a.fecha_inicio).getTime() - new Date(b.fecha_inicio).getTime());
 
   }
 
@@ -98,7 +102,7 @@ export class EventosAstronomicos implements OnInit {
     this.fechaFinFiltro = "";
 
     this.listadoEventosFiltrados = this.listadoEventos.filter(evento => {
-      const fechaEvento = new Date(evento.fechaInicio + 'T00:00:00');
+      const fechaEvento = new Date(evento.fecha_inicio + 'T00:00:00');
       return fechaEvento >= hoy;
     });
 
@@ -107,23 +111,37 @@ export class EventosAstronomicos implements OnInit {
 
   ordenarListado() {
     this.listadoEventosFiltrados.sort((a, b) => {
-      const fechaA = new Date(a.fechaInicio).getTime();
-      const fechaB = new Date(b.fechaInicio).getTime();
+      const fechaA = new Date(a.fecha_inicio).getTime();
+      const fechaB = new Date(b.fecha_inicio).getTime();
       return this.ordenAscendente ? fechaA - fechaB : fechaB - fechaA;
     });
   }
 
   aplicarFiltro() {
-    const inicio = this.fechaInicioFiltro ? new Date(this.fechaInicioFiltro + 'T00:00:00').getTime() : 0;
-    const fin = this.fechaFinFiltro ? new Date(this.fechaFinFiltro + 'T23:59:59').getTime() : 9999999999999;
 
-    const filtrarPorTipo = this.tiposSeleccionados.size > 0;
+    let inicio: number;
+    let fin: number;
+
+    if (!this.fechaInicioFiltro && !this.fechaFinFiltro) {
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        inicio = hoy.getTime();
+        fin = 9999999999999; // Futuro lejano
+    } else {
+        // Si el usuario puso fechas, usamos ese rango (aunque sea en el pasado)
+        inicio = this.fechaInicioFiltro ? new Date(this.fechaInicioFiltro + 'T00:00:00').getTime() : 0;
+        fin = this.fechaFinFiltro ? new Date(this.fechaFinFiltro + 'T23:59:59').getTime() : 9999999999999;
+    }
+
+     const filtrarPorTipo = this.tiposSeleccionados.size > 0;
+
+
 
     this.listadoEventosFiltrados = this.listadoEventos.filter(evento => {
-      const fechaEvento = new Date(evento.fechaInicio + 'T00:00:00').getTime();
+      const fechaEvento = new Date(evento.fecha_inicio + 'T00:00:00').getTime();
       const dentroRangoFechas = fechaEvento >= inicio && fechaEvento <= fin;
 
-      const coincideTipo = filtrarPorTipo || this.tiposSeleccionados.has(evento.tipoEvento);
+      const coincideTipo = !filtrarPorTipo || this.tiposSeleccionados.has(evento.tipo_evento);
       return dentroRangoFechas && coincideTipo;
     });
 
