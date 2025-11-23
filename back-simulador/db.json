@@ -9,7 +9,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "marioz",
       "localidad": "0675601001",
-      "provincia": "Buenos Aires"
+      "provincia": "Buenos Aires",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "78owmhk",
@@ -20,7 +22,12 @@
       "rol": "fotografo",
       "nombreDeUsuario": "lilom",
       "localidad": "22140030",
-      "provincia": "Chaco"
+      "provincia": "Chaco",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": [
+        3,
+        1
+      ]
     },
     {
       "id": "lcraqx2",
@@ -31,7 +38,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "wewef",
       "localidad": "26021020",
-      "provincia": "Chubut"
+      "provincia": "Chubut",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "j427o2x",
@@ -42,7 +51,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "carlitos",
       "localidad": "06357110",
-      "provincia": "Buenos Aires"
+      "provincia": "Buenos Aires",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "38xa79f",
@@ -53,7 +64,9 @@
       "rol": "fotografo",
       "nombreDeUsuario": "peteralfo",
       "localidad": "58035110",
-      "provincia": "Neuquén"
+      "provincia": "Neuquén",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
     },
     {
       "id": "jr9w4bt",
@@ -68,14 +81,140 @@
     },
     {
       "id": "cgh4uad",
-      "nombre": "Julio", 
+      "nombre": "Julio",
       "apellido": "Track",
       "email": "polaco@hotmail.com",
       "password": "$2b$10$aqxR16q56AoGrv6rQZ5oseb5d3e5E99vBJuI1zhwnxt2GmXxybxEi",
       "rol": "fotografo",
       "nombreDeUsuario": "julito10",
       "localidad": "62084020",
-      "provincia": "Río Negro"
+      "provincia": "Río Negro",
+      "posteosFavoritosID": [],
+      "marcadoresGuardadosID": []
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "url": "https://images.unsplash.com/photo-1533683083439-1a776a5653cb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+      "descripcion": "¡Increíble atardecer en las montañas! La naturaleza nunca deja de sorprenderme.",
+      "ubicacion": "Patagonia, Argentina",
+      "coordenadas": {
+        "lat": -41.1335,
+        "lng": -71.3103
+      },
+      "fotografo": {
+        "id": "1",
+        "nombre": "Ana",
+        "apellido": "García",
+        "email": "ana@example.com",
+        "password": "",
+        "rol": "fotografo",
+        "nombreDeUsuario": "ana_fotografa",
+        "localidad": "Bariloche",
+        "provincia": "Río Negro"
+      },
+      "fecha": "2024-11-01T18:30:00",
+      "likes": 1234
+    },
+    {
+      "id": "2",
+      "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+      "descripcion": "¡Anochecer en la sierra!",
+      "ubicacion": "Mendoza, Argentina",
+      "coordenadas": {
+        "lat": -32.8895,
+        "lng": -68.8458
+      },
+      "fotografo": {
+        "id": "2",
+        "nombre": "Joaquín",
+        "apellido": "Francis",
+        "email": "joaco12@example.com",
+        "password": "",
+        "rol": "fotografo",
+        "nombreDeUsuario": "joaquin-vg",
+        "localidad": "Córdoba",
+        "provincia": "Río Negro"
+      },
+      "fecha": "2025-11-01T18:20:00",
+      "likes": 6325
+    },
+    {
+      "id": "3",
+      "url": "https://images.unsplash.com/photo-1759854909297-cf3fae2e90f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+      "descripcion": "El mar es mi hogar",
+      "ubicacion": "Mar del Plata, Argentina",
+      "coordenadas": {
+        "lat": -38.0055,
+        "lng": -57.5426
+      },
+      "fotografo": {
+        "id": "3",
+        "nombre": "Moncho",
+        "apellido": "Peña",
+        "email": "moncho@example.com",
+        "password": "",
+        "rol": "fotografo",
+        "nombreDeUsuario": "moncho_peñoso",
+        "localidad": "Mar del Plata",
+        "provincia": "Buenos Aires"
+      },
+      "fecha": "2024-12-12T11:30:00",
+      "likes": 1234323
+    },
+    {
+      "id": "4",
+      "url": "https://www.pexels.com/es-es/foto/vista-al-mar-durante-el-dia-127673/",
+      "descripcion": "Atardecer en la playa, momentos de paz",
+      "ubicacion": "Mar del Plata, Argentina",
+      "coordenadas": {
+        "lat": -38.0055,
+        "lng": -57.5426
+      },
+      "fotografo": {
+        "id": "4",
+        "nombre": "Lucas",
+        "apellido": "Gonzalez",
+        "email": "lucas@example.com",
+        "password": "",
+        "rol": "fotografo",
+        "nombreDeUsuario": "lucasgonza",
+        "localidad": "Mar del Plata",
+        "provincia": "Buenos Aires"
+      },
+      "fecha": "2024-12-15T16:45:00",
+      "likes": 892
+    }
+  ],
+  "marcadores": [
+    {
+      "lat": -41.1335,
+      "lng": -71.3103,
+      "ubicacion": "Patagonia, Argentina",
+      "postID": [
+        "1"
+      ],
+      "id": 1
+    },
+    {
+      "lat": -32.8895,
+      "lng": -68.8458,
+      "ubicacion": "Mendoza, Argentina",
+      "postID": [
+        "2"
+      ],
+      "id": 2
+    },
+    {
+      "lat": -38.0055,
+      "lng": -57.5426,
+      "ubicacion": "Mar del Plata, Argentina",
+      "postID": [
+        "3",
+        "4"
+      ],
+      "id": 3
     }
   ]
 }

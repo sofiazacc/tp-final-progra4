@@ -1,0 +1,40 @@
+<div class="popup-card">
+<button class="btn-cerrar" (click)="cerrar()">×</button>
+
+<div class="lugar-info">
+    <h3 class="lugar-titulo">
+    {{ tituloLugar || postActual!.ubicacion || 'Buscando dirección...' }}
+  </h3>
+</div>
+
+  <div class="separador"></div>
+  <div class="usuario-info">
+    <div class="icono-usuario">
+        <span class="material-symbols-outlined ">person</span>
+    </div>
+    <span class="username">@{{ postActual.fotografo.nombreDeUsuario }}</span>
+  </div>
+
+  <div class="carrusel-body">
+    
+    <button class="btn-flecha" (click)="anterior()" [disabled]="!puedoIrAtras">
+      <span class="material-symbols-outlined ">chevron_left</span>
+    </button>
+
+    <div class="imagen-contenedor">
+      <img [src]="postActual.url" alt="Foto del lugar" class="foto-real" (load)="onImagenCargada()"/>
+    </div>
+
+    <button class="btn-flecha" (click)="siguiente()" [disabled]="!puedoIrAdelante">
+      <span class="material-symbols-outlined ">chevron_right</span>
+    </button>
+
+
+  </div>
+  <button class="btn-favorito" [class.activo]="esFavorito" (click)="marcarDesmarcarComoFavorito()">
+    <span class="material-symbols-outlined">
+      {{ esFavorito ? 'favorite' : 'favorite_border' }}
+    </span>
+  </button>
+  
+</div>

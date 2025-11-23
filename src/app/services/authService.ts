@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { Fotografo, Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,7 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
    return localStorage.getItem('token_jwt');
   }
 
+
   getUsuarioLogueado(): Usuario | null {
    const usuarioJSON = localStorage.getItem('usuario_logueado');
     
@@ -66,5 +67,12 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
   }
 
    return JSON.parse(usuarioJSON) as Usuario;
+  }
+
+
+   getfotografoActual(): Fotografo | null {
+    const user = this.getUsuarioLogueado();
+    // Aquí hacemos el truco: lo tratamos como Fotografo
+    return user ? (user as Fotografo) : null; 
   }
 }

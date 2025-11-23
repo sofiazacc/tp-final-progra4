@@ -17,7 +17,7 @@ con este backend simulado y nuestra app de Angular*/
 server.use((req, res, next) => {
      res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
     res.header('Access-Control-Allow-Credentials', 'true');
 
     if(req.method === 'OPTIONS'){
@@ -54,6 +54,26 @@ server.post('/login', (req,res) => {
         return res.status(401).json({message: 'La contraseña ingresada no coincide'});
     }
 });
+
+server.patch('/usuarios/:id/favoritos', (req, res) => {
+  const { id } = req.params;
+  const { marcadoresGuardadosID } = req.body;
+  
+  const db = router.db;
+  const user = db.get('users').find({ id: id }).value();
+  
+  if (!user) {
+    return res.status(404).json({ message: 'Usuario no encontrado' });
+  }
+  
+  // Actualizamos solo el campo de favoritos
+  user.marcadoresGuardadosID = marcadoresGuardadosID;
+  db.get('users').find({ id: id }).assign(user).write();
+  
+  res.status(200).json(user);
+});
+
+server.use(router);
 
 server.post('/register', (req, res) => {
     console.log('Servidor recibió en /register:', req.body);
