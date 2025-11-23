@@ -5,7 +5,7 @@ import { Feed } from './pages/feed/feed';
 import { Mapa} from './pages/mapa/mapa';
 import { Perfil } from './pages/perfil/perfil';
 import { Guardados } from './pages/guardados/guardados';
-import { ArticulosAstronomicos } from './pages/articulos-astronomicos/articulos-astronomicos';
+import { ArticulosAstronomicos } from './pages/eventos-astronomicos/eventos-astronomicos';
 import { PostsAdmin } from './pages/posts-admin/posts-admin';
 import { UsuariosAdmin } from './pages/usuarios-admin/usuarios-admin';
 

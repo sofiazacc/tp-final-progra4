@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArticulosAstronomicos } from './articulos-astronomicos';
+import { ArticulosAstronomicos } from './eventos-astronomicos';
 
 describe('ArticulosAstronomicos', () => {
   let component: ArticulosAstronomicos;
