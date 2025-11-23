@@ -24,6 +24,7 @@ export class Mapa implements OnInit, AfterViewInit{
   posts: PostModelo[] = [];
 
   marcadorSeleccionado: PostModelo[] | null = null;
+  marcadorSeleccionadoId: string | null = null;
 
   ngOnInit(): void {
     //Obtenemos los posts para mostrarlos en el mapa
@@ -72,16 +73,16 @@ export class Mapa implements OnInit, AfterViewInit{
         marcadores.forEach((marcador) => {
          //Obtenemos los post que corresponden
           const postsDelGrupo = this.posts.filter(post => marcador.postID.includes(post.id));
-          this.crearMarcador({lat: marcador.lat, lng: marcador.lng}, postsDelGrupo);
+          this.crearMarcador(marcador, postsDelGrupo);
         });
       },
       error: (e) => console.log(e)
     });
   }
 
-  crearMarcador(coordenadas: {lat: number, lng: number}, postsDelGrupo: PostModelo[]) {
-    const marcador = new google.maps.Marker({
-      position: { lat: coordenadas.lat, lng: coordenadas.lng },
+  crearMarcador(marcador: any, postsDelGrupo: PostModelo[]) {
+    const marcadorNuevo = new google.maps.Marker({
+      position: { lat: marcador.lat, lng: marcador.lng },
       map: this.map,
     });
 
@@ -91,10 +92,11 @@ export class Mapa implements OnInit, AfterViewInit{
       this.zone.run(() => {
          this.marcadorSeleccionado = null;
         this.direccionActual = ''; 
+        this.marcadorSeleccionadoId = marcador.id;
       });
 
       // 2. Buscamos el nombre
-      this.obtenerNombreDeGoogle(coordenadas.lat, coordenadas.lng, postsDelGrupo);
+      this.obtenerNombreDeGoogle(marcador.lat, marcador.lng, postsDelGrupo);
     });
   }
 
@@ -129,6 +131,7 @@ export class Mapa implements OnInit, AfterViewInit{
 
   cerrarPopup() {
     this.marcadorSeleccionado = null;
+    this.marcadorSeleccionadoId = null;
   }
 
 
