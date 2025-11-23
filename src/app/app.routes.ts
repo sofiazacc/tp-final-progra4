@@ -5,7 +5,7 @@ import { Feed } from './pages/feed/feed';
 import { Mapa} from './pages/mapa/mapa';
 import { Perfil } from './pages/perfil/perfil';
 import { Guardados } from './pages/guardados/guardados';
-import { ArticulosAstronomicos } from './pages/eventos-astronomicos/eventos-astronomicos';
+import { EventosAstronomicos } from './pages/eventos-astronomicos/eventos-astronomicos';
 import { PostsAdmin } from './pages/posts-admin/posts-admin';
 import { UsuariosAdmin } from './pages/usuarios-admin/usuarios-admin';
 
@@ -20,7 +20,7 @@ export const routes: Routes = [
     {path: 'mapa', component: Mapa, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'perfil', component: Perfil, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'guardados', component: Guardados, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
-    {path: 'articulos-astronomicos', component: ArticulosAstronomicos, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
+    {path: 'eventos', component: EventosAstronomicos, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'posts-admin', component: PostsAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}},
     {path: 'usuarios-admin', component: UsuariosAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}}
 ];
