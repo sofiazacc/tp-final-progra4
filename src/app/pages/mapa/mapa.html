@@ -1,7 +1,7 @@
 <div class="contenedor-mapa"> 
   <div id="map"></div> 
 
-  <button class="btn-favoritos-flotante" (click)="desplegarFavoritos()">
+  <button class="btn-favoritos-flotante" [class.corrido]="mostrandoFavoritos" (click)="desplegarFavoritos()">
     <span class="material-symbols-outlined">favorite</span>
   </button>
 
@@ -16,9 +16,16 @@
           @for (marcador of marcadoresFavoritos; track marcador.id) {
             <li class="item-favorito">
               <span class="nombre-lugar">{{ marcador.ubicacion }}</span>
+
+              <div class="botones-accion">
+               <button class="btn-ver" (click)="verMarcadorEnMapa(marcador)" title="Ver lugar">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
               <button class="btn-quitar" (click)="quitarFavorito(marcador.id)">
                 <span class="material-symbols-outlined">close</span>
               </button>
+              </div>
+
             </li>
           }
         </ul>
@@ -33,6 +40,7 @@
       <app-pop-up-mapa
         [posts]="marcadorSeleccionado" 
         [tituloLugar]="direccionActual"
+        [class.corrido]="mostrandoFavoritos"
         [marcadorId]="marcadorSeleccionadoId"
         (close)="cerrarPopup()"> 
       </app-pop-up-mapa>
