@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class EventosAstronomicosService {
-  private eventos = "http://localhost:3000/eventosAstronomicos";
+  private eventos = "http://localhost:3000/eventos-astronomicos";
 
   constructor(private http: HttpClient) {}
 

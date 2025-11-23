@@ -9,7 +9,7 @@ import { EventoAstronomicoComponente } from "../../components/evento-astronomico
   templateUrl: './eventos-astronomicos.html',
   styleUrl: './eventos-astronomicos.css',
 })
-export class ArticulosAstronomicos implements OnInit {
+export class EventosAstronomicos implements OnInit {
   listadoEventos: EventoAstronomico[] = [];
 
   constructor(private eventosService: EventosAstronomicosService) {}
