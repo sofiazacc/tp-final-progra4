@@ -6,7 +6,7 @@
     "start": "node tokenizador.js"
   },
   "dependencies": {
-    "json-server": "0.17.3",
-    "bcrypt": "^6.0.0"
+    "bcrypt": "^6.0.0",
+    "json-server": "0.17.3"
   }
 }
