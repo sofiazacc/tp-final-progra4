@@ -4,8 +4,14 @@
     <h2>Eventos Cósmicos</h2>
     
     <div class="botones">
-        <button class="btn-ghost" (click)="siNoFechas()" [class.activo]="mostrarFiltroFechas">📅 Fechas</button>
-        <button class="btn-ghost" (click)="siNoTipos()" [class.activo]="mostrarFiltroTipos">🛸 Tipos</button>
+        <button class="btn-ghost" (click)="siNoFechas()" [class.activo]="mostrarFiltroFechas">
+              <span class="material-icons">edit_calendar</span>
+               Fechas
+        </button>
+        <button class="btn-ghost" (click)="siNoTipos()" [class.activo]="mostrarFiltroTipos"> 
+            <span class="material-symbols-outlined">check_box</span>
+            Tipos
+        </button>
         <button class="btn-ghost" (click)="siNoOrden()" [class.activo]="mostrarOrden">⇅ Ordenar</button>
     </div>
   </div>

@@ -4,12 +4,13 @@
   padding: 60px 20px; 
   font-family: 'Inter', sans-serif; 
   color: #000000;
+  gap: 30px;
 }
 
 
 .acciones-superiores {
   max-width: 900px; 
-  margin: 0 auto 40px auto; 
+  margin: 0 auto 60px auto;
   display: flex;
   justify-content: space-between; 
   align-items: flex-end; 
@@ -35,7 +36,7 @@
 
 .btn-ghost {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   color: rgba(0, 0, 0, 0.7);
   padding: 8px 24px;
   border-radius: 30px;
@@ -224,12 +225,23 @@ input[type="date"]:focus, input[type="date"]:hover {
   transform: translateY(-2px);
 }
 
+.lista-container {
+  margin: 1fr;
+  display: flex;
+  flex-direction: column;
+}
 
 .btn-ghost.activo {
   background: #000;
   color: #fff;
   border-color: #000;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.material-icons, .material-symbols-outlined {
+  font-size: 1rem;
+  vertical-align: middle;
+  margin-right: 6px;
 }
 
 @media (max-width: 600px) {
@@ -255,4 +267,73 @@ input[type="date"]:focus, input[type="date"]:hover {
   .fechas-layout {
       flex-direction: column;
   }
+}
+
+.grupo-input {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
+
+.grupo-input label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888; 
+}
+
+input[type="date"] {
+  appearance: none; 
+  -webkit-appearance: none;
+  
+  background-color: transparent;
+  border: 1px solid #e0e0e0; 
+  border-radius: 8px;
+  
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #333; 
+  
+  outline: none;
+  transition: all 0.3s ease;
+  
+
+  display: flex;
+  align-items: center;
+  min-width: 160px;
+}
+
+
+input[type="date"]:hover {
+  border-color: #bbb;
+  background-color: #fafafa;
+}
+
+input[type="date"]:focus {
+  border-color: #000; 
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+  
+
+  filter: invert(0);
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+input[type="date"] {
+  color-scheme: dark; 
 }
