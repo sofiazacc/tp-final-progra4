@@ -16,7 +16,7 @@ export class FeedService {
   constructor(private http:HttpClient){
     this.posts = []
   }
-  
+
   getPosts(): Observable<PostModelo[]>{
     return this.http.get<PostModelo[]>(this.url);
   }
@@ -25,7 +25,7 @@ export class FeedService {
     return this.http.get<PostModelo>(`${this.url}/${id}`)
   }
 
-  postPost(post: PostModelo): Observable<PostModelo>{
+  postPost(post: any): Observable<PostModelo>{
     return this.http.post<PostModelo>(this.url, post)
   }
 
