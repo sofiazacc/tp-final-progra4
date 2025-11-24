@@ -24,5 +24,14 @@ export class FeedService {
   getPost(id: string ){
     return this.http.get<PostModelo>(`${this.url}/${id}`)
   }
+
+  postPost(post: PostModelo){
+    return this.http.post<PostModelo>(this.url, post)
+  }
+
+  putPost(id: string, post: PostModelo){
+    return this.http.put<PostModelo>(`${this.url}/${id}`, post)
+  }
+
   
 }
