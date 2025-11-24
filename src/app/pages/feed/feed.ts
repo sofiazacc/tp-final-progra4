@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../services/feedService';
 import { PostComponent } from '../../components/post-component/post-component';
+import { FondoGalaxia } from '../../components/fondo-galaxia/fondo-galaxia';
 @Component({
   selector: 'app-feed',
   standalone: true,  
-  imports: [PostComponent],
+  imports: [PostComponent, FondoGalaxia],
   templateUrl: './feed.html',
   styleUrls: ['./feed.css']
 })
