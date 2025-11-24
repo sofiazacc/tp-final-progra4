@@ -114,7 +114,8 @@
         "provincia": "Río Negro"
       },
       "fecha": "2024-11-01T18:30:00",
-      "likes": 1234
+      "likes": 1234,
+      "eliminado": true
     },
     {
       "id": "2",
@@ -137,7 +138,8 @@
         "provincia": "Río Negro"
       },
       "fecha": "2025-11-01T18:20:00",
-      "likes": 6325
+      "likes": 6325,
+      "eliminado": false
     },
     {
       "id": "3",
@@ -160,7 +162,8 @@
         "provincia": "Buenos Aires"
       },
       "fecha": "2024-12-12T11:30:00",
-      "likes": 1234323
+      "likes": 1234323,
+      "eliminado": false
     },
     {
       "id": "4",
@@ -183,7 +186,8 @@
         "provincia": "Buenos Aires"
       },
       "fecha": "2024-12-15T16:45:00",
-      "likes": 892
+      "likes": 892,
+      "eliminado": false
     }
   ],
   "marcadores": [
