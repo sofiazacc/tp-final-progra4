@@ -3,10 +3,11 @@ import { FeedService } from '../../services/feedService';
 import { PostComponent } from '../../components/post-component/post-component';
 import { FondoGalaxia } from '../../components/fondo-galaxia/fondo-galaxia';
 import { PostModelo } from '../../models/post';
+import { PopUpSubirPosteo } from '../../components/pop-up-subir-posteo/pop-up-subir-posteo';
 @Component({
   selector: 'app-feed',
   standalone: true,  
-  imports: [PostComponent, FondoGalaxia],
+  imports: [PostComponent, FondoGalaxia, PopUpSubirPosteo],
   templateUrl: './feed.html',
   styleUrls: ['./feed.css']
 })
@@ -33,6 +34,20 @@ export class Feed implements OnInit {
       error: (e) => console.log(e)
     })
 
+  }
+
+  abrirPopUp(){
+    this.subiendoPost = true;
+  }
+
+  cerrarPopUp(){
+    this.subiendoPost = false;
+  }
+
+
+  creandoPost(){
+    this.cerrarPopUp();
+    this.obtenerPosts();
   }
 
 }
