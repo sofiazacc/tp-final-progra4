@@ -12,4 +12,5 @@ export interface PostModelo{
     fotografo: Fotografo,
     fecha: Date,
     likes: number
+    eliminado: boolean
 }
