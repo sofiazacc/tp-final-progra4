@@ -7,14 +7,10 @@ import { PostModelo } from '../models/post';
   providedIn: 'root'
 })
 export class FeedService {
-  
-  
+
   url = "http://localhost:3000/posts"
 
-  posts: PostModelo[];
-
   constructor(private http:HttpClient){
-    this.posts = []
   }
 
   getPosts(): Observable<PostModelo[]>{
