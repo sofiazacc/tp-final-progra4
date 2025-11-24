@@ -8,7 +8,6 @@
         <div class="info">
           <h4 class="nombre">{{ postData.fotografo?.nombre }} {{ postData.fotografo?.apellido }}</h4>
           <p class="username">@{{ postData.fotografo?.nombreDeUsuario }}</p>
-          <p class="localidad">{{ postData.fotografo?.localidad }}, {{ postData.fotografo?.provincia }}</p>
         </div>
       </div>
       <button class="btn-opciones">
@@ -26,16 +25,18 @@
           <span class="material-symbols-outlined">
             {{ liked ? 'favorite' : 'favorite_border' }}
           </span>
+        
+  
         </button>
+
+        <p class="meG"><strong>{{ getLikesCount() | number }}</strong> me gusta</p>
       </div>
       <button class="btn-accion" (click)="guardar()">
         <span class="material-symbols-outlined">bookmark_border</span>
       </button>
     </div>
 
-    <div class="post-likes">
-      <p><strong>{{ getLikesCount() | number }}</strong> me gusta</p>
-    </div>
+
 
     <div class="post-descripcion">
       <p>
