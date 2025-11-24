@@ -16,22 +16,30 @@ export class FeedService {
   constructor(private http:HttpClient){
     this.posts = []
   }
-
-  getPosts(){
+  
+  getPosts(): Observable<PostModelo[]>{
     return this.http.get<PostModelo[]>(this.url);
   }
   
-  getPost(id: string ){
+  getPost(id: string ): Observable<PostModelo>{
     return this.http.get<PostModelo>(`${this.url}/${id}`)
   }
 
-  postPost(post: PostModelo){
+  postPost(post: PostModelo): Observable<PostModelo>{
     return this.http.post<PostModelo>(this.url, post)
   }
 
-  putPost(id: string, post: PostModelo){
+  putPost(id: string, post: PostModelo): Observable<PostModelo>{
     return this.http.put<PostModelo>(`${this.url}/${id}`, post)
   }
 
-  
+  deletePost(id: string): void{
+    let post = this.getPost(id);
+
+    post.subscribe(
+      data => {
+        data.eliminado = true;
+        this.http.put(`${this.url}/${id}`, data).subscribe();
+      });
+  }
 }
