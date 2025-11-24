@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeedService } from '../../services/feedService';
 import { AuthService } from '../../services/authService';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-pop-up-subir-posteo',
-  imports: [],
+  imports: [ReactiveFormsModule, GoogleMapsModule],
   templateUrl: './pop-up-subir-posteo.html',
   styleUrl: './pop-up-subir-posteo.css',
 })
@@ -23,7 +24,7 @@ export class PopUpSubirPosteo {
 
   mostrandoMapa: boolean = false;
   ubicacionSeleccionada: {lat: number, lng: number} | null = null;
-  posicionMarcador: google.maps.LatLngLiteral = {lat: 0, lng: 0};
+  posicionMarcador: google.maps.LatLngLiteral | undefined;
 
   opcionesMaps: google.maps.MapOptions = {
     center: { lat: -34.6037, lng: -58.3816 },
@@ -32,7 +33,7 @@ export class PopUpSubirPosteo {
     mapTypeControl: false
   };
 
-  private readonly ImgurKey = 'Bearer 1f8a3d8f31d581c20fd33ba0cd0527de4cc28904'
+  private readonly ImgurKey = '1f8a3d8f31d581c20fd33ba0cd0527de4cc28904'
 
   constructor(
     private fb: FormBuilder,
@@ -83,7 +84,7 @@ export class PopUpSubirPosteo {
     setTimeout(() => {
       this.cerrarSelectorMapa();
     }, 300);
-    }
+  }
   }
 
   async onSubmit() {
@@ -102,15 +103,17 @@ export class PopUpSubirPosteo {
         url: imgurURl,
         descripcion: this.postFormulario.value.descripcion,
         ubicacion: this.postFormulario.value.lugarNombre,
+        coordenadas: this.ubicacionSeleccionada,
         fotografo: fotografoActual,
         fecha: new Date(),
         likes: 0,
         eliminado: false
       };
 
-      this.feedService.postPost(nuevoPost).subscribe({
+      this.feedService.postPost(nuevoPost as any).subscribe({
         next: (data) => {
           this.postCreado.emit();
+          this.cerrarPopUp()
           this.postFormulario.reset();
           this.urlImagen = null
           this.subiendoFoto = false;
@@ -128,9 +131,7 @@ export class PopUpSubirPosteo {
     this.mensajeEstado = 'Error al subir la imagen';
     this.subiendoFoto = false;
   }
-
-
-}
+  }
 
   private subirAImgur(archivo: File): Promise<string> {
     const formData = new FormData();
