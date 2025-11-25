@@ -12,6 +12,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     '/login',                  // Login
     '/register',               // Registro
     'api.imgbb.com',          // ImgBB directo (si aplica)
+    'api.sunrise-sunset.org'
   ];
 
   // Verificar si la URL actual está en la lista de exclusión
