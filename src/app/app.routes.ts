@@ -11,6 +11,7 @@ import { UsuariosAdmin } from './pages/usuarios-admin/usuarios-admin';
 
 import { authGuard } from './guards/auth-guard';
 import { rolGuard } from './guards/rol-guard';
+import { EditarPerfil } from './components/editar-perfil/editar-perfil';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {path: 'perfil', component: Perfil, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'guardados', component: Guardados, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'eventos', component: EventosAstronomicos, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
+    {path: 'editar-perfil', component: EditarPerfil, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'posts-admin', component: PostsAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}},
     {path: 'usuarios-admin', component: UsuariosAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}}
 ];
