@@ -1,13 +1,16 @@
-<app-header id="header"></app-header>
 
+
+@if (mostrarMenu) {
+<!--- <app-header id="header"></app-header>-->
 <app-menu-general></app-menu-general>
+}
 
 <main>
     <div id="sub-main">
-        <p class="colorcitos-degrade">Hache Uno</p>
-        
         <router-outlet></router-outlet>
     </div>
 </main>
 
-<app-footer></app-footer>
+@if (mostrarMenu) {
+   <!--- <app-footer></app-footer> --->
+}

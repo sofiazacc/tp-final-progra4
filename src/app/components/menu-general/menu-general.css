@@ -5,8 +5,8 @@ button.toggle-btn {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: rgba(61, 157, 157, 0.3);
-    border: 0px solid rgba(61, 157, 157, 0.4);
+    background: rgba(61, 60, 60, 0.3);
+    border: 0px solid rgba(14, 15, 15, 0.4);
     border-radius: 0.75rem;
     width: 2.5rem;
     height: 2.5rem;
@@ -25,14 +25,14 @@ button.toggle-btn .material-symbols-outlined {
 }
 
 button.toggle-btn:hover {
-    background: rgba(61, 157, 157, 0.5);
+    background: rgba(169, 173, 173, 0.5);
     transform: scale(1.05);
 }
 
 nav {
     grid-area: nav;
     height: 100%;
-    background: linear-gradient(180deg, #0f2d2d 0%, #1a4d4d 50%, #0f2d2d 100%);
+    background: linear-gradient(180deg, #0d0e0e 0%, #4b4e4e 50%, #1c2020 100%);
     width: 5rem;
     padding: 1.5rem 1rem;
     transition: width 0.3s ease;
@@ -56,7 +56,7 @@ ul {
 }
 
 li {
-    background: rgba(61, 157, 157, 0.2);
+    background: rgba(117, 116, 116, 0.3);
     border-radius: 1rem;
     transition: all 0.3s ease;
     border: 1px solid transparent;
@@ -72,7 +72,7 @@ li:hover {
 
 li.active,
 li[routerLinkActive="active"] {
-    background: rgba(45, 122, 122, 0.6);
+    background: rgba(10, 10, 10, 0.3);
 }
 
 li a {

@@ -20,11 +20,9 @@ app-header {
     grid-area: header;
 }
 
-
 main {
     grid-area: main;
     overflow: auto;
-    padding: 2rem;
     background-color: var(--color-fondo);
 }
 

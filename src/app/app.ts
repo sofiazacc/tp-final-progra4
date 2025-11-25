@@ -1,10 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenuGeneral } from './components/menu-general/menu-general';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 
 import * as AOS from 'aos';
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MenuGeneral, Header, Footer],  
@@ -13,6 +14,11 @@ import * as AOS from 'aos';
 })
 export class App implements OnInit{
   protected readonly title = signal('phost');
+  private router = inject(Router);
+
+  mostrarMenu: boolean = true;
+
+  rutasSinMenu: string[] = ['/auth', '/404', '/error'];
 
   ngOnInit(){
     AOS.init({
@@ -21,6 +27,15 @@ export class App implements OnInit{
       once: true,
       mirror: false, 
       offset: 120,
+    });
+
+    this.router.events.pipe(
+      filter(evento => evento instanceof NavigationEnd)
+    ).subscribe((evento: any) => {
+      
+      const urlActual = evento.urlAfterRedirects;
+      this.mostrarMenu = !this.rutasSinMenu.includes(urlActual);
+      
     });
   }
 }
