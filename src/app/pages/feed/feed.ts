@@ -26,15 +26,16 @@ export class Feed implements OnInit {
   }
   
   obtenerPosts() {
-    console.log("Ejecutando obtenerPosts()"); 
-    
     this.FeedService.getPosts().subscribe({
       next: (data) => { 
         console.log("Datos recibidos:", data);
-        this.posteosActivos = data.filter(a => a.eliminado === false) },
+        this.posteosActivos = data; 
+      setTimeout(() => {
+          AOS.refresh();
+        }, 50);
+      },
       error: (e) => console.log(e)
     })
-
   }
 
   abrirPopUp(){

@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+}
+
+#formulario-magicas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555;
+}
+
+input[type="number"],
+input[type="date"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: #0077ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #005fd4;
+}
+
+.resultado-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f7f9fc;
+  border-radius: 10px;
+  border: 1px solid #e3e6eb;
+}
+
+.resultado-container h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.resultado-item {
+  margin: 0.4rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.resultado-item span {
+  font-weight: 600;
+  color: #000;
+}
+
+.error{
+    color: rgb(199, 14, 14);
+}

@@ -10,10 +10,20 @@
           <p class="username">@{{ postData.fotografo?.nombreDeUsuario }}</p>
         </div>
       </div>
-      <button class="btn-opciones">
-        <span class="material-symbols-outlined">more_vert</span>
-      </button>
-    </div>
+
+      <div style="display: flex; gap: 5px; align-items: center;">
+        
+        @if(esAdmin) {
+            <button class="btn-opciones btn-delete" (click)="eliminar()" title="Eliminar post">
+                <span class="material-symbols-outlined">delete</span>
+            </button>
+        }
+        
+        <button class="btn-opciones">
+          <span class="material-symbols-outlined">more_vert</span>
+        </button>
+      </div>
+      </div>
 
     <div class="post-imagen">
       <img [src]="postData.url" [alt]="postData.descripcion">
@@ -25,18 +35,13 @@
           <span class="material-symbols-outlined">
             {{ liked ? 'favorite' : 'favorite_border' }}
           </span>
-        
-  
         </button>
-
         <p class="meG"><strong>{{ getLikesCount() | number }}</strong> me gusta</p>
       </div>
       <button class="btn-accion" (click)="guardar()">
         <span class="material-symbols-outlined">bookmark_border</span>
       </button>
     </div>
-
-
 
     <div class="post-descripcion">
       <p>

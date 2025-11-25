@@ -1,1 +1,9 @@
-<p>posts-admin works!</p>
+<div class="feed-container">
+  @for (post of listaPosts; track post.id) {
+    <app-post 
+        [postData]="post" 
+        [esAdmin]="true" 
+        (onDelete)="borrarPost($event)">
+    </app-post>
+  }
+</div>

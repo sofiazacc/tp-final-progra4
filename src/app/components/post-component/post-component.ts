@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,6 +12,9 @@ export class PostComponent {
   @Input() postData: any;
   liked: boolean = false;
   
+  @Input() esAdmin: boolean = false;
+  @Output() onDelete = new EventEmitter<string>();
+
   getLikesCount(): number {
     if (!this.postData) return 0;
     return this.liked ? this.postData.likes + 1 : this.postData.likes;
@@ -23,5 +26,9 @@ export class PostComponent {
   
   guardar() {
     console.log('Guardar post:', this.postData.id);
+  }
+
+  eliminar() {
+    this.onDelete.emit(this.postData.id);
   }
 }

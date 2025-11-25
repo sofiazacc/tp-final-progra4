@@ -1,2 +1,16 @@
 
-<router-outlet></router-outlet>
+
+@if (mostrarMenu) {
+<!--- <app-header id="header"></app-header>-->
+<app-menu-general></app-menu-general>
+}
+
+<main>
+    <div id="sub-main">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+
+@if (mostrarMenu) {
+   <!--- <app-footer></app-footer> --->
+}

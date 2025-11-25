@@ -1,0 +1,46 @@
+<h2>Calculadora de Horas Mágicas</h2>
+
+<form [formGroup]="formulario" id="formulario-magicas">
+
+    <label>Latitud</label>
+    <input type="number" formControlName="latitud" placeholder="Ej: -34.60">
+
+    <label>Longitud</label>
+    <input type="number" formControlName="longitud" placeholder="Ej: -58.38">
+
+    <label>Fecha</label>
+    <input type="date" formControlName="fecha">
+
+    <button type="button" (click)="calcular()">Calcular</button>
+</form>
+
+@if(error){
+  <p class="error">{{ error }}</p>
+}
+
+@if(cargando){
+  <p>Cargando...</p>
+}
+
+@if(resultado){
+  <div class="resultado">
+
+    <h3>Resultados</h3>
+
+    <p><strong>Amanecer:</strong> {{ resultado.amanecer | date:'HH:mm' }}</p>
+    <p><strong>Atardecer:</strong> {{ resultado.atardecer | date:'HH:mm' }}</p>
+
+    <h4>Hora Azul (AM)</h4>
+    <p>{{ resultado.horaAzulAM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulAM_Fin | date:'HH:mm' }}</p>
+
+    <h4>Hora Dorada (AM)</h4>
+    <p>{{ resultado.horaDoradaAM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaAM_Fin | date:'HH:mm' }}</p>
+
+    <h4>Hora Dorada (PM)</h4>
+    <p>{{ resultado.horaDoradaPM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaPM_Fin | date:'HH:mm' }}</p>
+
+    <h4>Hora Azul (PM)</h4>
+    <p>{{ resultado.horaAzulPM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulPM_Fin | date:'HH:mm' }}</p>
+
+  </div>
+}

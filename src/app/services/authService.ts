@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
 import { Fotografo, Usuario } from '../models/usuario';
+import {  Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Fotografo, Usuario } from '../models/usuario';
 export class AuthService {
   private backURL = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(credenciales: any): Observable<{accessToken: string, user: Usuario}> {
     return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales)
@@ -48,6 +49,8 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
   cerrarSesion(): void {
    localStorage.removeItem('token_jwt');
    localStorage.removeItem('usuario_logueado');
+   sessionStorage.clear();
+   this.router.navigate(['/auth']);
   }
 
   estaLogueado(): boolean {
