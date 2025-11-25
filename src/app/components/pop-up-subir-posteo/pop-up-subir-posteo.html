@@ -1,1 +1,71 @@
 
+<div class="overlay" (click)="cerrarPopUp()">
+  
+  <div class="modal-card" (click)="$event.stopPropagation()" [class.oculto]="mostrandoMapa">
+    
+    <button class="btn-cerrar" (click)="cerrarPopUp()">×</button>
+    
+    <h2 class="titulo-modal">Crear Nuevo Post</h2>
+
+    <form [formGroup]="postFormulario" (ngSubmit)="onSubmit()">
+      
+      <div class="campo">
+        <div class="input-file-wrapper">
+          <input type="file" (change)="imagenSeleccionada($event)" accept="image/*" id="fileInput" hidden>
+          <label for="fileInput" class="file-label">
+            <span class="texto-archivo">{{ fotoSubida ? fotoSubida.name : 'Seleccionar foto...' }}</span>
+            <span class="material-symbols-outlined icono-upload">add_photo_alternate</span>
+          </label>
+        </div>
+        @if(urlImagen) {
+          <div class="preview-container">
+            <img [src]="urlImagen" alt="Preview">
+          </div>
+        }
+      </div>
+
+      <div class="campo">
+        <input type="text" formControlName="lugarNombre" placeholder="Nombre del lugar (ej. Cerro Catedral)" class="input-texto">
+      </div>
+
+      <div class="campo">
+        <button type="button" class="btn-mapa" (click)="abrirSelectorMapa()" 
+                [class.seleccionado]="ubicacionSeleccionada">
+          @if(!ubicacionSeleccionada) {
+             <span>Marcar ubicación en mapa</span>
+             <span class="material-symbols-outlined">location_on</span>
+          } @else {
+             <span>Ubicación guardada</span>
+             <span class="material-symbols-outlined check">check</span>
+          }
+        </button>
+      </div>
+
+      <div class="campo">
+        <textarea formControlName="descripcion" placeholder="Escribe un pie de foto..." rows="3" class="input-texto"></textarea>
+      </div>
+
+      <div class="acciones">
+        @if (subiendoFoto) {
+             <p class="estado">{{ mensajeEstado }}</p>
+        }
+        <button type="submit" class="btn-publicar" [disabled]="postFormulario.invalid || !fotoSubida || subiendoFoto">
+          {{ subiendoFoto ? 'Publicando...' : 'Compartir' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  @if(mostrandoMapa) {
+    <div class="mapa-overlay-container" (click)="$event.stopPropagation()">
+      <div class="cabecera-mapa">
+        <h3>Elige la ubicación</h3>
+        <button class="btn-cerrar-mapa" (click)="cerrarSelectorMapa()">Volver</button>
+      </div>
+      <google-map height="350px" width="100%" [options]="opcionesMaps" (mapClick)="mapaSeeleccionado($event)">
+        @if(posicionMarcador) { <map-marker [position]="posicionMarcador"></map-marker> }
+      </google-map>
+    </div>
+  }
+</div>
