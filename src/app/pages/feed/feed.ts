@@ -30,12 +30,7 @@ export class Feed implements OnInit {
       next: (data) => { 
         console.log("Datos recibidos:", data);
         this.posteosActivos = data; 
-      setTimeout(() => {
-          AOS.refresh();
-        }, 50);
-      },
-      error: (e) => console.log(e)
-    })
+    }});
   }
 
   abrirPopUp(){
