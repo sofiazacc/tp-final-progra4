@@ -8,7 +8,7 @@
         'nav hr'
         'nav footer';
     height: 100vh;
-    width: 100vw;
+    width: 100vh;
     overflow: hidden;
 }
 
@@ -23,6 +23,7 @@ app-header {
 main {
     grid-area: main;
     overflow: auto;
+    overflow-y: auto;
     background-color: var(--color-fondo);
 }
 
@@ -31,12 +32,30 @@ app-footer {
 }
 
 .colorcitos-degrade{
-    background: linear-gradient(90deg, #2d7a7a, #a9ced0);
+    background: linear-gradient(90deg, #000000, #232424);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; /* Fallback */
+    color: transparent; 
     display: inline;
     font-size: 5rem;
     font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    :host {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto auto; 
+        grid-template-areas: 
+            'header'
+            'nav'  
+            'main'
+            'footer';
+    }
+
+    app-menu-general {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
 }
