@@ -44,8 +44,6 @@ export class PopUpSubirPosteo {
       },
   };
 
-  private readonly ImgurKey = '4390cb6e2c63ec5ee08f85d837463e50'
-
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
