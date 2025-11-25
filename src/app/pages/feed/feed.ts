@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../services/feedService';
 import { PostComponent } from '../../components/post-component/post-component';
-import { FondoGalaxia } from '../../components/fondo-galaxia/fondo-galaxia';
+import { FondoGalaxia } from '../../animaciones/fondo-galaxia/fondo-galaxia';
 import { PostModelo } from '../../models/post';
 import { PopUpSubirPosteo } from '../../components/pop-up-subir-posteo/pop-up-subir-posteo';
-import * as AOS from 'aos'; 
+import { FadeUp } from '../../animaciones/fade-up';
 @Component({
   selector: 'app-feed',
   standalone: true,  
-  imports: [PostComponent, FondoGalaxia, PopUpSubirPosteo],
+  imports: [PostComponent, FondoGalaxia, PopUpSubirPosteo, FadeUp],
   templateUrl: './feed.html',
   styleUrls: ['./feed.css']
 })
