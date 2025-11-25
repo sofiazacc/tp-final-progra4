@@ -5,6 +5,8 @@ export interface Usuario {
     email: string;
     password: string;
     rol: 'admin' | 'fotografo';
+    fotoPerfil: string;
+    eliminado: boolean;
 }
 
 export interface Fotografo extends Usuario {
