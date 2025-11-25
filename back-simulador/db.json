@@ -188,6 +188,64 @@
       "fecha": "2024-12-15T16:45:00",
       "likes": 892,
       "eliminado": false
+    },
+    {
+      "url": "https://i.ibb.co/BHxc7bTn/b8ed4bfc230eec75c58ace3e9358735b.jpg",
+      "descripcion": "efwefwefwefwe",
+      "ubicacion": "edwef",
+      "coordenadas": {
+        "lat": -33.716447407898926,
+        "lng": -58.293708033895506
+      },
+      "fotografo": {
+        "id": "78owmhk",
+        "nombre": "Luli",
+        "apellido": "Melo",
+        "email": "limo@gmail.com",
+        "password": "$2b$10$9wB3ktTnd4SCyJQvlUtT0uTt0YYWhU0iL14UHYs/iBcAYqn8/3obK",
+        "rol": "fotografo",
+        "nombreDeUsuario": "lilom",
+        "localidad": "22140030",
+        "provincia": "Chaco",
+        "posteosFavoritosID": [],
+        "marcadoresGuardadosID": [
+          2,
+          3
+        ]
+      },
+      "fecha": "2025-11-25T09:34:25.401Z",
+      "likes": 0,
+      "eliminado": false,
+      "id": "DpE9CfS"
+    },
+    {
+      "url": "https://i.ibb.co/ynqZqSbS/9357a10fefa3d01fb9cdc88e5619bc1b.jpg",
+      "descripcion": "efefwfwefwfw",
+      "ubicacion": "dfwedfwef",
+      "coordenadas": {
+        "lat": -36.73127982295633,
+        "lng": -60.754645533895506
+      },
+      "fotografo": {
+        "id": "78owmhk",
+        "nombre": "Luli",
+        "apellido": "Melo",
+        "email": "limo@gmail.com",
+        "password": "$2b$10$9wB3ktTnd4SCyJQvlUtT0uTt0YYWhU0iL14UHYs/iBcAYqn8/3obK",
+        "rol": "fotografo",
+        "nombreDeUsuario": "lilom",
+        "localidad": "22140030",
+        "provincia": "Chaco",
+        "posteosFavoritosID": [],
+        "marcadoresGuardadosID": [
+          2,
+          3
+        ]
+      },
+      "fecha": "2025-11-25T09:35:18.227Z",
+      "likes": 0,
+      "eliminado": false,
+      "id": "KkTyy0R"
     }
   ],
   "marcadores": [
@@ -218,6 +276,24 @@
         "4"
       ],
       "id": 3
+    },
+    {
+      "lat": -33.716447407898926,
+      "lng": -58.293708033895506,
+      "ubicacion": "edwef",
+      "postID": [
+        "DpE9CfS"
+      ],
+      "id": 4
+    },
+    {
+      "lat": -36.73127982295633,
+      "lng": -60.754645533895506,
+      "ubicacion": "dfwedfwef",
+      "postID": [
+        "KkTyy0R"
+      ],
+      "id": 5
     }
   ],
   "eventos-astronomicos": [

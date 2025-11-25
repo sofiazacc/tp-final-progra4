@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, NgZone, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeedService } from '../../services/feedService';
 import { AuthService } from '../../services/authService';
@@ -13,7 +13,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
 })
 export class PopUpSubirPosteo {
 
-  @Output() cerrar = new EventEmitter<void>();
+  private zone = inject(NgZone);
+
+  @Output() close = new EventEmitter<void>();
   @Output() postCreado = new EventEmitter<void>();
 
   postFormulario: FormGroup;
@@ -30,10 +32,19 @@ export class PopUpSubirPosteo {
     center: { lat: -34.6037, lng: -58.3816 },
     zoom: 4,
     streetViewControl: false,
-    mapTypeControl: false
+    mapTypeControl: false,
+    restriction: {
+      latLngBounds: {
+        north: -21.0, 
+        south: -56.0, 
+        west: -76.0, 
+        east: -53.0, 
+      },
+      strictBounds: false,
+      },
   };
 
-  private readonly ImgurKey = '1f8a3d8f31d581c20fd33ba0cd0527de4cc28904'
+  private readonly ImgurKey = '4390cb6e2c63ec5ee08f85d837463e50'
 
   constructor(
     private fb: FormBuilder,
@@ -69,22 +80,59 @@ export class PopUpSubirPosteo {
     this.mostrandoMapa = false;
   }
 
-  mapaSeeleccionado(evento: google.maps.MapMouseEvent){
-    if(evento.latLng){
-      this.ubicacionSeleccionada = {
-        lat: evento.latLng.lat(),
-        lng: evento.latLng.lng()   
-    };
+ mapaSeeleccionado(evento: google.maps.MapMouseEvent) {
+    if (evento.latLng) {
+      const lat = evento.latLng.lat();
+      const lng = evento.latLng.lng();
 
-    this.posicionMarcador = {
-      lat: this.ubicacionSeleccionada.lat,
-      lng: this.ubicacionSeleccionada.lng
+      const geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+        this.zone.run(() => {
+          if (status === 'OK' && results && results[0]) {
+            
+            const esArgentina = results.some(resultado => 
+              resultado.address_components.some(componente => 
+                componente.types.includes('country') && 
+                (componente.short_name === 'AR' || componente.long_name === 'Argentina')
+              )
+            );
+
+            if (esArgentina) {
+
+              this.ubicacionSeleccionada = { lat, lng };
+              
+              this.posicionMarcador = {
+                lat: this.ubicacionSeleccionada.lat,
+                lng: this.ubicacionSeleccionada.lng
+              };
+
+
+              const ciudad = results[0].address_components.find(c => c.types.includes('locality'))?.long_name;
+              const provincia = results[0].address_components.find(c => c.types.includes('administrative_area_level_1'))?.long_name;
+              
+              if (ciudad || provincia) {
+                 this.postFormulario.patchValue({
+                    lugarNombre: ciudad ? `${ciudad}, ${provincia}` : provincia
+                 });
+              }
+
+              setTimeout(() => {
+                this.cerrarSelectorMapa();
+              }, 500); 
+
+            } else {
+              alert("Solo puedes seleccionar ubicaciones dentro de Argentina.");
+              this.posicionMarcador = undefined; 
+              this.ubicacionSeleccionada = null;
+            }
+
+          } else {
+            console.error("Geocoding falló o clic en el océano profundo");
+          }
+        });
+      });
     }
-
-    setTimeout(() => {
-      this.cerrarSelectorMapa();
-    }, 300);
-  }
   }
 
   async onSubmit() {
@@ -94,7 +142,7 @@ export class PopUpSubirPosteo {
     this.mensajeEstado = 'Subiendo imagen...';
 
     try{
-      const imgurURl = await this.subirAImgur(this.fotoSubida!);
+      const imgurURl = await this.subirViaBackend(this.fotoSubida!);
       this.mensajeEstado = "Guardando posteo...";
 
       const fotografoActual = this.authService.getUsuarioLogueado();
@@ -132,23 +180,33 @@ export class PopUpSubirPosteo {
     this.subiendoFoto = false;
   }
   }
-
-  private subirAImgur(archivo: File): Promise<string> {
-    const formData = new FormData();
-    formData.append('image', archivo);
-
+ private subirViaBackend(archivo: File): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.http.post('https://api.imgur.com/3/image', formData, {
-        headers: { Authorization: `Client-ID ${this.ImgurKey}` }
-      }).subscribe({
-        next: (response: any) => resolve(response.data.link),
-        error: (error: any) => reject(error)
+      const formData = new FormData();
+      formData.append('image', archivo);
+
+      console.log('Subiendo vía backend...');
+
+      this.http.post<any>('http://localhost:3000/api/subir-imagen', formData).subscribe({
+        next: (response) => {
+          if (response.success && response.url) {
+            console.log('Imagen subida vía backend:', response.url);
+            resolve(response.url);
+          } else {
+            console.error('Backend respondió sin URL:', response);
+            reject('Backend: URL no recibida');
+          }
+        },
+        error: (error) => {
+          console.error('Error vía backend:', error);
+        }
       });
     });
   }
 
+
   cerrarPopUp() {
-    this.cerrar.emit();
+    this.close.emit();
   }
 
 }
