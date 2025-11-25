@@ -4,13 +4,14 @@ import { MenuGeneral } from './components/menu-general/menu-general';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 
-import * as AOS from 'aos';
 import { filter } from 'rxjs';
+import { Auth } from './pages/auth/auth';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MenuGeneral, Header, Footer],  
+  imports: [RouterOutlet, MenuGeneral, Header, Footer, Auth],  
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  
 })
 export class App implements OnInit{
   protected readonly title = signal('phost');
@@ -21,21 +22,13 @@ export class App implements OnInit{
   rutasSinMenu: string[] = ['/auth', '/404', '/error'];
 
   ngOnInit(){
-  AOS.init({
-    duration: 600,
-    easing: 'ease-out',
-    once: false,  // ← Cambia esto
-    mirror: false,
-    offset: 50,
-    disable: false, // ← Asegúrate de que no esté deshabilitado
-  });
+
     this.router.events.pipe(
       filter(evento => evento instanceof NavigationEnd)
     ).subscribe((evento: any) => {
       
       const urlActual = evento.urlAfterRedirects;
       this.mostrarMenu = !this.rutasSinMenu.includes(urlActual);
-      
     });
   }
 }
