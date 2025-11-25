@@ -27,6 +27,11 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.03); 
 }
 
+.btn-delete:hover {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
 .fotografo-info {
   display: flex;
   align-items: center;
