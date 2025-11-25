@@ -1,11 +1,25 @@
+<app-fondo-galaxia></app-fondo-galaxia>
+
 <div class="feed-container">
-  <h1>Feed de Fotos</h1>
+
+   <button class="btn-agregar" (click)="abrirPopUp()">
+    <span class="material-symbols-outlined">add_2</span>
+  </button>
   
-  @for(post of FeedService.posts; track post.id) {
-    <app-post [postData]="post"></app-post>
+  @for(post of posteosActivos; track post.id) {
+    <app-post [postData]="post" data-aos="fade-up"></app-post>
   }
   
   @empty {
     <p>No hay posts para mostrar</p>
   }
+
+  @if(subiendoPost){
+    <app-pop-up-subir-posteo
+    (close)="cerrarPopUp()"
+    (postCreado)="creandoPost()">
+      
+    </app-pop-up-subir-posteo>
+  }
+  
 </div>

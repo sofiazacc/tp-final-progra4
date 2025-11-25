@@ -6,6 +6,9 @@ const server = jsonServer.create();
 const dbPath = path.join(__dirname, 'db.json'); 
 const router = jsonServer.router(dbPath);
 const middlewares = jsonServer.defaults();
+const axios = require('axios');
+const fileUpload = require('express-fileupload');
+const FormDataClass = require('form-data');
 
 //Incorporamos Crypt-js
 const bcrypt = require('bcrypt');
@@ -29,11 +32,11 @@ server.use((req, res, next) => {
 
 /*Nuestro back interpreta el JSON que nos envía nuestra app y lo convierte en un objeto
 utilizable*/
+server.use(fileUpload());
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 //Métodos
-
 server.post('/login', (req,res) => {
     console.log('Se ha recibido una petición en el /login:', req.body);
     const{email, password} = req.body;
@@ -73,7 +76,6 @@ server.patch('/usuarios/:id/favoritos', (req, res) => {
   res.status(200).json(user);
 });
 
-server.use(router);
 
 server.post('/register', (req, res) => {
     console.log('Servidor recibió en /register:', req.body);
@@ -110,12 +112,11 @@ server.post('/register', (req, res) => {
     }
 
     try {
-        // Ensure the 'users' collection exists
+    
         if (!db.get('users').value()) {
             db.set('users', []).write();
         }
 
-        // Push and write, then verify it was saved
         db.get('users').push(newUser).write();
         const saved = db.get('users').find({ id: newUser.id }).value();
 
@@ -135,6 +136,52 @@ server.post('/register', (req, res) => {
     }
 });
 
+server.post('/api/subir-imagen', async (req, res) => {
+  try {
+    console.log('POST /api/subir-imagen recibido');
+    console.log('Files recibidos:', req.files);
+
+    if (!req.files || !req.files.image) {
+      console.error(' No image file provided');
+      return res.status(400).json({ message: 'No image file provided' });
+    }
+
+    const imageFile = req.files.image;
+    const ImgbbKey = '4390cb6e2c63ec5ee08f85d837463e50';
+
+    console.log('Archivo recibido:', imageFile.name);
+
+    // Crear FormData para enviar a ImgBB
+    const form = new FormDataClass();
+    form.append('image', imageFile.data, { filename: imageFile.name });
+
+    // Enviar a ImgBB desde el backend (sin problemas de CORS)
+    console.log('Enviando a ImgBB...');
+    const imgbbResponse = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${ImgbbKey}`,
+      form,
+      { headers: form.getHeaders() }
+    );
+
+    if (imgbbResponse.data.success) {
+      const imageUrl = imgbbResponse.data.data.url;
+      console.log('Imagen subida a ImgBB:', imageUrl);
+      return res.status(200).json({
+        success: true,
+        url: imageUrl
+      });
+    } else {
+      throw new Error('ImgBB reported failure');
+    }
+
+  } catch (error) {
+    console.error('Error en /api/subir-imagen:', error.message);
+    return res.status(500).json({
+      message: 'Error uploading image',
+      error: error.message
+    });
+  }
+});
 
 server.use(router)
 
