@@ -1,1 +1,44 @@
-<p>perfil works!</p>
+@if(fotografo){
+    <section>
+        <img class="avatar" src="{{fotografo.fotoPerfil}}" alt="Foto de perfil de {{fotografo.nombreDeUsuario}}">
+        <button class="boton-config">⚙</button>
+        <h1 class="nombre">{{fotografo.nombre.toLocaleUpperCase()}}</h1>
+        <h4 class="nombre-usuario">@{{fotografo.nombreDeUsuario}}</h4>
+        <ul class="datos-extra">
+            <li>Cantidad de posts</li>
+            <li>Seguidores</li>
+            <li>Fecha de creación</li>
+        </ul>
+
+        <ul class="info-usuario">
+            <li>
+                <span class="etiqueta">Nombre</span>
+                <span class="valor">{{fotografo.nombre}}</span>
+            </li>
+            <li>
+                <span class="etiqueta">Apellido</span>
+                <span class="valor">{{fotografo.apellido}}</span>
+            </li>
+            <li>
+                <span class="etiqueta">Usuario</span>
+                <span class="valor">{{fotografo.nombreDeUsuario}}</span>
+            </li>
+            <li>
+                <span class="etiqueta">Email</span>
+                <span class="valor">{{fotografo.email}}</span>
+            </li>
+            <li>
+                <span class="etiqueta">Ciudad</span>
+                <span class="valor">{{fotografo.localidad}}</span>
+            </li>
+            <li>
+                <span class="etiqueta">Provincia</span>
+                <span class="valor">{{fotografo.provincia}}</span>
+            </li>
+        </ul>
+
+    </section>
+    <main>
+
+    </main>
+}
