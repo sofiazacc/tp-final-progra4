@@ -4,6 +4,7 @@ import { PostComponent } from '../../components/post-component/post-component';
 import { FondoGalaxia } from '../../components/fondo-galaxia/fondo-galaxia';
 import { PostModelo } from '../../models/post';
 import { PopUpSubirPosteo } from '../../components/pop-up-subir-posteo/pop-up-subir-posteo';
+import * as AOS from 'aos'; 
 @Component({
   selector: 'app-feed',
   standalone: true,  
@@ -29,6 +30,9 @@ export class Feed implements OnInit {
       next: (data) => { 
         console.log("Datos recibidos:", data);
         this.posteosActivos = data; 
+      setTimeout(() => {
+          AOS.refresh();
+        }, 50);
       },
       error: (e) => console.log(e)
     })

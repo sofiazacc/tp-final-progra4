@@ -13,6 +13,7 @@ import { CaculadoraHorasMagicasComponent } from './components/caculadora-horas-m
 import { PosicionViaLacteaComponent } from './components/posicion-via-lactea/posicion-via-lactea';
 import { authGuard } from './guards/auth-guard';
 import { rolGuard } from './guards/rol-guard';
+import { EditarPerfil } from './components/editar-perfil/editar-perfil';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -25,7 +26,8 @@ export const routes: Routes = [
     {path: 'eventos', component: EventosAstronomicos, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
     {path: 'posts-admin', component: PostsAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}},
     {path: 'usuarios-admin', component: UsuariosAdmin, canActivate: [authGuard,rolGuard], data: {rol: 'admin'}},
-    {path: 'calculatora', component: Caculadora500Component, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
-    {path: 'calculatora2', component: CaculadoraHorasMagicasComponent, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
-    {path: 'viaLactea', component: PosicionViaLacteaComponent, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}}
+    {path: 'calculadora', component: Caculadora500Component, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
+    {path: 'calculadora2', component: CaculadoraHorasMagicasComponent, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
+    {path: 'viaLactea', component: PosicionViaLacteaComponent, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
+    {path: 'editar-perfil', component: EditarPerfil, canActivate: [authGuard,rolGuard], data: {rol: 'fotografo'}},
 ];

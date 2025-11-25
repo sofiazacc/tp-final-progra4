@@ -21,14 +21,14 @@ export class App implements OnInit{
   rutasSinMenu: string[] = ['/auth', '/404', '/error'];
 
   ngOnInit(){
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out', 
-      once: true,
-      mirror: false, 
-      offset: 120,
-    });
-
+  AOS.init({
+    duration: 600,
+    easing: 'ease-out',
+    once: false,  // ← Cambia esto
+    mirror: false,
+    offset: 50,
+    disable: false, // ← Asegúrate de que no esté deshabilitado
+  });
     this.router.events.pipe(
       filter(evento => evento instanceof NavigationEnd)
     ).subscribe((evento: any) => {

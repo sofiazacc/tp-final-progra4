@@ -10,7 +10,7 @@
         @for(item of menuItems; track $index){
             <li routerLinkActive="active">
                 <a [routerLink]="item.route">
-                    <span class="material-symbols-outlined">{{item.icon}}</span>
+                    <span class="material-symbols-outlined" (click)="verificarAccion(item)">{{item.icon}}</span>
                     @if(desplegado){
                         <span class="label">{{item.label}}</span>
                     }
