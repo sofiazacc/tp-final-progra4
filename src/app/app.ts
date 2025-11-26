@@ -18,8 +18,9 @@ export class App implements OnInit{
   private router = inject(Router);
 
   mostrarMenu: boolean = true;
+  esAuth: boolean = false;
 
-  rutasSinMenu: string[] = ['/auth', '/404', '/error'];
+  rutasSinMenu: string[] = ['/404', '/error'];
 
   ngOnInit(){
 
@@ -29,6 +30,7 @@ export class App implements OnInit{
       
       const urlActual = evento.urlAfterRedirects;
       this.mostrarMenu = !this.rutasSinMenu.includes(urlActual);
+      this.esAuth = urlActual === '/auth'; 
     });
   }
 }

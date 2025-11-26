@@ -50,7 +50,6 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
    localStorage.removeItem('token_jwt');
    localStorage.removeItem('usuario_logueado');
    sessionStorage.clear();
-   this.router.navigate(['/auth']);
   }
 
   estaLogueado(): boolean {
