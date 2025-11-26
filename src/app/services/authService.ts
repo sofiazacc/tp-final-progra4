@@ -25,7 +25,7 @@ export class AuthService {
       );
   } //El login es para cualquier tipo de usuario
 
-register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
+  register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
     return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo)
       .pipe(
         tap((respuesta) => {
@@ -37,6 +37,14 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
         })
       );
   }//El registro es solo para fotógrafos
+
+  verificarPassword(id: string, password: string): Observable<{valid: boolean, message: string}> {
+    return this.http.post<{valid: boolean, message: string}>(`${this.backURL}/verificar-password`, { id, password });
+  }
+
+  cambiarPassword(id: string, nuevaPass: string): Observable<any> {
+    return this.http.post(`${this.backURL}/auth/cambiar-password`, { id, nuevaPassword: nuevaPass });
+  }
 
    guardarToken(token: string): void { 
    localStorage.setItem('token_jwt', token);
