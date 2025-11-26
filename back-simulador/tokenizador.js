@@ -22,7 +22,7 @@ server.use((req, res, next) => {
     res.header('Access-Control-Allow-Credentials', 'true');
 
     if(req.method === 'OPTIONS'){
-        return res.sendStatus(200); // ← AGREGADO return aquí
+        return res.sendStatus(200); 
     }
 
     next();
@@ -103,7 +103,8 @@ server.post('/register', (req, res) => {
         localidad,
         provincia,
         posteosFavoritosID: [],
-        marcadoresGuardadosID: []
+        marcadoresGuardadosID: [],
+        posteosLikeadosID:[]
     }
 
     try {
@@ -183,8 +184,8 @@ server.post('/api/subir-imagen', async (req, res) => {
         console.log('Files recibidos:', req.files);
 
         if (!req.files || !req.files.image) {
-            console.error('No image file provided');
-            return res.status(400).json({ message: 'No image file provided' });
+            console.error('No se recibió una imágen');
+            return res.status(400).json({ message: 'No se recibió una imágen ' });
         }
 
         const imageFile = req.files.image;
@@ -212,19 +213,19 @@ server.post('/api/subir-imagen', async (req, res) => {
                 url: imageUrl
             });
         } else {
-            throw new Error('ImgBB reported failure');
+            throw new Error('ImgBB devolvió error');
         }
 
     } catch (error) {
         console.error('Error en /api/subir-imagen:', error.message);
         return res.status(500).json({
-            message: 'Error uploading image',
+            message: 'Error al subir img',
             error: error.message
         });
     }
 });
 
-// Router al final
+// Router al final para evitar probelams
 server.use(router);
 
 const PORT = 3000;
