@@ -4,7 +4,7 @@ import { PostComponent } from '../../components/post-component/post-component';
 import { FondoGalaxia } from '../../animaciones/fondo-galaxia/fondo-galaxia';
 import { PostModelo } from '../../models/post';
 import { PopUpSubirPosteo } from '../../components/pop-up-subir-posteo/pop-up-subir-posteo';
-import { FadeUp } from '../../animaciones/fade-up';
+import { FadeUp } from '../../animaciones/fade-up/fade-up';
 @Component({
   selector: 'app-feed',
   standalone: true,  
