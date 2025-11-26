@@ -88,6 +88,10 @@ export class Mapa implements OnInit, AfterViewInit{
          //Por cada marcador obtenido, se ve reflejado en el mapa
         marcadores.forEach((marcador) => {
          //Obtenemos los post que corresponden
+         if(marcador.postID.length === 0){
+          this.marcadorService.deleteMarcador(marcador.id);
+          return;
+         }
           const postsDelGrupo = this.posts.filter(post => marcador.postID.includes(post.id));
           this.crearMarcador(marcador, postsDelGrupo);
         });

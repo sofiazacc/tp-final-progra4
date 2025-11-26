@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs';
 import { Fotografo, Usuario } from '../models/usuario';
 import {  Router } from '@angular/router';
@@ -18,7 +18,14 @@ interface AuthResponse {
 export class AuthService {
   private backURL = 'http://localhost:3000';
 
+  private _estaLogueado = new BehaviorSubject<boolean>(this.estaLogueadoInicial());
+  public estaLogueado$ = this._estaLogueado.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
+
+  private estaLogueadoInicial(): boolean {
+    return localStorage.getItem('token_jwt') !== null;
+  }
 
   login(credenciales: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.backURL}/login`, credenciales)
@@ -27,6 +34,7 @@ export class AuthService {
           console.log("AuthService (tap): Guardando token y usuario...");
           this.guardarToken(respuesta.accessToken);
           this.guardarUsuario(respuesta.user);
+          this._estaLogueado.next(true);
         })
       );
   } //El login es para cualquier tipo de usuario
@@ -40,6 +48,8 @@ register(fotografo: any): Observable<AuthResponse> {
     
           this.guardarToken(respuesta.accessToken);
           this.guardarUsuario(respuesta.user);
+          this._estaLogueado.next(true);
+          this.router.navigate(['/feed']);
         })
       );
   }//El registro es solo para fotógrafos
@@ -61,9 +71,13 @@ register(fotografo: any): Observable<AuthResponse> {
   }
 
   cerrarSesion(): void {
+   this._estaLogueado.next(false);
    localStorage.removeItem('token_jwt');
    localStorage.removeItem('usuario_logueado');
    sessionStorage.clear();
+   this.router.navigate(['/auth']);
+
+
   }
 
   estaLogueado(): boolean {

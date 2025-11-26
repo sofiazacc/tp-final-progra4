@@ -29,6 +29,26 @@ export class MarcadorService {
     return this.http.put<Marcador>(`${this.urlMarcadores}/${id}`, marcador);
   }
 
+
+private validarYBorrarHuerfanos(marcadoresExistentes: Marcador[], grupos: { [key: string]: PostModelo[] }): Promise<any>[] {
+    const promesasBorrado: Promise<any>[] = [];
+
+    marcadoresExistentes.forEach((marcador) => {
+      const key = `${marcador.lat},${marcador.lng}`;
+      
+
+      if (!grupos[key]) {
+        if (marcador.id) {
+          promesasBorrado.push(
+            lastValueFrom(this.deleteMarcador(marcador.id))
+          );
+        }
+      }
+    });
+
+    return promesasBorrado;
+  }
+
   sincronizarMarcadores(posts: PostModelo[]): Observable<Marcador[]> {
 
     return new Observable<Marcador[]>((observer) => {
@@ -39,13 +59,16 @@ export class MarcadorService {
       if (post.coordenadas) {
         const key = `${post.coordenadas.lat},${post.coordenadas.lng}`;
         if (!grupos[key]) grupos[key] = [];
-        grupos[key].push(post);
+        grupos[key].push(post);  
       }
     });
 
     // Se crean los marcadores a partir de los grupos
     const marcadores: Promise<Marcador>[] = [];
     
+    const promesasDeBorrado = this.validarYBorrarHuerfanos(marcadoresExistentes, grupos);
+        marcadores.push(...promesasDeBorrado);
+
     Object.keys(grupos).forEach((key) => {
       const postsDelGrupo = grupos[key];
       const lat = postsDelGrupo[0].coordenadas!.lat;
@@ -102,5 +125,9 @@ export class MarcadorService {
     }
   });
   });
+}
+
+deleteMarcador(id: string): Observable<any> {
+    return this.http.delete(`${this.urlMarcadores}/${id}`);
 }
 }
