@@ -7,7 +7,7 @@
         <input type="text" id="nombre" formControlName="nombre">
         @if(formulario.get("nombre")?.hasError("required") && formulario.get("nombre")?.touched){
             <p class="msj-error">El nombre es obligatorio</p>
-        }@else if (formulario.get("nombre")?.hasError("minlength") && formulario.get("apellido")?.touched) {
+        }@else if (formulario.get("nombre")?.hasError("minlength") && formulario.get("nombre")?.touched) {
             <p class="msj-error">El nombre no puede tener menos de 2 caracteres</p>
         }
     </fieldset>
