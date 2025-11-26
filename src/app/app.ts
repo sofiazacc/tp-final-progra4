@@ -19,20 +19,20 @@ export class App implements OnInit{
 
   mostrarMenu: boolean = true;
   esAuth: boolean = false;
+  esMapa: boolean = false;
 
   rutasSinMenu: string[] = ['/404', '/error'];
-
-  ngOnInit(){
-
+  
+  ngOnInit() {
     this.router.events.pipe(
       filter(evento => evento instanceof NavigationEnd)
     ).subscribe((evento: any) => {
+      const urlActual = evento.urlAfterRedirects || evento.url;
       
-      const urlActual = evento.urlAfterRedirects;
       this.mostrarMenu = !this.rutasSinMenu.includes(urlActual);
       this.esAuth = urlActual === '/auth'; 
+      this.esMapa = urlActual === '/mapa';
     });
   }
 }
-
 

@@ -80,3 +80,15 @@ app-footer {
         justify-content: center;  
     }   
 }
+
+main .es-mapa {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+main #sub-main {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
