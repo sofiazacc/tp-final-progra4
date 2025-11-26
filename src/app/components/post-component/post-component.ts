@@ -14,6 +14,7 @@ export class PostComponent {
   
   @Input() esAdmin: boolean = false;
   @Output() onDelete = new EventEmitter<string>();
+  @Output() onEdit = new EventEmitter<string>()
 
   getLikesCount(): number {
     if (!this.postData) return 0;
@@ -30,5 +31,9 @@ export class PostComponent {
 
   eliminar() {
     this.onDelete.emit(this.postData.id);
+  }
+
+  modificar() {
+    this.onEdit.emit(this.postData.id);
   }
 }
