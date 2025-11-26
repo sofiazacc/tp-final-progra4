@@ -1,10 +1,15 @@
+:host{
+  margin: 0;
+  padding: 0;
+}
 
 .container-principal {
   min-height: 100vh;
-  padding: 60px 20px; 
+  padding: 3rem 2rem; 
   font-family: 'Inter', sans-serif; 
   color: #000000;
   gap: 30px;
+  width: 100%;
 }
 
 
