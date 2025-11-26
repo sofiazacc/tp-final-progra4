@@ -65,12 +65,17 @@
 
         <select formControlName="provincia" (change)="cambioDeProvincia($event)">
           <option value="">Selecciona una provincia</option>
-          
+
+          @for(provincia of provincias; track provincia){
+            <option [value]="provincia">{{ provincia }}</option>
+          }
+
+          <!--
           @for(provincia of provincias; track provincia.id){
             <option [value]="provincia.id">
               {{ provincia.nombre }}
             </option>
-          }
+          } -->
         </select>
       </div>
 
@@ -86,11 +91,15 @@
         <select formControlName="localidad">
         <option value="">Selecciona una localidad</option>
         
-          @for(localidad of localidades; track localidad.id){
+        @for(localidad of localidades; track localidad){
+          <option [value]="localidad">{{ localidad }}</option>
+        }
+
+        <!--  @for(localidad of localidades; track localidad.id){
             <option [value]="localidad.id">
               {{ localidad.nombre }}
             </option>
-          }
+          }-->
       </select>
       </div>
       

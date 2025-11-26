@@ -5,6 +5,12 @@ import { tap } from 'rxjs';
 import { Fotografo, Usuario } from '../models/usuario';
 import {  Router } from '@angular/router';
 
+interface AuthResponse {
+  accessToken: string;
+  user: Usuario;
+  expiresIn: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +20,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(credenciales: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales)
+  login(credenciales: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.backURL}/login`, credenciales)
       .pipe(
         tap((respuesta) => {
           console.log("AuthService (tap): Guardando token y usuario...");
@@ -25,8 +31,8 @@ export class AuthService {
       );
   } //El login es para cualquier tipo de usuario
 
-register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo)
+register(fotografo: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.backURL}/register`, fotografo)
       .pipe(
         tap((respuesta) => {
                 console.log(`Toke: ${respuesta.accessToken}`);
