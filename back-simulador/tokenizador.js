@@ -13,6 +13,43 @@ const FormDataClass = require('form-data');
 //Incorporamos Crypt-js
 const bcrypt = require('bcrypt');
 
+const generarTokenConExpiracion = (email) => {
+    const expiresIn = 3600 //una horita
+    const tiempoAbsolutoExp = Date.now() + expiresIn * 1000;
+
+    const payload = {
+        email: email,
+        expiry: tiempoAbsolutoExp,
+        issueAt: Date.now()
+    };
+
+    const accessToken = Buffer.from(JSON.stringify(payload)).toString('base64');
+
+    return {accessToken, expiresIn}
+}
+
+const verificarToken = (tokenAcceso) => {
+    try{
+        const decoedPayload = Buffer.from(tokenAcceso, 'base64').toString('utf8')
+        const payload = JSON.parse(decoedPayload)
+
+        if(!payload || !payload.expiry){
+            return { valido: false, email: null, motivo: 'Token mal formado'};
+        }
+
+        const tiempoActual = Date.now();
+
+        if(tiempoActual > payload.expiry){
+            return { valido: false, email: null, motivo: 'Token expirado'};
+        }
+
+        return { valido: true, email: payload.email, motivo: 'Token válido'};
+    }catch(e){
+        console.error('Error decodificando el token:', e.message);
+        return { valido: false, email: null, motivo: 'Error al procesar el token' };
+    }
+}
+
 /*Para solucionar errores de CORS, se le da permiso a la interacción
 con este backend simulado y nuestra app de Angular*/
 server.use((req, res, next) => {
@@ -33,22 +70,45 @@ utilizable*/
 server.use(fileUpload());
 server.use(jsonServer.bodyParser);
 
-//Métodos
 
-const generarTokenConExpiracion = (email) => {
-    const expiresIn = 3600 //una horita
-    const tiempoAbsolutoExp = Date.now() + expiresIn * 1000;
+server.use((req, res, next) => {
+    // Agregamos /login y /register para que pasen sin token
+    const rutasPublicas = [
+        '/api/subir-imagen', 
+        '/login', 
+        '/register', 
+        '/auth'
+    ];
+    
+    // Verificamos si la ruta es pública o es una petición OPTIONS
+    if(rutasPublicas.some(path => req.path.includes(path)) || req.method === 'OPTIONS'){
+        return next(); // ¡CORREGIDO: debe ser next()!
+    }
 
-    const payload = {
-        email: email,
-        expiry: tiempoAbsolutoExp,
-        issueAt: Date.now()
-    };
+    const authHeader = req.headers['authorization'];
 
-    const accessToken = Buffer.from(JSON.stringify(payload)).toString('base64');
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+        console.warn(`Acceso denegado a ${req.path}: No se encontró token Bearer.`);
+        return res.status(401).json({ message: 'Acceso no autorizado: Token Bearer requerido' });
+    }
+    
+    const token = authHeader.split(' ')[1];
+    
 
-    return {accessToken, expiresIn}
-}
+    const verificacion = verificarToken(token); 
+
+    if(verificacion.valido){
+  
+        req.userEmail = verificacion.email;
+        console.log(`Acceso permitido a ${req.path} para: ${verificacion.email}`);
+        return next();
+    } else {
+      
+        console.warn(`Acceso denegado a ${req.path}: ${verificacion.motivo}`);
+        return res.status(401).json({ message: `Token inválido: ${verificacion.motivo}` });
+    }
+});
+
 
 server.post('/login', (req,res) => {
     console.log('Se ha recibido una petición en el /login:', req.body);
@@ -62,10 +122,10 @@ server.post('/login', (req,res) => {
     }
 
     if(bcrypt.compareSync(password, user.password)){
-        const { tokenAcceso, expiresIn } = generarTokenConExpiracion(email);
+        const { accessToken, expiresIn } = generarTokenConExpiracion(email); 
         console.log("Login exitoso, expiración en:", expiresIn, "segundos");
 
-        return res.status(200).json({ accessToken: tokenAcceso, user: user, expiresIn: expiresIn });
+        return res.status(200).json({ accessToken: accessToken, user: user, expiresIn: expiresIn });
     }else{
         console.log("Login fallido: La contraseña no coincide")
         return res.status(401).json({message: 'La contraseña ingresada no coincide'});
@@ -141,8 +201,8 @@ server.post('/register', (req, res) => {
         console.log('Registro exitoso')
 
         // logueamos al nuevo usuario automáticamente 
-        const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); 
-        return res.status(201).json({ accessToken: token, user: newUser });
+        const { accessToken, expiresIn } = generarTokenConExpiracion(email); // Usamos la función de token
+        return res.status(201).json({ accessToken: accessToken, user: newUser, expiresIn: expiresIn });
     } catch (err) {
         console.error('Error al procesar /register:', err);
         return res.status(500).json({ message: 'Error interno del servidor' });
