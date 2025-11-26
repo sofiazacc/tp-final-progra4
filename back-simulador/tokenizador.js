@@ -72,7 +72,6 @@ server.patch('/usuarios/:id/favoritos', (req, res) => {
     
     return res.status(200).json(user);
 });
-
 server.post('/register', (req, res) => {
     console.log('Servidor recibió en /register:', req.body);
     const db = router.db;
@@ -130,6 +129,53 @@ server.post('/register', (req, res) => {
         return res.status(500).json({ message: 'Error interno del servidor' });
     }
 });
+
+server.post('/verificar-password', (req, res) => {
+    console.log('Verificación de contraseña de ', req.body.id);
+    const { id, password } = req.body;
+
+    const db = router.db;
+
+    const user = db.get('users').find({ id: id }).value();
+    if (!user) {
+        return res.status(404).json({ valid: false, message: 'Usuario no encontrado' });
+    }
+
+    // Acá se comparan la contraseña traída desde el front con la almacenada en la base de datos
+    const isMatch = bcrypt.compareSync(password, user.password);
+
+    if (isMatch) {
+        // Contraseña correcta
+        return res.status(200).json({ valid: true, message: 'Contraseña correcta' });
+    } else {
+        // Contraseña incorrecta
+        return res.status(200).json({ valid: false, message: 'Contraseña es incorrecta' });
+    }
+});
+
+server.post('/auth/cambiar-password', (req, res) => {
+    const { id, nuevaPassword } = req.body;
+    const db = router.db;
+
+    const user = db.get('users').find({ id: id }).value();
+    
+    if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHasheada = bcrypt.hashSync(nuevaPassword, salt);
+
+    db.get('users')
+      .find({ id: id })
+      .assign({ password: passwordHasheada })
+      .write();
+
+    const usuarioActualizado = db.get('users').find({ id: id }).value();
+    
+    return res.status(200).json(usuarioActualizado);
+});
+
 
 server.post('/api/subir-imagen', async (req, res) => {
     try {
