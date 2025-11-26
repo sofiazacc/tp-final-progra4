@@ -2,7 +2,6 @@
   @for (post of listaPosts; track post.id) {
     <app-post 
         [postData]="post" 
-        [esAdmin]="true" 
         (onDelete)="borrarPost($event)"
         (onEdit)="abrirModalEdicion($event)"> </app-post>
   }
