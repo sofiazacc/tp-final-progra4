@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from '../../services/authService';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-menu-general',
@@ -25,7 +26,7 @@ export class MenuGeneral {
     {icon: 'map_search', label: 'Mapa', route: 'mapa'},
     {icon: 'person', label: 'Perfil', route: 'perfil'},
     {icon: 'bookmark', label: 'Posts guardados', route: 'guardados'},
-    {icon: 'account_circle_off', label: 'Cerrar sesión'},
+    {icon: 'account_circle_off', label: 'Cerrar sesión', route: 'auth'},
     {icon: 'thumbnail_bar', label: 'Eventos', route: 'eventos'},
     {icon: 'thumbnail_bar', label: 'Regla del 500', route: 'calculadora'},
     {icon: 'thumbnail_bar', label: 'Horas mágicas', route: 'calculadora2'},
