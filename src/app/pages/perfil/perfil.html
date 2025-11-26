@@ -1,7 +1,7 @@
 @if(fotografo){
     <section>
         <img class="avatar" src="{{fotografo.fotoPerfil}}" alt="Foto de perfil de {{fotografo.nombreDeUsuario}}">
-        <button class="boton-config">⚙</button>
+        <button class="boton-config" (click)="modificarPerfil()">⚙</button>
         <h1 class="nombre">{{fotografo.nombre.toLocaleUpperCase()}}</h1>
         <h4 class="nombre-usuario">@{{fotografo.nombreDeUsuario}}</h4>
         <ul class="datos-extra">
@@ -37,8 +37,13 @@
             </li>
         </ul>
 
+        
     </section>
     <main>
 
     </main>
+    @if(estadoModal){
+            <app-modal-editar-perfil (onClose)="cerrarModal()"></app-modal-editar-perfil>
+        }
+
 }
