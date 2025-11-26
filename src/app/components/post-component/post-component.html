@@ -11,17 +11,20 @@
         </div>
       </div>
 
+       @if(sePuedeEditar) {
       <div style="display: flex; gap: 5px; align-items: center;">
         
-        @if(esAdmin) {
+       
             <button class="btn-opciones btn-delete" (click)="eliminar()" title="Eliminar post">
                 <span class="material-symbols-outlined">delete</span>
             </button>
             <button class="btn-opciones btn-modificar" (click)="modificar()" title="Modificar post">
               <span class="material-symbols-outlined">edit</span>
             </button>
-        }
+       
       </div>
+      }
+      
       </div>
 
     <div class="post-imagen">
@@ -30,15 +33,21 @@
 
     <div class="post-acciones">
       <div class="acciones-izquierda">
-        <button class="btn-accion" (click)="toggleLike()" [class.liked]="liked">
+        <button class="btn-accion" (click)="toggleMegusta()" [class.liked]="liked">
           <span class="material-symbols-outlined">
             {{ liked ? 'favorite' : 'favorite_border' }}
           </span>
         </button>
-        <p class="meG"><strong>{{ getLikesCount() | number }}</strong> me gusta</p>
+        <p class="meG"><strong>{{ cantidadDeMeGustas() | number }}</strong> me gusta</p>
       </div>
-      <button class="btn-accion" (click)="guardar()">
+      <button class="btn-accion" (click)="guardar()" [class.guardado]="guardado">
+        @if(guardado){
+          <span class="material-symbols-outlined">
+            bookmark_heart
+            </span>
+        }@else{
         <span class="material-symbols-outlined">bookmark_border</span>
+        }
       </button>
     </div>
 
