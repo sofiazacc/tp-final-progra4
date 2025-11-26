@@ -23,8 +23,7 @@ export class Guardados {
     this.obtenerPosts();
   }
   
-  obtenerPosts() {
-  
+ obtenerPosts() {
     const usuario = this.authService.getfotografoActual();
     const favoritosIds = usuario?.posteosFavoritosID || [];
 
@@ -36,13 +35,6 @@ export class Guardados {
       return;
     }
 
-    if (favoritosIds.length === 0) {
-      console.warn('El usuario no ha guardado ningún posteo.');
-      this.posteosGuardados = []; 
-      this.cargoDatos = true;
-      return;
-    }
-    
     this.FeedService.getPosts().subscribe({
       next: (todosLosPosts) => { 
         console.log("Datos recibidos:", todosLosPosts.length);
@@ -54,7 +46,7 @@ export class Guardados {
             return estaGuardado && estaActivo; 
         });
 
-        this.cargoDatos = true;
+        this.cargoDatos = true; 
         console.log(`Posts guardados y activos encontrados: ${this.posteosGuardados.length}`);
       },
       error: (error) => {
