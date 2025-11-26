@@ -13,8 +13,9 @@ export interface Fotografo extends Usuario {
     localidad: string;
     provincia: string;
     posteosFavoritosID: string[];
-    marcadoresGuardadosID: string[],
+    marcadoresGuardadosID: string[];
     fotoPerfil: string;
+    posteosLikeadosID: string[];
 }
 
 export interface Admin extends Usuario {
