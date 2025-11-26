@@ -1,46 +1,88 @@
-<h2>Calculadora de Horas Mágicas</h2>
-
-<form [formGroup]="formulario" id="formulario-magicas">
-
-    <label>Latitud</label>
-    <input type="number" formControlName="latitud" placeholder="Ej: -34.60">
-
-    <label>Longitud</label>
-    <input type="number" formControlName="longitud" placeholder="Ej: -58.38">
-
-    <label>Fecha</label>
-    <input type="date" formControlName="fecha">
-
-    <button type="button" (click)="calcular()">Calcular</button>
-</form>
-
-@if(error){
-  <p class="error">{{ error }}</p>
-}
-
-@if(cargando){
-  <p>Cargando...</p>
-}
-
-@if(resultado){
-  <div class="resultado">
-
-    <h3>Resultados</h3>
-
-    <p><strong>Amanecer:</strong> {{ resultado.amanecer | date:'HH:mm' }}</p>
-    <p><strong>Atardecer:</strong> {{ resultado.atardecer | date:'HH:mm' }}</p>
-
-    <h4>Hora Azul (AM)</h4>
-    <p>{{ resultado.horaAzulAM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulAM_Fin | date:'HH:mm' }}</p>
-
-    <h4>Hora Dorada (AM)</h4>
-    <p>{{ resultado.horaDoradaAM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaAM_Fin | date:'HH:mm' }}</p>
-
-    <h4>Hora Dorada (PM)</h4>
-    <p>{{ resultado.horaDoradaPM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaPM_Fin | date:'HH:mm' }}</p>
-
-    <h4>Hora Azul (PM)</h4>
-    <p>{{ resultado.horaAzulPM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulPM_Fin | date:'HH:mm' }}</p>
-
+<div class="container-principal">
+  
+  <div class="acciones-superiores">
+  <div class="titulo-wrapper">
+    <h2>Calculadora de Horas Mágicas</h2>
+    
+    <div class="tooltip-container">
+      <span class="material-symbols-outlined icono-info">info</span>
+      
+      <div class="tooltip-texto">
+        <strong>¿Para qué sirve?</strong>
+        <p>Calcula los mejores momentos de luz natural. La <strong>Hora Dorada</strong> ofrece luz suave y cálida ideal para retratos. La <strong>Hora Azul</strong> ocurre antes del amanecer o tras el atardecer, perfecta para paisajes urbanos y naturaleza.</p>
+      </div>
+    </div>
   </div>
-}
+</div>
+
+  <form [formGroup]="formulario" class="formulario-container">
+    
+    <div class="grupo-input">
+      <label>Latitud</label>
+      <input type="number" formControlName="latitud" placeholder="Ej: -34.60">
+    </div>
+
+    <div class="grupo-input">
+      <label>Longitud</label>
+      <input type="number" formControlName="longitud" placeholder="Ej: -58.38">
+    </div>
+
+    <div class="grupo-input">
+      <label>Fecha</label>
+      <input type="date" formControlName="fecha">
+    </div>
+
+    <div class="botones-accion">
+      <button type="button" class="btn-calcular" (click)="calcular()">Calcular</button>
+    </div>
+
+  </form>
+
+  @if(error){
+    <p class="error">{{ error }}</p>
+  }
+
+  @if(cargando){
+    <p class="cargando">Calculando horarios...</p>
+  }
+
+  @if(resultado){
+    <div class="resultado-container">
+      <h3 class="resultado-titulo">Horarios del Sol</h3>
+      
+      <div class="grilla-resultados">
+        <div class="resultado-item">
+          <span class="label">Amanecer</span>
+          <span class="valor">{{ resultado.amanecer | date:'HH:mm' }}</span>
+        </div>
+        <div class="resultado-item">
+          <span class="label">Atardecer</span>
+          <span class="valor">{{ resultado.atardecer | date:'HH:mm' }}</span>
+        </div>
+      </div>
+
+      <div class="separador"></div>
+
+      <div class="grilla-resultados">
+        <div class="resultado-item azul">
+          <span class="label">Hora Azul (AM)</span>
+          <span class="valor">{{ resultado.horaAzulAM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulAM_Fin | date:'HH:mm' }}</span>
+        </div>
+        <div class="resultado-item dorada">
+          <span class="label">Hora Dorada (AM)</span>
+          <span class="valor">{{ resultado.horaDoradaAM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaAM_Fin | date:'HH:mm' }}</span>
+        </div>
+        <div class="resultado-item dorada">
+          <span class="label">Hora Dorada (PM)</span>
+          <span class="valor">{{ resultado.horaDoradaPM_Inicio | date:'HH:mm' }} - {{ resultado.horaDoradaPM_Fin | date:'HH:mm' }}</span>
+        </div>
+        <div class="resultado-item azul">
+          <span class="label">Hora Azul (PM)</span>
+          <span class="valor">{{ resultado.horaAzulPM_Inicio | date:'HH:mm' }} - {{ resultado.horaAzulPM_Fin | date:'HH:mm' }}</span>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>
