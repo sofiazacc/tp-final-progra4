@@ -155,6 +155,7 @@
     gap: 40px;
     max-width: 900px; 
     margin: 0 auto; 
+    margin-left: 4rem;
 }
 
 .sin-posts {
@@ -164,6 +165,10 @@
     border: 2px dashed #ddd;
     border-radius: 16px;
     font-size: 1.1rem;
+}
+
+#titulo-feed{
+  text-align: center;
 }
 
 @media (max-width: 1000px) {
