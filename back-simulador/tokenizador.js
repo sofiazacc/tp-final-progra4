@@ -34,6 +34,22 @@ server.use(fileUpload());
 server.use(jsonServer.bodyParser);
 
 //Métodos
+
+const generarTokenConExpiracion = (email) => {
+    const expiresIn = 3600 //una horita
+    const tiempoAbsolutoExp = Date.now() + expiresIn * 1000;
+
+    const payload = {
+        email: email,
+        expiry: tiempoAbsolutoExp,
+        issueAt: Date.now()
+    };
+
+    const accessToken = Buffer.from(JSON.stringify(payload)).toString('base64');
+
+    return {accessToken, expiresIn}
+}
+
 server.post('/login', (req,res) => {
     console.log('Se ha recibido una petición en el /login:', req.body);
     const{email, password} = req.body;
@@ -46,14 +62,16 @@ server.post('/login', (req,res) => {
     }
 
     if(bcrypt.compareSync(password, user.password)){
-        const token = Buffer.from(`${email}:${Date.now()}`).toString('base64');
-        console.log("Login exitoso")
-        return res.status(200).json({accessToken: token, user: user});
+        const { tokenAcceso, expiresIn } = generarTokenConExpiracion(email);
+        console.log("Login exitoso, expiración en:", expiresIn, "segundos");
+
+        return res.status(200).json({ accessToken: tokenAcceso, user: user, expiresIn: expiresIn });
     }else{
         console.log("Login fallido: La contraseña no coincide")
         return res.status(401).json({message: 'La contraseña ingresada no coincide'});
     }
 });
+
 
 server.patch('/usuarios/:id/favoritos', (req, res) => {
     const { id } = req.params;
