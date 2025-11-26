@@ -6,6 +6,7 @@ import { AuthService } from '../../services/authService';
 import { GeoRefProvincia } from '../../models/georefProvincia';
 import { GeoRefLocalidad } from '../../models/georefLocalidad';
 import { CommonModule } from '@angular/common';
+import { Localidad, Provincia, PROVINCIAS_LOCALIDADES } from './reemplazoEnum';
 
 
 
@@ -18,29 +19,34 @@ import { CommonModule } from '@angular/common';
 })
 
 export class Auth implements OnInit { 
-    constructor(
+   
+  provincias = Object.values(Provincia);
+  localidades: Localidad[] = [];
+  
+  constructor(
       private authService: AuthService,
       private georefService: GeorefService,
       private router: Router
     ) {}
-
+/*
     //Variables para provincias y localidades
     provincias: GeoRefProvincia[] = [];
-    localidades: GeoRefLocalidad[] = [];
+    localidades: GeoRefLocalidad[] = [];*/
+
 
   ngOnInit(): void { 
-    this.georefService.getProvincias().subscribe(data => {
+    /*this.georefService.getProvincias().subscribe(data => {
       console.log("Datos recibidos de provincias:", data);
       this.provincias = data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las provincias
-    }); 
+    }); */
   }
 
 
 
-  cambioDeProvincia(event: Event) { //Método para actualizar las localidades cuando cambia la provincia seleccionada
+  cambioDeProvincia(event: any /*Event*/) { //Método para actualizar las localidades cuando cambia la provincia seleccionada
     const selectElement = event.target as HTMLSelectElement;
     const provinciaId = selectElement.value;
-    
+    /*
     if(provinciaId){
       this.georefService.getLocalidades(provinciaId).subscribe(data => {
       this.localidades = data.localidades.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Se ordenan alfabéticamente las localidades
@@ -49,7 +55,9 @@ export class Auth implements OnInit {
       this.localidades = []; // Si no hay provincia seleccionada, se limpia la lista de localidades 
     }
 
-    this.registroForm.get('localidad')?.setValue(''); // Resetea el valor del select de localidades al cambiar la provincia
+    this.registroForm.get('localidad')?.setValue(''); // Resetea el valor del select de localidades al cambiar la provincia*/
+     const provinciaSeleccionada = event.target.value as Provincia;
+    this.localidades = PROVINCIAS_LOCALIDADES[provinciaSeleccionada] || [];
   }
 
 
@@ -134,11 +142,11 @@ export class Auth implements OnInit {
 
 
     const formValue = this.registroForm.value;
-
+/*
     const provinciaSeleccionada = this.provincias.find(
       p => p.id === formValue.provincia
     );
-    const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';
+    const nombreProvincia = provinciaSeleccionada ? provinciaSeleccionada.nombre : '';*/
   
 
     const nuevoFotografo = {
@@ -149,7 +157,7 @@ export class Auth implements OnInit {
       rol: 'fotografo' as const,
       nombreDeUsuario: formValue.username!,
       localidad: formValue.localidad!,
-      provincia: nombreProvincia!
+      provincia: formValue.provincia!
     };
 
     this.authService.register(nuevoFotografo).subscribe({ 
