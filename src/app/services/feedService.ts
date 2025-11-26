@@ -15,8 +15,11 @@ export class FeedService {
 
   
   getPosts(): Observable<PostModelo[]>{
-
     return this.http.get<PostModelo[]>(`${this.url}?eliminado=false`);
+  }
+
+  getPost(id: string): Observable<PostModelo>{
+    return this.http.get<PostModelo>(`${this.url}/${id}`);
   }
 
   postPost(post: any): Observable<PostModelo>{
@@ -27,7 +30,10 @@ export class FeedService {
     return this.http.put<PostModelo>(`${this.url}/${id}`, post)
   }
 
-  // Versión óptima (Si el backend soporta PATCH)
+  patchPost(post: PostModelo): Observable<PostModelo>{
+    return this.http.patch<PostModelo>(`${this.url}/${post.id}`, post)
+  }
+
   deletePost(id: string): Observable<any> {
     return this.http.patch(`${this.url}/${id}`, { eliminado: true });
   }
