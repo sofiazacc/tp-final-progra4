@@ -3,7 +3,7 @@ import { EventoAstronomico } from '../../models/eventoAstronomico';
 import { EventosAstronomicosService } from '../../services/eventosAstronomicosService';
 import { EventoAstronomicoComponente } from "../../components/evento-astronomico/evento-astronomico";
 import { FormsModule } from '@angular/forms';
-import { FadeUp } from '../../animaciones/fade-up';
+import { FadeUp } from '../../animaciones/fade-up/fade-up';
 
 @Component({
   selector: 'app-articulos-astronomicos',
