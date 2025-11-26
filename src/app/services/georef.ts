@@ -18,7 +18,7 @@ interface GeoRefLocalidadesResponse {
 })
 
 export class GeorefService {
- private apiUrl = 'https://apis.datos.gob.ar/georef/api/v2.0';
+ /*private apiUrl = 'https://apis.datos.gob.ar/georef/api/v2.0';
   
   constructor(private http: HttpClient) {}
 
@@ -32,5 +32,5 @@ export class GeorefService {
     return this.http.get<GeoRefLocalidadesResponse>(
       `${this.apiUrl}/localidades?provincia=${idProvincia}&campos=id,nombre&max=1000` 
     );
-  }
+  }*/
 }
