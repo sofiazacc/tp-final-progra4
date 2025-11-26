@@ -1,1 +1,42 @@
-<p>cambiar-contrasenia works!</p>
+<form [formGroup]="formulario">
+    <div class="header-nav">
+        <button class="btn-volver" type="button" (click)="onBack.emit()">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h2 class="titulo">Cambiar contraseña</h2>
+    </div>
+
+    <fieldset class="campos-formulario">
+        <label for="password">Contraseña actual</label>
+        <input type="password" id="password" formControlName="password">
+        @if(formulario.get("password")?.hasError("required") && formulario.get("password")?.touched){
+            <p class="msj-error">La contraseña es obligatoria</p>
+        }@else if (formulario.get("password")?.hasError("minlength")) {
+            <p class="msj-error">La contraseña debe tener al menos 8 caracteres</p>
+        }
+    </fieldset>
+
+    <fieldset class="campos-formulario">
+        <label for="nuevaPassword">Nueva contraseña</label>
+        <input type="password" id="nuevaPassword" formControlName="nuevaPassword">
+        @if(formulario.get("nuevaPassword")?.hasError("required") && formulario.get("nuevaPassword")?.touched){
+            <p class="msj-error">La nueva contraseña es obligatoria</p>
+        }@else if (formulario.get("nuevaPassword")?.hasError("minlength")) {
+            <p class="msj-error">La nueva contraseña debe tener al menos 8 caracteres</p>
+        }
+    </fieldset>
+    
+    <fieldset class="campos-formulario">
+        <label for="confirmarPassword">Confirmar contraseña</label>
+        <input type="password" id="confirmarPassword" formControlName="confirmarPassword">
+        @if(formulario.get("confirmarPassword")?.hasError("required") && formulario.get("confirmarPassword")?.touched){
+            <p class="msj-error">La confirmación es obligatoria</p>
+        }@else if (formulario.get("confirmarPassword")?.hasError("minlength")) {
+            <p class="msj-error">La nueva contraseña debe tener al menos 8 caracteres</p>
+        }
+    </fieldset>
+    
+
+
+    <button class="btn-guardar" type="submit" (click)="cambiarPassword()">Guardar cambios</button>
+</form>
