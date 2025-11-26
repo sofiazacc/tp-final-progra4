@@ -1,1 +1,40 @@
-<p>cambiar-mail works!</p>
+<form [formGroup]="formulario">
+    <div class="header-nav">
+        <button class="btn-volver" type="button" (click)="onBack.emit()">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h2 class="titulo">Cambiar email</h2>
+    </div>
+
+    <fieldset class="campos-formulario">
+        <label for="email">Email actual</label>
+        <input type="text" id="email" formControlName="email">
+        @if(formulario.get("email")?.hasError("required") && formulario.get("email")?.touched){
+            <p class="msj-error">El email es obligatorio</p>
+        }@else if (formulario.get("email")?.hasError("email") && formulario.get("email")?.touched) {
+            <p class="msj-error">Formato de email incorrecto</p>
+        }
+    </fieldset>
+
+    <fieldset class="campos-formulario">
+        <label for="nuevoEmail">Nuevo email</label>
+        <input type="text" id="nuevoEmail" formControlName="nuevoEmail">
+        @if(formulario.get("nuevoEmail")?.hasError("required") && formulario.get("nuevoEmail")?.touched){
+            <p class="msj-error">El email es obligatorio</p>
+        }@else if (formulario.get("nuevoEmail")?.hasError("email") && formulario.get("nuevoEmail")?.touched) {
+            <p class="msj-error">Formato de email incorrecto</p>
+        }
+    </fieldset>
+    
+    <fieldset class="campos-formulario">
+        <label for="password">Ingrese su contraseña</label>
+        <input type="password" id="password" formControlName="password">
+        @if(formulario.get("password")?.invalid && formulario.get("password")?.touched){
+            <p class="msj-error">La contraseña es obligatoria</p>
+        }
+    </fieldset>
+    
+
+
+    <button class="btn-guardar" type="submit" (click)="cambiarEmail()">Guardar cambios</button>
+</form>
