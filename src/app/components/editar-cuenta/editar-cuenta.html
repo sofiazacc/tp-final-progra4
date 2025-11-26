@@ -1,1 +1,21 @@
-<p>editar-cuenta works!</p>
+<h2 class="titulo">Editar cuenta</h2>
+
+<form [formGroup]="formulario">
+
+    <div class="fila-dato">
+        <fieldset class="campos-formulario">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" formControlName="password" readonly>
+        </fieldset>
+        <button class="btn-cambiar" type="button" (click)="onGoToPassword.emit()">Cambiar</button>
+    </div>
+
+    <div class="fila-dato">
+        <fieldset class="campos-formulario">
+            <label for="email">Email</label>
+            <input type="text" id="email" formControlName="email" readonly>
+        </fieldset>
+        <button class="btn-cambiar" type="button" (click)="onGoToMail.emit()">Cambiar</button>
+    </div>
+
+</form>
