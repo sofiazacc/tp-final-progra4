@@ -1,15 +1,19 @@
  <div class="general">
 <div class="container-principal">
-    <div class="acciones-superiores">
-      <h2>Regla del 500</h2>
-      @if (resultado !== undefined) {
-        <div class="botones">
-          <button class="btn-ghost limpiar" (click)="limpiar()">
-            Limpiar
-          </button>
-        </div>
-      }
+   <div class="acciones-superiores">
+  <div class="titulo-wrapper">
+    <h2>Regla del 500</h2>
+    
+    <div class="tooltip-container">
+      <span class="material-symbols-outlined icono-info">info</span>
+      
+      <div class="tooltip-texto">
+        <strong>¿Qué es la Regla del 500?</strong>
+        <p>Es una fórmula para fotografía nocturna. Calcula el <strong>tiempo máximo de exposición</strong> (en segundos) que puedes usar antes de que las estrellas dejen de ser puntos y empiecen a verse como líneas movidas.</p>
+      </div>
     </div>
+  </div>
+</div>
 
     <div class="formulario-container">
       <form [formGroup]="formulario">

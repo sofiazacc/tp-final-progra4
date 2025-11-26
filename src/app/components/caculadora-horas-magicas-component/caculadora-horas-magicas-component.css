@@ -202,13 +202,13 @@ input:focus {
 }
 
 
-/* --- ESTILOS TOOLTIP (Copiar y pegar) --- */
+
 .titulo-wrapper {
   display: flex;
   align-items: center;
   gap: 10px;
   position: relative;
-  justify-content: center; /* Centrado para esta pantalla */
+  justify-content: center; 
 }
 
 .icono-info {

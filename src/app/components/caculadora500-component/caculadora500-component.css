@@ -30,14 +30,14 @@
     }
 
     .acciones-superiores {
-      max-width: 900px;
-      width: 100%;
-      margin: 0 auto 2rem auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding-bottom: 15px;
+        width: 100%;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center; 
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 15px;
     }
 
     .acciones-superiores h2 {
@@ -228,7 +228,7 @@
       letter-spacing: 0.5px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .acciones-superiores {
         flex-direction: column;
         align-items: center;
@@ -253,3 +253,76 @@
         font-size: 2rem;
       }
     }
+
+
+.titulo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  justify-content: center; 
+}
+
+.icono-info {
+  font-size: 1.3rem;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: help;
+  transition: all 0.3s ease;
+}
+
+.icono-info:hover {
+  color: #000;
+  transform: scale(1.1);
+}
+
+.tooltip-texto {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 280px;
+  padding: 15px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: left;
+  font-weight: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.tooltip-texto strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.tooltip-texto::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(20, 20, 20, 0.95) transparent;
+}
+
+.tooltip-container:hover .tooltip-texto {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(5px);
+  pointer-events: auto;
+}
+
+@media (max-width: 500px) {
+  .titulo-wrapper { flex-direction: column; gap: 5px; }
+}
