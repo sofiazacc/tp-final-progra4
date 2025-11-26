@@ -14,13 +14,14 @@ html, body {
   font-size: 16px;
 }
 
-img{
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
 
 h1,h2,h3{
     line-height: 1.2;
     margin-bottom: 1rem;
+}
+
+
+.mapa-overlay-container img {
+  max-width: none !important;
+  height: auto !important;
 }
