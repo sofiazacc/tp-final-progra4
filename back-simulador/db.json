@@ -26,7 +26,8 @@
       "localidad": "22140030",
       "provincia": "Chaco",
       "posteosFavoritosID": [
-        "KkTyy0R"
+        "KkTyy0R",
+        "3"
       ],
       "marcadoresGuardadosID": [
         2
@@ -183,7 +184,9 @@
       },
       "fecha": "2024-12-12T11:30:00",
       "eliminado": false,
-      "idUsuariosQueDieronLike": []
+      "idUsuariosQueDieronLike": [
+        "78owmhk"
+      ]
     },
     {
       "id": "4",
@@ -267,21 +270,12 @@
         ]
       },
       "fecha": "2025-11-25T09:35:18.227Z",
-      "eliminado": false,
+      "eliminado": true,
       "id": "KkTyy0R",
       "idUsuariosQueDieronLike": []
     }
   ],
   "marcadores": [
-    {
-      "lat": -41.1335,
-      "lng": -71.3103,
-      "ubicacion": "Patagonia, Argentina",
-      "postID": [
-        "1"
-      ],
-      "id": 1
-    },
     {
       "lat": -32.8895,
       "lng": -68.8458,
@@ -309,15 +303,6 @@
         "DpE9CfS"
       ],
       "id": 4
-    },
-    {
-      "lat": -36.73127982295633,
-      "lng": -60.754645533895506,
-      "ubicacion": "dfwedfwef",
-      "postID": [
-        "KkTyy0R"
-      ],
-      "id": 5
     }
   ],
   "eventos-astronomicos": [
