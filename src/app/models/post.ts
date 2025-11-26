@@ -12,5 +12,5 @@ export interface PostModelo{
     fotografo: Fotografo;
     fecha: Date;
     eliminado: boolean;
-    idUsuariosQueDieronLike: number[];
+    idUsuariosQueDieronLike: string[];
 }
