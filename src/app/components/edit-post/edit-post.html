@@ -1,0 +1,70 @@
+<div class="modal-body">
+  
+  @if (post) {
+    <div class="preview-section">
+      
+      <div class="preview-card">
+        <div class="preview-header">
+          <div class="avatar">
+             {{ post.fotografo?.nombre?.charAt(0) }}{{ post.fotografo?.apellido?.charAt(0) }}
+          </div>
+          <div>
+            <strong>{{ post.fotografo?.nombreDeUsuario }}</strong>
+            
+            @if (editForm.get('ubicacion')?.value) {
+              <p class="small-loc">
+                 {{ editForm.get('ubicacion')?.value }}
+              </p>
+            }
+          </div>
+        </div>
+
+        <div class="preview-img-container">
+          <img [src]="editForm.get('url')?.value || post.url" alt="Preview" 
+               onerror="this.src='assets/placeholder.png'">
+        </div>
+
+        <div class="preview-desc">
+          <p>
+            <strong>{{ post.fotografo?.nombreDeUsuario }}</strong> 
+            {{ editForm.get('descripcion')?.value }}
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="form-section">
+    <h3>Editar Información</h3>
+    
+    <form [formGroup]="editForm" (ngSubmit)="guardar()">
+      
+      <div class="form-group">
+        <label>URL de la Imagen</label>
+        <input type="text" formControlName="url" placeholder="https://...">
+        
+        @if (editForm.get('url')?.invalid && editForm.get('url')?.touched) {
+            <p class="validators">La URL es requerida</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Ubicación</label>
+        <input type="text" formControlName="ubicacion" placeholder="Ej: Mar del Plata">
+        @if (editForm.get('ubicacion')?.invalid && editForm.get('ubicacion')?.touched) {
+            <p class="validators">La ubicación es requerida</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea formControlName="descripcion" rows="4"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn-guardar" [disabled]="editForm.invalid">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+</div>

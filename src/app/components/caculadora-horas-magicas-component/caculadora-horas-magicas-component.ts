@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CalculadoraHorasMagicas } from '../../services/calculadoras/calculadora-horas-magicas';
 import { CommonModule } from '@angular/common';
+import { AnimacionSolLuna } from '../../animaciones/animacion-sol-luna/animacion-sol-luna';
 
 @Component({
   selector: 'app-calculadora-horas-magicas',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, AnimacionSolLuna],
   templateUrl: './caculadora-horas-magicas-component.html',
   styleUrls: ['./caculadora-horas-magicas-component.css']
 })

@@ -3,7 +3,17 @@
     <app-post 
         [postData]="post" 
         [esAdmin]="true" 
-        (onDelete)="borrarPost($event)">
-    </app-post>
+        (onDelete)="borrarPost($event)"
+        (onEdit)="abrirModalEdicion($event)"> </app-post>
   }
 </div>
+
+@if (mostrarModal) {
+    <div class="modal-overlay">
+        <app-edit-post 
+            [post]="postParaEditar"
+            (onCancel)="cerrarModal()"
+            (onSave)="postActualizado($event)">
+        </app-edit-post>
+    </div>
+}
