@@ -72,9 +72,9 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
   }
 
 
-   getfotografoActual(): Fotografo | null {
+   getfotografoActual(): Fotografo  {
     const user = this.getUsuarioLogueado();
     // Aquí hacemos el truco: lo tratamos como Fotografo
-    return user ? (user as Fotografo) : null; 
+    return user as Fotografo; 
   }
 }
