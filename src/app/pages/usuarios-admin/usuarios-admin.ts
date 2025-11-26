@@ -35,4 +35,17 @@ export class UsuariosAdmin implements OnInit {
       }
     });
   }
+
+  eliminar(id: string){
+    this.usuariosService.eliminarUsuario(id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.cargarUsuarios();
+        alert("Fotógrafo eliminado exitosamente");
+      },
+      error: (e) => {
+        console.error(e);
+      }
+    })
+  }
 }

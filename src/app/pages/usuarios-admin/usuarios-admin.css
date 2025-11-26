@@ -132,7 +132,22 @@
     padding: 5px 10px;
     border-radius: 8px;
     font-size: 0.8rem;
-    color: #64ffda; /* Un toque de color (verde azulado espacial) o blanco */
+    color: #000000; /* Un toque de color (verde azulado espacial) o blanco */
     border: 1px solid rgba(100, 255, 218, 0.1);
     font-family: monospace;
 }
+
+.btn-opciones {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+  }
+  
+  .btn-opciones:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: #000;
+  }

@@ -28,7 +28,11 @@
                   <div class="meta-info">
                       <span class="id-tag">ID #{{ usuario.id }}</span>
                       </div>
+                <button class="btn-opciones btn-delete" title="Eliminar post" (click)="eliminar(usuario.id)">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
               </div>
+              
 
           }
       </div>
