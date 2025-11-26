@@ -19,4 +19,12 @@ export class UsuariosService {
   eliminarUsuario(id: string): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
+
+  modificarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.patch<Usuario>(`${this.url}/${usuario.id}`, usuario);
+  }
+
+  modificarUsuarioPut(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.url}/${usuario.id}`, usuario);
+  }
 }
