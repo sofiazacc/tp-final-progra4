@@ -8,7 +8,7 @@
         'nav hr'
         'nav footer';
     height: 100vh;
-    width: 100vh;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -21,9 +21,12 @@ app-header {
 }
 
 main {
-    grid-area: main;
+    grid-area: main;    
     overflow: auto;
-    overflow-y: auto;
+     height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     background-color: var(--color-fondo);
 }
 
@@ -58,4 +61,51 @@ app-footer {
         width: 100%;
         z-index: 1000;
     }
+
+    main {
+        grid-area: main;
+        overflow-y: auto;
+        height: 100%;
+        padding-top: 0;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;  
+        justify-content: center;  
+    }   
 }
+
+
+app-menu-general {
+    grid-area: nav;
+}
+
+app-header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;    
+    overflow: auto;
+     height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-fondo);
+}
+
+app-footer {
+    grid-area: footer;
+}
+
+.colorcitos-degrade{
+    background: linear-gradient(90deg, #000000, #232424);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+    display: inline;
+    font-size: 5rem;
+    font-weight: 600;
+}
+
+

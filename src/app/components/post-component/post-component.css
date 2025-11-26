@@ -5,6 +5,7 @@
   border-radius: 10px; 
   width: 60rem;
   height: 96vh;
+  margin-top: 0;
   margin-bottom: 2.5rem; 
   max-width: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
