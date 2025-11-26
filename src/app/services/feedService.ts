@@ -37,4 +37,8 @@ export class FeedService {
   deletePost(id: string): Observable<any> {
     return this.http.patch(`${this.url}/${id}`, { eliminado: true });
   }
+
+  getPostsByFotografoId(id: string): Observable<PostModelo[]> {
+    return this.http.get<PostModelo[]>(`${this.url}?fotografo.id=${id}&eliminado=false`);
+  }
 }
