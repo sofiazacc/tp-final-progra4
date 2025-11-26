@@ -8,44 +8,54 @@ class Particula {
   tamano: number;
   opacidad: number;
   velocidadOrbita: number;
-  
+  rotacionPropia: number; // para que la estrellita gire sobre si misma
+
   constructor(anchoCanvas: number, altoCanvas: number) {
     this.angulo = Math.random() * Math.PI * 2;
     
-    // calculamos distancia para llenar la pantalla
-    const distanciaMaxima = Math.max(anchoCanvas, altoCanvas) / 1.2; 
-    this.distancia = Math.random() * distanciaMaxima + 20;
+    // calculamos la distancia para llenar la pantalla
+    const distanciaMaxima = Math.max(anchoCanvas, altoCanvas) / 1.5; 
+    this.distancia= Math.random() * distanciaMaxima + 20;
     
-    this.tamano = Math.random() * 2 + 0.5;
-    this.opacidad = Math.random() * 0.8 + 0.2;
+    this.tamano = Math.random() * 3 + 1; 
+    this.opacidad = Math.random() * 0.6 + 0.2; 
     this.velocidadOrbita = Math.random() * 0.001 + 0.0003;
+    
+    // angulo inicial de la forma de la estrella
+    this.rotacionPropia = Math.random() * Math.PI * 2; 
   }
 
-  // actualiza solo el giro, sin cambiar la distancia (SIN ZOOM)
+  // actualiza la posicion y el giro
   actualizar(centroX: number, centroY: number) {
-    // giro constante
+    // giro de la orbita
     this.angulo += this.velocidadOrbita;
+    
+    // giro de la estrella sobre su propio eje
+    this.rotacionPropia += 0.02; 
 
-    // posicion simple: centro dinamico + orbita fija
     const x = centroX + Math.cos(this.angulo) * this.distancia;
     const y = centroY + Math.sin(this.angulo) * this.distancia;
 
-    return { x, y, tamano: this.tamano, opacidad: this.opacidad };
+    return { x, y, tamano: this.tamano, opacidad: this.opacidad, rotacion: this.rotacionPropia };
   }
 
-  dibujar(contexto: CanvasRenderingContext2D, pos: any) {
-    contexto.fillStyle = `rgba(0, 0, 0, ${pos.opacidad})`;
-    contexto.beginPath();
-    contexto.arc(pos.x, pos.y, pos.tamano, 0, Math.PI * 2);
-    contexto.fill();
-    
-    contexto.strokeStyle = `rgba(0, 0, 0, ${pos.opacidad * 0.2})`;
-    contexto.lineWidth = 0.5;
-    contexto.beginPath();
-    contexto.arc(pos.x, pos.y, pos.tamano + 2, 0, Math.PI * 2);
-    contexto.stroke();
+  // dibuja la estrella en el lienzo
+  dibujar(ctx: CanvasRenderingContext2D, pos: any) {
+    ctx.fillStyle = `rgba(0, 0, 0, ${pos.opacidad})`;
+    ctx.save();
+    ctx.translate(pos.x, pos.y);
+    ctx.rotate(pos.rotacion); 
+    ctx.beginPath();
+    ctx.moveTo(0, -pos.tamano * 2); 
+    ctx.quadraticCurveTo(0, 0, pos.tamano * 2, 0);
+    ctx.quadraticCurveTo(0, 0, 0, pos.tamano * 2);
+    ctx.quadraticCurveTo(0, 0, -pos.tamano * 2, 0);
+    ctx.quadraticCurveTo(0, 0, 0, -pos.tamano * 2);
+    ctx.fill(); 
+    ctx.restore();
   }
 }
+
 @Component({
   selector: 'app-fondo-galaxia',
   imports: [],
@@ -141,7 +151,7 @@ export class FondoGalaxia {
     this.contexto.fillRect(0, 0, this.ancho, this.alto);
 
     // SEGUIMIENTO SIMPLE: la galaxia se mueve hacia el mouse
-    // 0.10 es la velocidad de reaccion (ajusta si lo quieres mas rapido/lento)
+    // 0.10 es la velocidad de reaccion 
     this.galaxiaX += (this.mouseX - this.galaxiaX) * 0.002;
     this.galaxiaY += (this.mouseY - this.galaxiaY) * 0.002;
 
