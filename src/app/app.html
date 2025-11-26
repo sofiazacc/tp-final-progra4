@@ -1,16 +1,25 @@
+@if (esAuth) {
+  <router-outlet></router-outlet>
 
-
+} @else {
+  
+  <div class="layout-dashboard">
+    
+    
 @if (mostrarMenu) {
-<!--- <app-header id="header"></app-header>-->
-<app-menu-general></app-menu-general>
-}
+    <!--- <app-header id="header"></app-header>-->
+    <app-menu-general></app-menu-general>
+    }
 
-<main>
-    <div id="sub-main">
-        <router-outlet></router-outlet>
-    </div>
-</main>
+    <main>
+        <div id="sub-main">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
 
-@if (mostrarMenu) {
-   <!--- <app-footer></app-footer> --->
+    @if (mostrarMenu) {
+    <!--- <app-footer></app-footer> --->
+    }
+
+  </div>
 }
