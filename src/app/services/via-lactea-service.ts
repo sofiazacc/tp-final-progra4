@@ -61,7 +61,7 @@ export class ViaLacteaServiceService {
         fechaUTC.getUTCFullYear(),
         fechaUTC.getUTCMonth(),
         fechaUTC.getUTCDate(),
-        hora, 0, 0, 0
+        hora + 3, 0, 0, 0,  // El uso del formato universal UTC requiere la suma de 3 horas para lograr una visualización apropiada de las 24 horas del día
       ));
 
       const pos = this.calcularPosicion(latitud, longitud, fechaHoraUTC);
