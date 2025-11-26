@@ -11,7 +11,9 @@
       "localidad": "0675601001",
       "provincia": "Buenos Aires",
       "posteosFavoritosID": [],
-      "marcadoresGuardadosID": []
+      "marcadoresGuardadosID": [],
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     },
     {
       "id": "78owmhk",
@@ -23,11 +25,16 @@
       "nombreDeUsuario": "lilom",
       "localidad": "22140030",
       "provincia": "Chaco",
-      "posteosFavoritosID": [],
+      "posteosFavoritosID": [
+        "KkTyy0R"
+      ],
       "marcadoresGuardadosID": [
         2
       ],
-         "fotoPerfil": "https://images.unsplash.com/photo-1533683083439-1a776a5653cb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+      "fotoPerfil": "https://images.unsplash.com/photo-1533683083439-1a776a5653cb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+      "posteosLikeadosID": [
+        "DpE9CfS"
+      ]
     },
     {
       "id": "lcraqx2",
@@ -40,7 +47,9 @@
       "localidad": "26021020",
       "provincia": "Chubut",
       "posteosFavoritosID": [],
-      "marcadoresGuardadosID": []
+      "marcadoresGuardadosID": [],
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     },
     {
       "id": "j427o2x",
@@ -53,7 +62,9 @@
       "localidad": "06357110",
       "provincia": "Buenos Aires",
       "posteosFavoritosID": [],
-      "marcadoresGuardadosID": []
+      "marcadoresGuardadosID": [],
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     },
     {
       "id": "38xa79f",
@@ -66,7 +77,9 @@
       "localidad": "58035110",
       "provincia": "Neuquén",
       "posteosFavoritosID": [],
-      "marcadoresGuardadosID": []
+      "marcadoresGuardadosID": [],
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     },
     {
       "id": "jr9w4bt",
@@ -77,7 +90,9 @@
       "rol": "admin",
       "nombreDeUsuario": "Pergolini03",
       "localidad": "0675601001",
-      "provincia": "Buenos Aires"
+      "provincia": "Buenos Aires",
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     },
     {
       "id": "cgh4uad",
@@ -90,7 +105,9 @@
       "localidad": "62084020",
       "provincia": "Río Negro",
       "posteosFavoritosID": [],
-      "marcadoresGuardadosID": []
+      "marcadoresGuardadosID": [],
+      "posteosLikeadosID": [],
+      "fotoPerfil": ""
     }
   ],
   "posts": [
@@ -115,8 +132,8 @@
         "provincia": "Río Negro"
       },
       "fecha": "2024-11-01T18:30:00",
-      "likes": 1234,
-      "eliminado": true
+      "eliminado": true,
+      "idUsuariosQueDieronLike": []
     },
     {
       "id": "2",
@@ -139,8 +156,10 @@
         "provincia": "Río Negro"
       },
       "fecha": "2025-11-01T18:20:00",
-      "likes": 6325,
-      "eliminado": false
+      "eliminado": false,
+      "idUsuariosQueDieronLike": [
+        "78owmhk"
+      ]
     },
     {
       "id": "3",
@@ -163,8 +182,8 @@
         "provincia": "Buenos Aires"
       },
       "fecha": "2024-12-12T11:30:00",
-      "likes": 1234323,
-      "eliminado": false
+      "eliminado": false,
+      "idUsuariosQueDieronLike": []
     },
     {
       "id": "4",
@@ -187,8 +206,10 @@
         "provincia": "Buenos Aires"
       },
       "fecha": "2024-12-15T16:45:00",
-      "likes": 892,
-      "eliminado": false
+      "eliminado": false,
+      "idUsuariosQueDieronLike": [
+        "78owmhk"
+      ]
     },
     {
       "url": "https://i.ibb.co/BHxc7bTn/b8ed4bfc230eec75c58ace3e9358735b.jpg",
@@ -215,9 +236,11 @@
         ]
       },
       "fecha": "2025-11-25T09:34:25.401Z",
-      "likes": 0,
       "eliminado": false,
-      "id": "DpE9CfS"
+      "id": "DpE9CfS",
+      "idUsuariosQueDieronLike": [
+        "78owmhk"
+      ]
     },
     {
       "url": "https://i.ibb.co/ynqZqSbS/9357a10fefa3d01fb9cdc88e5619bc1b.jpg",
@@ -244,9 +267,9 @@
         ]
       },
       "fecha": "2025-11-25T09:35:18.227Z",
-      "likes": 0,
       "eliminado": false,
-      "id": "KkTyy0R"
+      "id": "KkTyy0R",
+      "idUsuariosQueDieronLike": []
     }
   ],
   "marcadores": [

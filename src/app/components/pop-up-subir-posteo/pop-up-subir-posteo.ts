@@ -152,8 +152,8 @@ export class PopUpSubirPosteo {
         coordenadas: this.ubicacionSeleccionada,
         fotografo: fotografoActual,
         fecha: new Date(),
-        likes: 0,
-        eliminado: false
+        eliminado: false,
+        idUsuariosQueDieronLike: []
       };
 
       this.feedService.postPost(nuevoPost as any).subscribe({
