@@ -35,4 +35,9 @@ export class Caculadora500Component {
 
     this.resultado = this.calculadora500.calcularTiempoDeExposicion(focalNum, recorteNum)
   }
+
+  limpiar(){
+  this.formulario.reset()
+  this.resultado = undefined
+}
   }
