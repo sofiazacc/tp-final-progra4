@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs';
 import { Fotografo, Usuario } from '../models/usuario';
+import {  Router } from '@angular/router';
+
+interface AuthResponse {
+  accessToken: string;
+  user: Usuario;
+  expiresIn: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +18,29 @@ import { Fotografo, Usuario } from '../models/usuario';
 export class AuthService {
   private backURL = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  private _estaLogueado = new BehaviorSubject<boolean>(this.estaLogueadoInicial());
+  public estaLogueado$ = this._estaLogueado.asObservable();
 
-  login(credenciales: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/login`, credenciales)
+  constructor(private http: HttpClient, private router: Router) {}
+
+  private estaLogueadoInicial(): boolean {
+    return localStorage.getItem('token_jwt') !== null;
+  }
+
+  login(credenciales: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.backURL}/login`, credenciales)
       .pipe(
         tap((respuesta) => {
           console.log("AuthService (tap): Guardando token y usuario...");
           this.guardarToken(respuesta.accessToken);
           this.guardarUsuario(respuesta.user);
+          this._estaLogueado.next(true);
         })
       );
   } //El login es para cualquier tipo de usuario
 
-register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
-    return this.http.post<{accessToken: string, user: Usuario}>(`${this.backURL}/register`, fotografo)
+register(fotografo: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.backURL}/register`, fotografo)
       .pipe(
         tap((respuesta) => {
                 console.log(`Toke: ${respuesta.accessToken}`);
@@ -33,9 +48,19 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
     
           this.guardarToken(respuesta.accessToken);
           this.guardarUsuario(respuesta.user);
+          this._estaLogueado.next(true);
+          this.router.navigate(['/feed']);
         })
       );
   }//El registro es solo para fotógrafos
+
+  verificarPassword(id: string, password: string): Observable<{valid: boolean, message: string}> {
+    return this.http.post<{valid: boolean, message: string}>(`${this.backURL}/verificar-password`, { id, password });
+  }
+
+  cambiarPassword(id: string, nuevaPass: string): Observable<any> {
+    return this.http.post(`${this.backURL}/auth/cambiar-password`, { id, nuevaPassword: nuevaPass });
+  }
 
    guardarToken(token: string): void { 
    localStorage.setItem('token_jwt', token);
@@ -46,8 +71,13 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
   }
 
   cerrarSesion(): void {
+   this._estaLogueado.next(false);
    localStorage.removeItem('token_jwt');
    localStorage.removeItem('usuario_logueado');
+   sessionStorage.clear();
+   this.router.navigate(['/auth']);
+
+
   }
 
   estaLogueado(): boolean {
@@ -70,9 +100,9 @@ register(fotografo: any): Observable<{accessToken: string, user: Usuario}> {
   }
 
 
-   getfotografoActual(): Fotografo | null {
+   getfotografoActual(): Fotografo  {
     const user = this.getUsuarioLogueado();
     // Aquí hacemos el truco: lo tratamos como Fotografo
-    return user ? (user as Fotografo) : null; 
+    return user as Fotografo; 
   }
 }

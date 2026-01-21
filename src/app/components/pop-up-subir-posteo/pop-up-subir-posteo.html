@@ -1,22 +1,25 @@
-
 <div class="overlay" (click)="cerrarPopUp()">
   
   <div class="modal-card" (click)="$event.stopPropagation()" [class.oculto]="mostrandoMapa">
     
-    <button class="btn-cerrar" (click)="cerrarPopUp()">×</button>
+    <button class="btn-close" (click)="cerrarPopUp()">
+        <span class="material-symbols-outlined">close</span>
+    </button>
     
-    <h2 class="titulo-modal">Crear Nuevo Post</h2>
+    <h2 class="titulo-modal">Crear Post</h2>
 
     <form [formGroup]="postFormulario" (ngSubmit)="onSubmit()">
       
       <div class="campo">
         <div class="input-file-wrapper">
           <input type="file" (change)="imagenSeleccionada($event)" accept="image/*" id="fileInput" hidden>
-          <label for="fileInput" class="file-label">
-            <span class="texto-archivo">{{ fotoSubida ? fotoSubida.name : 'Seleccionar foto...' }}</span>
-            <span class="material-symbols-outlined icono-upload">add_photo_alternate</span>
+          
+          <label for="fileInput" class="file-label" [class.con-archivo]="fotoSubida">
+            <span class="texto-archivo">{{ fotoSubida ? fotoSubida.name : 'Seleccionar foto de la galería' }}</span>
+            <span class="material-symbols-outlined">add_photo_alternate</span>
           </label>
         </div>
+
         @if(urlImagen) {
           <div class="preview-container">
             <img [src]="urlImagen" alt="Preview">
@@ -25,32 +28,36 @@
       </div>
 
       <div class="campo">
-        <input type="text" formControlName="lugarNombre" placeholder="Nombre del lugar (ej. Cerro Catedral)" class="input-texto">
+        <label for="lugar">Nombre del lugar</label>
+        <input type="text" id="lugar" formControlName="lugarNombre" placeholder="Ej: Cerro Catedral">
       </div>
 
       <div class="campo">
+        <label>Ubicación geográfica</label>
         <button type="button" class="btn-mapa" (click)="abrirSelectorMapa()" 
                 [class.seleccionado]="ubicacionSeleccionada">
+          
           @if(!ubicacionSeleccionada) {
-             <span>Marcar ubicación en mapa</span>
-             <span class="material-symbols-outlined">location_on</span>
+             <span>Marcar en el mapa</span>
+             <span class="material-symbols-outlined icono-mapa">map</span>
           } @else {
              <span>Ubicación guardada</span>
-             <span class="material-symbols-outlined check">check</span>
+             <span class="material-symbols-outlined check">check_circle</span>
           }
         </button>
       </div>
 
       <div class="campo">
-        <textarea formControlName="descripcion" placeholder="Escribe un pie de foto..." rows="3" class="input-texto"></textarea>
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" rows="4" placeholder="Escribe un pie de foto..."></textarea>
       </div>
 
       <div class="acciones">
         @if (subiendoFoto) {
-             <p class="estado">{{ mensajeEstado }}</p>
+             <p class="estado">Publicando...</p>
         }
         <button type="submit" class="btn-publicar" [disabled]="postFormulario.invalid || !fotoSubida || subiendoFoto">
-          {{ subiendoFoto ? 'Publicando...' : 'Compartir' }}
+          COMPARTIR
         </button>
       </div>
 
@@ -58,14 +65,23 @@
   </div>
 
   @if(mostrandoMapa) {
-    <div class="mapa-overlay-container" (click)="$event.stopPropagation()">
-      <div class="cabecera-mapa">
-        <h3>Elige la ubicación</h3>
-        <button class="btn-cerrar-mapa" (click)="cerrarSelectorMapa()">Volver</button>
-      </div>
-      <google-map height="350px" width="100%" [options]="opcionesMaps" (mapClick)="mapaSeeleccionado($event)">
-        @if(posicionMarcador) { <map-marker [position]="posicionMarcador"></map-marker> }
-      </google-map>
+    <div class="mapa-modal" (click)="$event.stopPropagation()">
+        <div class="header-nav">
+            <button class="btn-volver" (click)="cerrarSelectorMapa()">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h3 class="titulo-mapa">Elige la ubicación</h3>
+        </div>
+        
+        <div class="mapa-wrapper">
+            <google-map height="100%" width="100%" [options]="opcionesMaps" (mapClick)="mapaSeeleccionado($event)">
+                @if(posicionMarcador) { <map-marker [position]="posicionMarcador"></map-marker> }
+            </google-map>
+        </div>
+        
+        <div class="footer-mapa">
+            <button class="btn-publicar" (click)="cerrarSelectorMapa()">Confirmar Ubicación</button>
+        </div>
     </div>
   }
 </div>

@@ -1,0 +1,53 @@
+<div class="modal-fondo" (click)="cerrar()">
+    
+    <div class="modal-contenedor" (click)="$event.stopPropagation()">
+
+        <button class="btn-close" (click)="cerrar()">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <div class="tabs-header">
+            
+            <div class="tabs-container">
+                <button class="tab-item" 
+                        [class.active]="vistaActual === 'Perfil'"
+                        (click)="cambiarVista('Perfil')">
+                    PERFIL
+                </button>
+
+                <button class="tab-item" 
+                        [class.active]="vistaActual === 'Cuenta' || vistaActual === 'Email' || vistaActual === 'Eliminar'"
+                        (click)="cambiarVista('Cuenta')">
+                    CUENTA
+                </button>
+
+                <div class="indicador-deslizante" 
+                     [class.derecha]="vistaActual !== 'Perfil'">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="contenido-body">
+            @switch (vistaActual) {
+                
+                @case("Perfil"){
+                    <app-editar-perfil (onSaveSuccess)="cerrar()"></app-editar-perfil>
+                }
+                
+                @case("Cuenta"){
+                    <app-editar-cuenta (onGoToMail)="cambiarVista('Email')" (onGoToPassword)="cambiarVista('Password')"></app-editar-cuenta>
+                }
+                
+                @case("Email"){ 
+                    <app-cambiar-mail (onSaveSuccess)="cerrar()" (onBack)="cambiarVista('Cuenta')"></app-cambiar-mail>
+                }
+                
+                @case("Password"){ 
+                    <app-cambiar-contrasenia (onSaveSuccess)="cerrar()" (onBack)="cambiarVista('Cuenta')"></app-cambiar-contrasenia>
+                }
+            }
+        </div>
+
+    </div>
+</div>

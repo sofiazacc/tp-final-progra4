@@ -1,0 +1,65 @@
+ <div class="general">
+<div class="container-principal">
+   <div class="acciones-superiores">
+  <div class="titulo-wrapper">
+    <h2>Regla del 500</h2>
+    
+    <div class="tooltip-container">
+      <span class="material-symbols-outlined icono-info">info</span>
+      
+      <div class="tooltip-texto">
+        <strong>¿Qué es la Regla del 500?</strong>
+        <p>Es una fórmula para fotografía nocturna. Calcula el <strong>tiempo máximo de exposición</strong> (en segundos) que puedes usar antes de que las estrellas dejen de ser puntos y empiecen a verse como líneas movidas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="formulario-container">
+      <form [formGroup]="formulario">
+        <div class="grupo-input">
+          <label for="focal">Distancia Focal (mm)</label>
+          <input
+            id="focal"
+            type="number"
+            placeholder="50"
+            step="0.1"
+            formControlName="focal"
+          />
+        </div>
+
+        <div class="grupo-input">
+          <label for="recorte">Factor de Recorte</label>
+          <input
+            id="recorte"
+            type="number"
+            placeholder="1.5"
+            step="0.1"
+            formControlName="recorte"
+          />
+        </div>
+
+        <div class="botones-accion">
+          <button type="button" class="btn-calcular" (click)="mostrarResultado()">
+            Calcular
+          </button>
+        </div>
+      </form>
+
+      @if (resultado !== undefined) {
+        <div class="resultado-container">
+          <div class="resultado-titulo">Tiempo máximo de exposición</div>
+          <div class="resultado-valor">{{ resultado | number: '1.1-1' }}</div>
+          <div class="resultado-unidad">segundos</div>
+        </div>
+      } @else {
+        <div class="resultado-container">
+          <div class="sin-resultado">
+            Ingresa los valores para calcular
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+ </div>
+ 

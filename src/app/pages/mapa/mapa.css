@@ -16,7 +16,6 @@
   pointer-events: auto; 
 }
 
-
 .btn-favoritos-flotante {
   position: fixed;
   top: 3vh;
@@ -47,7 +46,6 @@
   box-shadow: 0 6px 16px rgba(255, 107, 107, 0.6);
 }
 
-
 .panel-favoritos {
   font-family: 'Inter', sans-serif;
   position: fixed;
@@ -62,16 +60,6 @@
   z-index: 999;
   display: flex;
   flex-direction: column;
-}
-
-.panel-header h2 {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 200; 
-  font-size: 1.2rem;
-  letter-spacing: 2px; 
-  text-transform: uppercase;
-  color: #fff; 
 }
 
 .panel-favoritos.abierto {
@@ -90,8 +78,12 @@
 
 .panel-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200; 
+  font-size: 1.2rem;
+  letter-spacing: 2px; 
+  text-transform: uppercase;
+  color: #333; 
 }
 
 .btn-cerrar-panel {
@@ -119,7 +111,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
- border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -134,24 +126,9 @@
   font-weight: 500;
 }
 
-.btn-quitar {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #ccc;
-  transition: color 0.2s;
-}
-
-.sin-favoritos {
-  text-align: center;
-  padding: 40px 20px;
-  color: #999;
-  font-size: 14px;
-}
-
-.acciones-item {
+.botones-accion {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .btn-ver,
@@ -167,11 +144,14 @@
   justify-content: center;
 }
 
-.btn-ver:hover,.btn-quitar:hover {
+.btn-ver:hover,
+.btn-quitar:hover {
   color: #9b9ca3;
 }
 
-.botones-accion {
-  display: flex;
-  gap: 10px;
+.sin-favoritos {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
 }

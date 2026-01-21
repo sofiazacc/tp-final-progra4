@@ -1,1 +1,63 @@
-<p>perfil works!</p>
+@if(fotografo){
+    
+    <div class="layout-contenedor">
+        
+
+        <aside class="columna-perfil">
+            <section class="card-usuario">
+                <img class="avatar" [src]="fotografo.fotoPerfil" alt="Foto de perfil">
+                
+                <button class="boton-config" (click)="modificarPerfil()">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                
+                <h1 class="nombre">{{fotografo.nombre.toLocaleUpperCase()}}</h1>
+                <h4 class="nombre-usuario">@{{fotografo.nombreDeUsuario}}</h4>
+
+                <ul class="datos-extra">
+                    <li><strong>{{ posts.length }}</strong> Posts</li>
+                </ul>
+
+                <ul class="info-usuario">
+                    <li>
+                        <span class="etiqueta">Nombre</span>
+                        <span class="valor">{{fotografo.nombre}}</span>
+                    </li>
+                    <li>
+                        <span class="etiqueta">Apellido</span>
+                        <span class="valor">{{fotografo.apellido}}</span>
+                    </li>
+                    <li>
+                        <span class="etiqueta">Email</span>
+                        <span class="valor">{{fotografo.email}}</span>
+                    </li>
+                    <li>
+                        <span class="etiqueta">Ciudad</span>
+                        <span class="valor">{{fotografo.localidad}}</span>
+                    </li>
+                    <li>
+                        <span class="etiqueta">Provincia</span>
+                        <span class="valor">{{fotografo.provincia}}</span>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <main class="columna-feed">
+            <h2 id="titulo-feed">Post de {{fotografo.nombreDeUsuario}}</h2>
+            @for(post of posts; track $index){
+                <app-post [postData]="post"></app-post>
+            } @empty {
+                <div class="sin-posts">
+                    <p>Aún no hay publicaciones.</p>
+                </div>
+            }
+        </main>
+
+    </div>
+
+
+    @if(estadoModal){
+        <app-modal-editar-perfil (onClose)="cerrarModal()"></app-modal-editar-perfil>
+    }
+}

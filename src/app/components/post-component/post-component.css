@@ -5,6 +5,7 @@
   border-radius: 10px; 
   width: 60rem;
   height: 96vh;
+  margin-top: 0;
   margin-bottom: 2.5rem; 
   max-width: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
@@ -25,6 +26,11 @@
   align-items: center;
   padding: 1rem 1.2rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.03); 
+}
+
+.btn-delete:hover {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.1);
 }
 
 .fotografo-info {
@@ -154,6 +160,12 @@
 
 .btn-accion.liked {
   color: #e0245e; 
+  animation: likeAnimation 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn.accion.guardado{
+  color: #000000; 
+  height: 1rem;
   animation: likeAnimation 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

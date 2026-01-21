@@ -7,7 +7,7 @@
   </button>
   
   @for(post of posteosActivos; track post.id) {
-    <app-post [postData]="post" data-aos="fade-up"></app-post>
+    <app-post [postData]="post" appFadeUp></app-post>
   }
   
   @empty {
@@ -19,7 +19,7 @@
     (close)="cerrarPopUp()"
     (postCreado)="creandoPost()">
       
-    </app-pop-up-subir-posteo>
+    </app-pop-up-subir-posteo >
   }
   
 </div>

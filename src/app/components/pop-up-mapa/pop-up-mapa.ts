@@ -28,6 +28,17 @@ export class PopUpMapa implements OnInit{
     if(this.marcadorId){
       this.esFavorito = this.favoritoService.esFavorito(this.marcadorId);
     }
+    
+    window.addEventListener('favoritoActualizado', () => {
+    this.verificarFavorito();
+    });
+
+  }
+
+  verificarFavorito() {
+    if(this.marcadorId){
+      this.esFavorito = this.favoritoService.esFavorito(this.marcadorId);
+    }
   }
 
   //Vamos a obtener el título del lugar usando la API de Maps

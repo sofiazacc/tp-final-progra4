@@ -1,0 +1,41 @@
+<nav [class.desplegado]="desplegado">
+<div class="anim-meteoros">
+  <span class="estrella e1"></span>
+  <span class="estrella e2"></span>
+  <span class="estrella e3"></span>
+  <span class="estrella e4"></span>
+  <span class="estrella e5"></span>
+  <span class="estrella e6"></span>
+<span class="estrella ee1"></span>
+  <span class="estrella ee2"></span>
+  <span class="estrella ee3"></span>
+  <span class="estrella ee4"></span>
+  <span class="estrella ee5"></span>
+  <span class="estrella ee6"></span>
+  <span class="estrella eee1"></span>
+    <span class="estrella eee2"></span>
+  <span class="estrella eee3"></span>
+  <span class="estrella eee4"></span>
+  <span class="estrella eee5"></span>
+  <span class="estrella eee6"></span>
+</div>
+
+    <button (click)="desplegarContraer()" class="toggle-btn">
+    <span class="material-symbols-outlined">
+        {{itemBoton.icon}}
+    </span>
+    </button>
+
+    <ul>
+        @for(item of menuItems; track $index){
+            <li routerLinkActive="active">
+                <a [routerLink]="item.route">
+                    <span class="material-symbols-outlined" (click)="verificarAccion(item)">{{item.icon}}</span>
+                    @if(desplegado){
+                        <span class="label">{{item.label}}</span>
+                    }
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

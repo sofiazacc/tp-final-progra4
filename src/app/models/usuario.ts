@@ -1,5 +1,5 @@
 export interface Usuario {
-    id: number;
+    id: string;
     nombre: string;
     apellido: string;
     email: string;
@@ -14,6 +14,8 @@ export interface Fotografo extends Usuario {
     provincia: string;
     posteosFavoritosID: string[];
     marcadoresGuardadosID: string[];
+    fotoPerfil: string;
+    posteosLikeadosID: string[];
 }
 
 export interface Admin extends Usuario {

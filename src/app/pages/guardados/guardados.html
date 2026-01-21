@@ -1,1 +1,13 @@
-<p>guardados works!</p>
+<app-fondo-galaxia></app-fondo-galaxia>
+
+<div class="feed-container">
+
+  @for(post of posteosGuardados; track post.id) {
+    <app-post [postData]="post" (onStatusChange)="obtenerPosts()" appFadeUp></app-post>
+  }
+  
+  @empty {
+    <p>No hay posts para mostrar</p>
+  }
+  
+</div>

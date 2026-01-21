@@ -1,1 +1,40 @@
-<p>usuarios-admin works!</p>
+<div class="admin-container">
+  <div class="header-section">
+      <h2>Gestión de Fotógrafos</h2>
+      <span class="badge">{{ listaFotografos.length }} registrados</span>
+  </div>
+
+  @if (cargando) {
+      <p class="loading-text">Cargando directorio...</p>
+  } @else {
+      <div class="grid-usuarios">
+          @for(usuario of listaFotografos; track usuario.id) {
+              
+              <div class="tarjeta-usuario">
+                  <div class="perfil-info">
+                      <div class="avatar-simple">
+                          {{ usuario.nombre.charAt(0) }}{{ usuario.apellido.charAt(0) }}
+                      </div>
+                      <div class="datos">
+                          <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+                      </div>
+                  </div>
+
+                  <div class="contacto-info">
+                      <span class="label">Email</span>
+                      <p>{{ usuario.email }}</p>
+                  </div>
+
+                  <div class="meta-info">
+                      <span class="id-tag">ID #{{ usuario.id }}</span>
+                      </div>
+                <button class="btn-opciones btn-delete" title="Eliminar post" (click)="eliminar(usuario.id)">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+              </div>
+              
+
+          }
+      </div>
+  }
+</div>

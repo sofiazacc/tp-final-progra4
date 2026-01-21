@@ -12,31 +12,104 @@ const FormDataClass = require('form-data');
 
 //Incorporamos Crypt-js
 const bcrypt = require('bcrypt');
-const { access } = require('fs');
-const { setSourceMapsEnabled } = require('process');
+
+const generarTokenConExpiracion = (email) => {
+    const expiresIn = 3600 //una horita
+    const tiempoAbsolutoExp = Date.now() + expiresIn * 1000;
+
+    const payload = {
+        email: email,
+        expiry: tiempoAbsolutoExp,
+        issueAt: Date.now()
+    };
+
+    const accessToken = Buffer.from(JSON.stringify(payload)).toString('base64');
+
+    return {accessToken, expiresIn}
+}
+
+const verificarToken = (tokenAcceso) => {
+    try{
+        const decoedPayload = Buffer.from(tokenAcceso, 'base64').toString('utf8')
+        const payload = JSON.parse(decoedPayload)
+
+        if(!payload || !payload.expiry){
+            return { valido: false, email: null, motivo: 'Token mal formado'};
+        }
+
+        const tiempoActual = Date.now();
+
+        if(tiempoActual > payload.expiry){
+            return { valido: false, email: null, motivo: 'Token expirado'};
+        }
+
+        return { valido: true, email: payload.email, motivo: 'Token válido'};
+    }catch(e){
+        console.error('Error decodificando el token:', e.message);
+        return { valido: false, email: null, motivo: 'Error al procesar el token' };
+    }
+}
 
 /*Para solucionar errores de CORS, se le da permiso a la interacción
 con este backend simulado y nuestra app de Angular*/
 server.use((req, res, next) => {
-     res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
     res.header('Access-Control-Allow-Credentials', 'true');
 
     if(req.method === 'OPTIONS'){
-        res.sendStatus(200);
-    };
+        return res.sendStatus(200); 
+    }
 
     next();
-})
+});
 
 /*Nuestro back interpreta el JSON que nos envía nuestra app y lo convierte en un objeto
 utilizable*/
 server.use(fileUpload());
 server.use(jsonServer.bodyParser);
-server.use(middlewares);
 
-//Métodos
+
+server.use((req, res, next) => {
+    // Agregamos /login y /register para que pasen sin token
+    const rutasPublicas = [
+        '/api/subir-imagen', 
+        '/login', 
+        '/register', 
+        '/auth'
+    ];
+    
+    // Verificamos si la ruta es pública o es una petición OPTIONS
+    if(rutasPublicas.some(path => req.path.includes(path)) || req.method === 'OPTIONS'){
+        return next(); // ¡CORREGIDO: debe ser next()!
+    }
+
+    const authHeader = req.headers['authorization'];
+
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+        console.warn(`Acceso denegado a ${req.path}: No se encontró token Bearer.`);
+        return res.status(401).json({ message: 'Acceso no autorizado: Token Bearer requerido' });
+    }
+    
+    const token = authHeader.split(' ')[1];
+    
+
+    const verificacion = verificarToken(token); 
+
+    if(verificacion.valido){
+  
+        req.userEmail = verificacion.email;
+        console.log(`Acceso permitido a ${req.path} para: ${verificacion.email}`);
+        return next();
+    } else {
+      
+        console.warn(`Acceso denegado a ${req.path}: ${verificacion.motivo}`);
+        return res.status(401).json({ message: `Token inválido: ${verificacion.motivo}` });
+    }
+});
+
+
 server.post('/login', (req,res) => {
     console.log('Se ha recibido una petición en el /login:', req.body);
     const{email, password} = req.body;
@@ -45,50 +118,48 @@ server.post('/login', (req,res) => {
     const user = db.get('users').find({email: email}).value();
 
     if(!user){
-        return res.status(404).json({message: 'El email ingreasdo es incorrecto'});
+        return res.status(404).json({message: 'El email ingresado es incorrecto'});
     }
 
     if(bcrypt.compareSync(password, user.password)){
-        const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); //Si la contraseña coincide, le asignamos un token de sesión}
-        console.log("Login exitoso")
-        res.status(200).json({accessToken: token, user: user});
+        const { accessToken, expiresIn } = generarTokenConExpiracion(email); 
+        console.log("Login exitoso, expiración en:", expiresIn, "segundos");
+
+        return res.status(200).json({ accessToken: accessToken, user: user, expiresIn: expiresIn });
     }else{
         console.log("Login fallido: La contraseña no coincide")
         return res.status(401).json({message: 'La contraseña ingresada no coincide'});
     }
 });
 
+
 server.patch('/usuarios/:id/favoritos', (req, res) => {
-  const { id } = req.params;
-  const { marcadoresGuardadosID } = req.body;
-  
-  const db = router.db;
-  const user = db.get('users').find({ id: id }).value();
-  
-  if (!user) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
-  }
-  
-  // Actualizamos solo el campo de favoritos
-  user.marcadoresGuardadosID = marcadoresGuardadosID;
-  db.get('users').find({ id: id }).assign(user).write();
-  
-  res.status(200).json(user);
+    const { id } = req.params;
+    const { marcadoresGuardadosID } = req.body;
+    
+    const db = router.db;
+    const user = db.get('users').find({ id: id }).value();
+    
+    if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    
+    // Actualizamos solo el campo de favoritos
+    user.marcadoresGuardadosID = marcadoresGuardadosID;
+    db.get('users').find({ id: id }).assign(user).write();
+    
+    return res.status(200).json(user);
 });
-
-
 server.post('/register', (req, res) => {
     console.log('Servidor recibió en /register:', req.body);
     const db = router.db;
     const { nombre, apellido, email, password, rol, nombreDeUsuario, localidad, provincia } = req.body;
-
 
     const emailExistente = db.get('users').find({ email: email }).value();
     if (emailExistente) {
         console.error('Error al procesar /register: El email ya está registrado');
         return res.status(400).json({ message: 'El email ya está registrado' });
     }
-
 
     const usernameExistente = db.get('users').find({ nombreDeUsuario: nombreDeUsuario }).value();
     if (usernameExistente) {
@@ -108,11 +179,13 @@ server.post('/register', (req, res) => {
         rol,
         nombreDeUsuario: nombreDeUsuario.toLowerCase(),
         localidad,
-        provincia
+        provincia,
+        posteosFavoritosID: [],
+        marcadoresGuardadosID: [],
+        posteosLikeadosID:[]
     }
 
     try {
-    
         if (!db.get('users').value()) {
             db.set('users', []).write();
         }
@@ -128,65 +201,113 @@ server.post('/register', (req, res) => {
         console.log('Registro exitoso')
 
         // logueamos al nuevo usuario automáticamente 
-        const token = Buffer.from(`${email}:${Date.now()}`).toString('base64'); 
-        return res.status(201).json({ accessToken: token, user: newUser });
+        const { accessToken, expiresIn } = generarTokenConExpiracion(email); // Usamos la función de token
+        return res.status(201).json({ accessToken: accessToken, user: newUser, expiresIn: expiresIn });
     } catch (err) {
         console.error('Error al procesar /register:', err);
         return res.status(500).json({ message: 'Error interno del servidor' });
     }
 });
 
-server.post('/api/subir-imagen', async (req, res) => {
-  try {
-    console.log('POST /api/subir-imagen recibido');
-    console.log('Files recibidos:', req.files);
+server.post('/verificar-password', (req, res) => {
+    console.log('Verificación de contraseña de ', req.body.id);
+    const { id, password } = req.body;
 
-    if (!req.files || !req.files.image) {
-      console.error(' No image file provided');
-      return res.status(400).json({ message: 'No image file provided' });
+    const db = router.db;
+
+    const user = db.get('users').find({ id: id }).value();
+    if (!user) {
+        return res.status(404).json({ valid: false, message: 'Usuario no encontrado' });
     }
 
-    const imageFile = req.files.image;
-    const ImgbbKey = '4390cb6e2c63ec5ee08f85d837463e50';
+    // Acá se comparan la contraseña traída desde el front con la almacenada en la base de datos
+    const isMatch = bcrypt.compareSync(password, user.password);
 
-    console.log('Archivo recibido:', imageFile.name);
-
-    // Crear FormData para enviar a ImgBB
-    const form = new FormDataClass();
-    form.append('image', imageFile.data, { filename: imageFile.name });
-
-    // Enviar a ImgBB desde el backend (sin problemas de CORS)
-    console.log('Enviando a ImgBB...');
-    const imgbbResponse = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${ImgbbKey}`,
-      form,
-      { headers: form.getHeaders() }
-    );
-
-    if (imgbbResponse.data.success) {
-      const imageUrl = imgbbResponse.data.data.url;
-      console.log('Imagen subida a ImgBB:', imageUrl);
-      return res.status(200).json({
-        success: true,
-        url: imageUrl
-      });
+    if (isMatch) {
+        // Contraseña correcta
+        return res.status(200).json({ valid: true, message: 'Contraseña correcta' });
     } else {
-      throw new Error('ImgBB reported failure');
+        // Contraseña incorrecta
+        return res.status(200).json({ valid: false, message: 'Contraseña es incorrecta' });
     }
-
-  } catch (error) {
-    console.error('Error en /api/subir-imagen:', error.message);
-    return res.status(500).json({
-      message: 'Error uploading image',
-      error: error.message
-    });
-  }
 });
 
-server.use(router)
+server.post('/auth/cambiar-password', (req, res) => {
+    const { id, nuevaPassword } = req.body;
+    const db = router.db;
+
+    const user = db.get('users').find({ id: id }).value();
+    
+    if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHasheada = bcrypt.hashSync(nuevaPassword, salt);
+
+    db.get('users')
+      .find({ id: id })
+      .assign({ password: passwordHasheada })
+      .write();
+
+    const usuarioActualizado = db.get('users').find({ id: id }).value();
+    
+    return res.status(200).json(usuarioActualizado);
+});
+
+
+server.post('/api/subir-imagen', async (req, res) => {
+    try {
+        console.log('POST /api/subir-imagen recibido');
+        console.log('Files recibidos:', req.files);
+
+        if (!req.files || !req.files.image) {
+            console.error('No se recibió una imágen');
+            return res.status(400).json({ message: 'No se recibió una imágen ' });
+        }
+
+        const imageFile = req.files.image;
+        const ImgbbKey = '4390cb6e2c63ec5ee08f85d837463e50';
+
+        console.log('Archivo recibido:', imageFile.name);
+
+        // Crear FormData para enviar a ImgBB
+        const form = new FormDataClass();
+        form.append('image', imageFile.data, { filename: imageFile.name });
+
+        // Enviar a ImgBB desde el backend (sin problemas de CORS)
+        console.log('Enviando a ImgBB...');
+        const imgbbResponse = await axios.post(
+            `https://api.imgbb.com/1/upload?key=${ImgbbKey}`,
+            form,
+            { headers: form.getHeaders() }
+        );
+
+        if (imgbbResponse.data.success) {
+            const imageUrl = imgbbResponse.data.data.url;
+            console.log('Imagen subida a ImgBB:', imageUrl);
+            return res.status(200).json({
+                success: true,
+                url: imageUrl
+            });
+        } else {
+            throw new Error('ImgBB devolvió error');
+        }
+
+    } catch (error) {
+        console.error('Error en /api/subir-imagen:', error.message);
+        return res.status(500).json({
+            message: 'Error al subir img',
+            error: error.message
+        });
+    }
+});
+
+// Router al final para evitar probelams
+server.use(router);
 
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Bakcend corriendo en http://localhost:${PORT}`);
+    console.log(`Backend corriendo en http://localhost:${PORT}`);
     console.log(`Usando la base de datos: ${dbPath}`);
-})
+});

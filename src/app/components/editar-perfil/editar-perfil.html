@@ -1,0 +1,36 @@
+<h2 class="titulo">Editar perfil</h2>
+
+<form [formGroup]="formulario">
+
+    <fieldset class="campos-formulario">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" formControlName="nombre">
+        @if(formulario.get("nombre")?.hasError("required") && formulario.get("nombre")?.touched){
+            <p class="msj-error">El nombre es obligatorio</p>
+        }@else if (formulario.get("nombre")?.hasError("minlength") && formulario.get("nombre")?.touched) {
+            <p class="msj-error">El nombre no puede tener menos de 2 caracteres</p>
+        }
+    </fieldset>
+
+    <fieldset class="campos-formulario">
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" formControlName="apellido">
+        @if(formulario.get("apellido")?.hasError("required") && formulario.get("apellido")?.touched){
+            <p class="msj-error">El apellido es obligatorio</p>
+        }@else if (formulario.get("apellido")?.hasError("minlength") &&  formulario.get("apellido")?.touched) {
+            <p class="msj-error">El apellido no puede tener menos de 2 caracteres</p>
+        }
+    </fieldset>
+    
+    <fieldset class="campos-formulario">
+        <label for="nombreDeUsuario">Nombre de usuario</label>
+        <input type="text" id="nombreDeUsuario" formControlName="nombreDeUsuario">
+        @if(formulario.get("nombreDeUsuario")?.invalid && formulario.get("nombreDeUsuario")?.touched){
+            <p class="msj-error">El nombre de usuario es obligatorio</p>
+        }
+    </fieldset>
+    
+
+
+    <button type="submit" (click)="guardar()">Guardar cambios</button>
+</form>

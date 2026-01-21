@@ -70,7 +70,7 @@
         <p class="cargando">Cargando</p>
     }
     @for(evento of listadoEventosFiltrados; track evento.id) {
-        <app-evento-astronomico [evento]="evento" data-aos="fade-up"></app-evento-astronomico>
+        <app-evento-astronomico [evento]="evento" appFadeUp></app-evento-astronomico>
     }
   </div>
 

@@ -1,0 +1,51 @@
+
+.contenedor-ciclo {
+
+  width: 100%;
+  height: 100%;
+  position: absolute; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; 
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+.svg-ciclo {
+
+  width: 120%; 
+  height: 120%;
+  opacity: 0.4; 
+}
+
+.linea {
+  fill: none;
+  stroke: #ccc; 
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+.mascara-fondo {
+  fill: #ffffff; 
+  stroke: none; 
+}
+
+.punto-solido {
+  fill: #ccc; 
+  stroke: none;
+}
+
+
+.grupo-rotacion {
+  transform-origin: 100px 100px;
+  animation: rotarCiclo 30s linear infinite; 
+}
+
+@keyframes rotarCiclo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

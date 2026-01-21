@@ -1,2 +1,25 @@
+@if (esAuth) {
+  <router-outlet></router-outlet>
+} @else {
+  <div class="layout-dashboard">
+    
+    @if (mostrarMenu) {
+      <app-menu-general></app-menu-general>
+    }
 
-<router-outlet></router-outlet>
+    <main>
+      @if(esMapa) {
+        <div class="es-mapa">
+          <router-outlet></router-outlet>
+        </div>
+      } @else {
+        <div id="sub-main">
+          <router-outlet></router-outlet>
+        </div>
+      }
+    </main>
+
+    @if (mostrarMenu) {
+    }
+  </div>
+}

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../services/feedService';
 import { PostComponent } from '../../components/post-component/post-component';
-import { FondoGalaxia } from '../../components/fondo-galaxia/fondo-galaxia';
+import { FondoGalaxia } from '../../animaciones/fondo-galaxia/fondo-galaxia';
 import { PostModelo } from '../../models/post';
 import { PopUpSubirPosteo } from '../../components/pop-up-subir-posteo/pop-up-subir-posteo';
+import { FadeUp } from '../../animaciones/fade-up/fade-up';
 @Component({
   selector: 'app-feed',
   standalone: true,  
-  imports: [PostComponent, FondoGalaxia, PopUpSubirPosteo],
+  imports: [PostComponent, FondoGalaxia, PopUpSubirPosteo, FadeUp],
   templateUrl: './feed.html',
   styleUrls: ['./feed.css']
 })
@@ -25,15 +26,11 @@ export class Feed implements OnInit {
   }
   
   obtenerPosts() {
-    console.log("Ejecutando obtenerPosts()"); 
-    
     this.FeedService.getPosts().subscribe({
       next: (data) => { 
         console.log("Datos recibidos:", data);
-        this.posteosActivos = data.filter(a => a.eliminado === false) },
-      error: (e) => console.log(e)
-    })
-
+        this.posteosActivos = data; 
+    }});
   }
 
   abrirPopUp(){

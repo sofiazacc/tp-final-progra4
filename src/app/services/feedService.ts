@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { PostModelo } from '../models/post';
 @Injectable({
@@ -13,12 +13,13 @@ export class FeedService {
   constructor(private http:HttpClient){
   }
 
-  getPosts(): Observable<PostModelo[]>{
-    return this.http.get<PostModelo[]>(this.url);
-  }
   
-  getPost(id: string ): Observable<PostModelo>{
-    return this.http.get<PostModelo>(`${this.url}/${id}`)
+  getPosts(): Observable<PostModelo[]>{
+    return this.http.get<PostModelo[]>(`${this.url}?eliminado=false`);
+  }
+
+  getPost(id: string): Observable<PostModelo>{
+    return this.http.get<PostModelo>(`${this.url}/${id}`);
   }
 
   postPost(post: any): Observable<PostModelo>{
@@ -29,13 +30,15 @@ export class FeedService {
     return this.http.put<PostModelo>(`${this.url}/${id}`, post)
   }
 
-  deletePost(id: string): void{
-    let post = this.getPost(id);
+  patchPost(post: PostModelo): Observable<PostModelo>{
+    return this.http.patch<PostModelo>(`${this.url}/${post.id}`, post)
+  }
 
-    post.subscribe(
-      data => {
-        data.eliminado = true;
-        this.http.put(`${this.url}/${id}`, data).subscribe();
-      });
+  deletePost(id: string): Observable<any> {
+    return this.http.patch(`${this.url}/${id}`, { eliminado: true });
+  }
+
+  getPostsByFotografoId(id: string): Observable<PostModelo[]> {
+    return this.http.get<PostModelo[]>(`${this.url}?fotografo.id=${id}&eliminado=false`);
   }
 }

@@ -1,0 +1,153 @@
+:host {
+    display: block;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* O la fuente que uses globalmente */
+}
+
+/* --- Header --- */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-section h2 {
+    font-weight: 300;
+    margin: 0;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- Grid y Layout --- */
+.grid-usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- TARJETA "GLASSMORPHISM" (Tu esencia) --- */
+.tarjeta-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 20px 25px;
+    backdrop-filter: blur(12px);
+    
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Efecto Hover Sutil */
+.tarjeta-usuario:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Elementos Internos --- */
+
+/* 1. Perfil */
+.perfil-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 250px;
+}
+
+.avatar-simple {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #444 0%, #222 100%); /* Fondo oscuro elegante */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+}
+
+.datos h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.username {
+    font-size: 0.9rem;
+    color: #000000; /* Gris claro */
+    font-family: monospace;
+}
+
+/* 2. Contacto */
+.contacto-info {
+    flex-grow: 1;
+}
+
+.label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.contacto-info p {
+    margin: 0;
+    color: #000000;
+    font-size: 0.95rem;
+}
+
+/* 3. Meta info (ID) */
+.meta-info {
+    display: flex;
+    align-items: center;
+}
+
+.id-tag {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #000000; /* Un toque de color (verde azulado espacial) o blanco */
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    font-family: monospace;
+}
+
+.btn-opciones {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+  }
+  
+  .btn-opciones:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: #000;
+  }
