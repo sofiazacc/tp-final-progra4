@@ -51,7 +51,7 @@ Una red social para fotógrafos de astronomía en Argentina, donde pueden compar
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <URL-del-repositorio>
+git clone https://github.com/sofiazacc/tp-final-progra4
 cd phost
 ```
 
